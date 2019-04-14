@@ -116,3 +116,76 @@ disease_medication(bell_palsy, tetrahydrozoline_ophthalmic, 10.0).
 disease_medication(bell_palsy, biotin, 10.0).
 disease_medication(bell_palsy, mineral_oil_stye, 10.0).
 
+% dry_eye_of_unknown_cause
+disease_medication(dry_eye_of_unknown_cause, cyclosporine_ophthalmic, 100).
+disease_medication(dry_eye_of_unknown_cause, latanoprost, 58).
+disease_medication(dry_eye_of_unknown_cause, tropicamide_ophthalmic, 54).
+disease_medication(dry_eye_of_unknown_cause, loteprednol_ophthalmic, 49).
+disease_medication(dry_eye_of_unknown_cause, phenylephrine_duramax, 49).
+disease_medication(dry_eye_of_unknown_cause, travoprost_travatan, 46).
+disease_medication(dry_eye_of_unknown_cause, ocular_lubricant, 43).
+disease_medication(dry_eye_of_unknown_cause, prednisolone_ophthalmic, 40).
+disease_medication(dry_eye_of_unknown_cause, timolol, 28).
+disease_medication(dry_eye_of_unknown_cause, fluorometholone_ophthalmic, 17).
+disease_medication(dry_eye_of_unknown_cause, brimonidine_timolol_ophthalmic, 17).
+disease_medication(dry_eye_of_unknown_cause, brimonidine_ophthalmic, 17).
+disease_medication(dry_eye_of_unknown_cause, tetrahydrozoline_ophthalmic, 10).
+
+% conjunctivitis
+disease_medication(conjunctivitis, gentamicin_ophthalmic, 100).
+disease_medication(conjunctivitis, sodium_sulfacetamide_ophthalmic, 97).
+disease_medication(conjunctivitis, moxifloxacin_avelox, 93).
+disease_medication(conjunctivitis, erythromycin, 91).
+disease_medication(conjunctivitis, tobramycin_tobi, 76).
+disease_medication(conjunctivitis, tobramycin_ophthalmic, 73).
+disease_medication(conjunctivitis, erythromycin_ophthalmic, 59).
+disease_medication(conjunctivitis, ciprofloxacin_ophthalmic, 45).
+disease_medication(conjunctivitis, olopatadine_ophthalmic, 31).
+disease_medication(conjunctivitis, ofloxacin_ophthalmic, 22).
+disease_medication(conjunctivitis, dexamethasone_tobramycin_ophthalmic, 19).
+disease_medication(conjunctivitis, tetracaine_one_touch, 17).
+disease_medication(conjunctivitis, gentamicins_gentamicin, 10).
+
+% pinguecula
+disease_medication(pinguecula, omega_3_fatty_acids, 100).
+disease_medication(pinguecula, loteprednol_tobramycin_ophthalmic, 66).
+disease_medication(pinguecula, fluorometholone_ophthalmic, 66).
+disease_medication(pinguecula, azithromycin_ophthalmic, 10).
+disease_medication(pinguecula, irinotecan, 10).
+disease_medication(pinguecula, ocular_lubricant, 10).
+disease_medication(pinguecula, loteprednol_ophthalmic, 10).
+disease_medication(pinguecula, timolol, 10).
+disease_medication(pinguecula, atropine_uaa, 10).
+disease_medication(pinguecula, brimonidine_ophthalmic, 10).
+disease_medication(pinguecula, tropicamide_ophthalmic, 10).
+
+% pterygium
+disease_medication(pterygium, moxifloxacin_avelox, 100).
+disease_medication(pterygium, prednisolone_ophthalmic, 85).
+disease_medication(pterygium, loteprednol_tobramycin_ophthalmic, 43).
+disease_medication(pterygium, ocular_lubricant, 43).
+disease_medication(pterygium, bimatoprost_ophthalmic, 43).
+disease_medication(pterygium, fluorometholone_ophthalmic, 10).
+disease_medication(pterygium, loteprednol_ophthalmic, 10).
+disease_medication(pterygium, dexamethasone_tobramycin_ophthalmic, 10).
+disease_medication(pterygium, gatifloxacin_zymar, 10).
+disease_medication(pterygium, timolol, 10).
+disease_medication(pterygium, ofloxacin, 10).
+disease_medication(pterygium, portia, 10).
+disease_medication(pterygium, tropicamide_ophthalmic, 10).
+
+% corneal_disorder
+disease_medication(corneal_disorder, prednisolone_ophthalmic, 100).
+disease_medication(corneal_disorder, moxifloxacin_avelox, 74).
+disease_medication(corneal_disorder, tropicamide_ophthalmic, 44).
+disease_medication(corneal_disorder, phenylephrine_duramax, 44).
+disease_medication(corneal_disorder, latanoprost, 44).
+disease_medication(corneal_disorder, cyclosporine_ophthalmic, 23).
+disease_medication(corneal_disorder, proparacaine_ophthalmic, 23).
+disease_medication(corneal_disorder, bimatoprost_ophthalmic, 23).
+disease_medication(corneal_disorder, olopatadine_ophthalmic, 23).
+disease_medication(corneal_disorder, loteprednol_ophthalmic, 10).
+disease_medication(corneal_disorder, timolol, 10).
+disease_medication(corneal_disorder, brimonidine_ophthalmic, 10).
+disease_medication(corneal_disorder, erythromycin, 10).
+

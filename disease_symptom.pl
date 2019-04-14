@@ -109,3 +109,74 @@ disease_symptom(bell_palsy, paresthesia, 19.0).
 disease_symptom(bell_palsy, diminished_vision, 19.0).
 disease_symptom(bell_palsy, eyelid_lesion_or_rash, 16.0).
 disease_symptom(bell_palsy, abnormal_involuntary_movements, 16.0).
+
+% dry_eye_of_unknown_cause
+disease_symptom(dry_eye_of_unknown_cause, symptoms_of_eye, 72).
+disease_symptom(dry_eye_of_unknown_cause, diminished_vision, 69).
+disease_symptom(dry_eye_of_unknown_cause, pain_in_eye, 50).
+disease_symptom(dry_eye_of_unknown_cause, lacrimation, 46).
+disease_symptom(dry_eye_of_unknown_cause, itchiness_of_eye, 45).
+disease_symptom(dry_eye_of_unknown_cause, eye_redness, 44).
+disease_symptom(dry_eye_of_unknown_cause, eye_burns_or_stings, 33).
+disease_symptom(dry_eye_of_unknown_cause, foreign_body_sensation_in_eye, 33).
+disease_symptom(dry_eye_of_unknown_cause, spots_or_clouds_in_vision, 29).
+disease_symptom(dry_eye_of_unknown_cause, white_discharge_from_eye, 10).
+disease_symptom(dry_eye_of_unknown_cause, abnormal_movement_of_eyelid, 9).
+disease_symptom(dry_eye_of_unknown_cause, double_vision, 7).
+
+% conjunctivitis
+disease_symptom(conjunctivitis, eye_redness, 87).
+disease_symptom(conjunctivitis, pain_in_eye, 67).
+disease_symptom(conjunctivitis, cough, 49).
+disease_symptom(conjunctivitis, nasal_congestion, 46).
+disease_symptom(conjunctivitis, fever, 44).
+disease_symptom(conjunctivitis, itchiness_of_eye, 43).
+disease_symptom(conjunctivitis, swollen_eye, 41).
+disease_symptom(conjunctivitis, white_discharge_from_eye, 36).
+disease_symptom(conjunctivitis, lacrimation, 30).
+disease_symptom(conjunctivitis, symptoms_of_eye, 27).
+disease_symptom(conjunctivitis, sore_throat, 27).
+disease_symptom(conjunctivitis, coryza, 21).
+
+% pinguecula
+disease_symptom(pinguecula, symptoms_of_eye, 65).
+disease_symptom(pinguecula, lacrimation, 46).
+disease_symptom(pinguecula, double_vision, 30).
+disease_symptom(pinguecula, headache, 30).
+disease_symptom(pinguecula, spots_or_clouds_in_vision, 30).
+disease_symptom(pinguecula, sleepiness, 30).
+disease_symptom(pinguecula, paresthesia, 30).
+disease_symptom(pinguecula, pain_in_eye, 30).
+disease_symptom(pinguecula, apnea, 30).
+disease_symptom(pinguecula, diminished_vision, 30).
+disease_symptom(pinguecula, abnormal_breathing_sounds, 30).
+disease_symptom(pinguecula, itching_of_scrotum, 2).
+
+% pterygium
+disease_symptom(pterygium, pain_in_eye, 56).
+disease_symptom(pterygium, symptoms_of_eye, 56).
+disease_symptom(pterygium, eye_redness, 52).
+disease_symptom(pterygium, diminished_vision, 46).
+disease_symptom(pterygium, itchiness_of_eye, 31).
+disease_symptom(pterygium, lacrimation, 31).
+disease_symptom(pterygium, foreign_body_sensation_in_eye, 27).
+disease_symptom(pterygium, eye_burns_or_stings, 27).
+disease_symptom(pterygium, spots_or_clouds_in_vision, 15).
+disease_symptom(pterygium, eyelid_swelling, 8).
+disease_symptom(pterygium, acne_or_pimples, 8).
+disease_symptom(pterygium, irregular_appearing_scalp, 8).
+
+% corneal_disorder
+disease_symptom(corneal_disorder, diminished_vision, 76).
+disease_symptom(corneal_disorder, pain_in_eye, 62).
+disease_symptom(corneal_disorder, eye_redness, 43).
+disease_symptom(corneal_disorder, spots_or_clouds_in_vision, 32).
+disease_symptom(corneal_disorder, symptoms_of_eye, 30).
+disease_symptom(corneal_disorder, foreign_body_sensation_in_eye, 27).
+disease_symptom(corneal_disorder, lacrimation, 24).
+disease_symptom(corneal_disorder, itchiness_of_eye, 21).
+disease_symptom(corneal_disorder, white_discharge_from_eye, 10).
+disease_symptom(corneal_disorder, swollen_eye, 10).
+disease_symptom(corneal_disorder, double_vision, 5).
+disease_symptom(corneal_disorder, eyelid_lesion_or_rash, 5).
+

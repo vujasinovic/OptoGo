@@ -66,3 +66,52 @@ disease_procedure(bell_palsy, electrolytes_panel, 66.0).
 disease_procedure(bell_palsy, cardiac_enzymes_measurement, 31.0).
 disease_procedure(bell_palsy, magnetic_resonance, 17.0).
 disease_procedure(bell_palsy, cardiac_monitoring, 4.0).
+
+% dry_eye_of_unknown_cause
+disease_procedure(dry_eye_of_unknown_cause, ophthalmic_examination_and_evaluation_eye_exam, 100).
+disease_procedure(dry_eye_of_unknown_cause, other_therapeutic_procedures_on_eyelids_conjunctiva_cornea, 82).
+disease_procedure(dry_eye_of_unknown_cause, ophthalmologic_and_otologic_diagnosis_and_treatment, 75).
+disease_procedure(dry_eye_of_unknown_cause, diagnostic_procedures_on_eye, 41).
+disease_procedure(dry_eye_of_unknown_cause, other_extraocular_muscle_and_orbit_therapeutic_procedures, 10).
+disease_procedure(dry_eye_of_unknown_cause, other_intraocular_therapeutic_procedures, 10).
+disease_procedure(dry_eye_of_unknown_cause, lens_and_cataract_procedures, 10).
+disease_procedure(dry_eye_of_unknown_cause, physical_therapy_exercises_manipulation_and_other_procedures, 10).
+
+% conjunctivitis
+disease_procedure(conjunctivitis, ophthalmic_examination_and_evaluation_eye_exam, 100).
+disease_procedure(conjunctivitis, influenzavirus_antibody_assay, 74).
+disease_procedure(conjunctivitis, nonoperative_removal_of_foreign_body, 60).
+disease_procedure(conjunctivitis, other_or_therapeutic_nervous_system_procedures, 51).
+disease_procedure(conjunctivitis, other_therapeutic_ear_procedures, 38).
+disease_procedure(conjunctivitis, other_extraocular_muscle_and_orbit_therapeutic_procedures, 28).
+disease_procedure(conjunctivitis, other_non_or_therapeutic_procedures_on_nose_mouth_and_pharynx, 10).
+
+% pinguecula
+disease_procedure(pinguecula, ophthalmic_examination_and_evaluation_eye_exam, 100).
+disease_procedure(pinguecula, diagnostic_procedures_on_eye, 84).
+disease_procedure(pinguecula, corneal_transplant, 10).
+disease_procedure(pinguecula, procedures_on_spleen_spleen_operation, 10).
+disease_procedure(pinguecula, removal_of_ectopic_pregnancy, 10).
+disease_procedure(pinguecula, tracheostomy_temporary_and_permanent, 10).
+disease_procedure(pinguecula, diagnostic_endocrine_procedures, 10).
+disease_procedure(pinguecula, ct_scan_chest_ct_chest, 10).
+
+% pterygium
+disease_procedure(pterygium, excision_removal, 100).
+disease_procedure(pterygium, other_therapeutic_procedures_on_eyelids_conjunctiva_cornea, 89).
+disease_procedure(pterygium, ophthalmic_examination_and_evaluation_eye_exam, 68).
+disease_procedure(pterygium, ophthalmologic_and_otologic_diagnosis_and_treatment, 49).
+disease_procedure(pterygium, other_extraocular_muscle_and_orbit_therapeutic_procedures, 10).
+disease_procedure(pterygium, lens_and_cataract_procedures, 10).
+disease_procedure(pterygium, colonoscopy_and_biopsy, 10).
+
+% corneal_disorder
+disease_procedure(corneal_disorder, ophthalmic_examination_and_evaluation_eye_exam, 100).
+disease_procedure(corneal_disorder, other_therapeutic_procedures_on_eyelids_conjunctiva_cornea, 74).
+disease_procedure(corneal_disorder, ophthalmologic_and_otologic_diagnosis_and_treatment, 70).
+disease_procedure(corneal_disorder, lens_and_cataract_procedures, 42).
+disease_procedure(corneal_disorder, other_therapeutic_procedures, 42).
+disease_procedure(corneal_disorder, diagnostic_procedures_on_eye, 30).
+disease_procedure(corneal_disorder, corneal_transplant, 10).
+disease_procedure(corneal_disorder, other_intraocular_therapeutic_procedures, 10).
+
