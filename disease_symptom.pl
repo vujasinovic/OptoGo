@@ -96,7 +96,7 @@ disease_symptom(trichiasis, back_weakness, 2.0).
 disease_symptom(trichiasis, elbow_cramps_or_spasms, 2.0).
 disease_symptom(trichiasis, pus_in_sputum, 2.0).
 
-% bell palsy
+% bell_palsy
 disease_symptom(bell_palsy, focal_weakness, 82.0).
 disease_symptom(bell_palsy, loss_of_sensation, 70.0).
 disease_symptom(bell_palsy, symptoms_of_face, 67.0).
