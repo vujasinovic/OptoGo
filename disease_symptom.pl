@@ -180,3 +180,301 @@ disease_symptom(corneal_disorder, swollen_eye, 10).
 disease_symptom(corneal_disorder, double_vision, 5).
 disease_symptom(corneal_disorder, eyelid_lesion_or_rash, 5).
 
+%amblyopia
+disease_symptom(amblyopia, diminished_vision, 70).
+disease_symptom(amblyopia, eye_deviation, 33).
+disease_symptom(amblyopia, pain_in_eye, 23).
+disease_symptom(amblyopia, foreign_body_sensation_in_eye, 11).
+disease_symptom(amblyopia, cross_eyed, 11).
+disease_symptom(amblyopia, spots_or_clouds_in_vision, 11).
+disease_symptom(amblyopia, pus_draining_from_ear, 6).
+disease_symptom(amblyopia, white_discharge_from_eye, 6).
+disease_symptom(amblyopia, neck_stiffness_or_tightness, 6).
+disease_symptom(amblyopia, abnormal_movement_of_eyelid, 6).
+disease_symptom(amblyopia, itchiness_of_eye, 6).
+disease_symptom(amblyopia, eye_moves_abnormally, 6).
+
+%blepharospasm
+disease_symptom(blepharospasm, abnormal_movement_of_eyelid, 79).
+disease_symptom(blepharospasm, diminished_vision, 43).
+disease_symptom(blepharospasm, eye_moves_abnormally, 27).
+disease_symptom(blepharospasm, leg_weakness, 27).
+disease_symptom(blepharospasm, pain_during_intercourse, 27).
+disease_symptom(blepharospasm, eyelid_lesion_or_rash, 27).
+disease_symptom(blepharospasm, arm_weakness, 27).
+disease_symptom(blepharospasm, headache, 27).
+disease_symptom(blepharospasm, muscle_cramps_contractures_or_spasms, 27).
+disease_symptom(blepharospasm, cramps_and_spasms, 27).
+disease_symptom(blepharospasm, blindness, 27).
+disease_symptom(blepharospasm, low_back_weakness, 2).
+
+%cataract
+disease_symptom(cataract, diminished_vision, 77).
+disease_symptom(cataract, spots_or_clouds_in_vision, 33).
+disease_symptom(cataract, symptoms_of_eye, 27).
+disease_symptom(cataract, pain_in_eye, 19).
+disease_symptom(cataract, lacrimation, 15).
+disease_symptom(cataract, itchiness_of_eye, 13).
+disease_symptom(cataract, blindness, 9).
+disease_symptom(cataract, foreign_body_sensation_in_eye, 8).
+disease_symptom(cataract, eye_burns_or_stings, 8).
+disease_symptom(cataract, double_vision, 8).
+disease_symptom(cataract, cloudy_eye, 7).
+disease_symptom(cataract, abnormal_movement_of_eyelid, 4).
+
+%chalazion
+disease_symptom(chalazion, mass_on_eyelid, 84).
+disease_symptom(chalazion, pain_in_eye, 58).
+disease_symptom(chalazion, swollen_eye, 45).
+disease_symptom(chalazion, eye_redness, 43).
+disease_symptom(chalazion, symptoms_of_eye, 38).
+disease_symptom(chalazion, eyelid_swelling, 35).
+disease_symptom(chalazion, eyelid_lesion_or_rash, 35).
+disease_symptom(chalazion, diminished_vision, 25).
+disease_symptom(chalazion, itchiness_of_eye, 25).
+disease_symptom(chalazion, skin_growth, 21).
+disease_symptom(chalazion, foreign_body_sensation_in_eye, 16).
+disease_symptom(chalazion, lacrimation, 12).
+
+%chronic_glaucoma
+disease_symptom(chronic_glaucoma, diminished_vision, 62).
+disease_symptom(chronic_glaucoma, pain_in_eye, 30).
+disease_symptom(chronic_glaucoma, symptoms_of_eye, 28).
+disease_symptom(chronic_glaucoma, spots_or_clouds_in_vision, 26).
+disease_symptom(chronic_glaucoma, lacrimation, 15).
+disease_symptom(chronic_glaucoma, foreign_body_sensation_in_eye, 13).
+disease_symptom(chronic_glaucoma, blindness, 12).
+disease_symptom(chronic_glaucoma, itchiness_of_eye, 12).
+disease_symptom(chronic_glaucoma, eye_burns_or_stings, 10).
+disease_symptom(chronic_glaucoma, white_discharge_from_eye, 5).
+disease_symptom(chronic_glaucoma, double_vision, 5).
+disease_symptom(chronic_glaucoma, mass_on_eyelid, 4).
+
+%conjunctivitis_due_to_allergy
+disease_symptom(conjunctivitis_due_to_allergy, eye_redness, 74).
+disease_symptom(conjunctivitis_due_to_allergy, itchiness_of_eye, 71).
+disease_symptom(conjunctivitis_due_to_allergy, pain_in_eye, 67).
+disease_symptom(conjunctivitis_due_to_allergy, lacrimation, 54).
+disease_symptom(conjunctivitis_due_to_allergy, nasal_congestion, 45).
+disease_symptom(conjunctivitis_due_to_allergy, swollen_eye, 42).
+disease_symptom(conjunctivitis_due_to_allergy, eye_burns_or_stings, 37).
+disease_symptom(conjunctivitis_due_to_allergy, symptoms_of_eye, 34).
+disease_symptom(conjunctivitis_due_to_allergy, diminished_vision, 32).
+disease_symptom(conjunctivitis_due_to_allergy, allergic_reaction, 28).
+disease_symptom(conjunctivitis_due_to_allergy, cough, 26).
+disease_symptom(conjunctivitis_due_to_allergy, sneezing, 14).
+
+%conjunctivitis_due_to_bacteria
+disease_symptom(conjunctivitis_due_to_bacteria, eye_redness, 90).
+disease_symptom(conjunctivitis_due_to_bacteria, cough, 62).
+disease_symptom(conjunctivitis_due_to_bacteria, pain_in_eye, 62).
+disease_symptom(conjunctivitis_due_to_bacteria, fever, 59).
+disease_symptom(conjunctivitis_due_to_bacteria, white_discharge_from_eye, 49).
+disease_symptom(conjunctivitis_due_to_bacteria, nasal_congestion, 49).
+disease_symptom(conjunctivitis_due_to_bacteria, itchiness_of_eye, 49).
+disease_symptom(conjunctivitis_due_to_bacteria, ear_pain, 29).
+disease_symptom(conjunctivitis_due_to_bacteria, sore_throat, 29).
+disease_symptom(conjunctivitis_due_to_bacteria, coryza, 21).
+disease_symptom(conjunctivitis_due_to_bacteria, symptoms_of_eye, 21).
+disease_symptom(conjunctivitis_due_to_bacteria, abnormal_appearing_skin, 21).
+
+%conjunctivitis_due_to_virus
+disease_symptom(conjunctivitis_due_to_virus, eye_redness, 91).
+disease_symptom(conjunctivitis_due_to_virus, pain_in_eye, 66).
+disease_symptom(conjunctivitis_due_to_virus, itchiness_of_eye, 54).
+disease_symptom(conjunctivitis_due_to_virus, fever, 50).
+disease_symptom(conjunctivitis_due_to_virus, swollen_eye, 49).
+disease_symptom(conjunctivitis_due_to_virus, nasal_congestion, 42).
+disease_symptom(conjunctivitis_due_to_virus, white_discharge_from_eye, 40).
+disease_symptom(conjunctivitis_due_to_virus, cough, 38).
+disease_symptom(conjunctivitis_due_to_virus, lacrimation, 29).
+disease_symptom(conjunctivitis_due_to_virus, coryza, 29).
+disease_symptom(conjunctivitis_due_to_virus, eye_burns_or_stings, 19).
+disease_symptom(conjunctivitis_due_to_virus, diminished_vision, 19).
+
+%cornea_infection
+disease_symptom(cornea_infection, pain_in_eye, 80).
+disease_symptom(cornea_infection, eye_redness, 66).
+disease_symptom(cornea_infection, diminished_vision, 55).
+disease_symptom(cornea_infection, symptoms_of_eye, 44).
+disease_symptom(cornea_infection, foreign_body_sensation_in_eye, 39).
+disease_symptom(cornea_infection, lacrimation, 32).
+disease_symptom(cornea_infection, eye_burns_or_stings, 28).
+disease_symptom(cornea_infection, itchiness_of_eye, 21).
+disease_symptom(cornea_infection, spots_or_clouds_in_vision, 13).
+disease_symptom(cornea_infection, swollen_eye, 10).
+disease_symptom(cornea_infection, lip_swelling, 7).
+disease_symptom(cornea_infection, itchy_eyelid, 7).
+
+%corneal_abrasion
+disease_symptom(corneal_abrasion, pain_in_eye, 87).
+disease_symptom(corneal_abrasion, eye_redness, 55).
+disease_symptom(corneal_abrasion, symptoms_of_eye, 32).
+disease_symptom(corneal_abrasion, swollen_eye, 28).
+disease_symptom(corneal_abrasion, diminished_vision, 28).
+disease_symptom(corneal_abrasion, lacrimation, 27).
+disease_symptom(corneal_abrasion, foreign_body_sensation_in_eye, 24).
+disease_symptom(corneal_abrasion, eye_burns_or_stings, 14).
+disease_symptom(corneal_abrasion, itchiness_of_eye, 14).
+disease_symptom(corneal_abrasion, eyelid_swelling, 6).
+disease_symptom(corneal_abrasion, eyelid_lesion_or_rash, 3).
+disease_symptom(corneal_abrasion, white_discharge_from_eye, 3).
+
+%cyst_of_the_eyelid
+disease_symptom(cyst_of_the_eyelid, mass_on_eyelid, 73).
+disease_symptom(cyst_of_the_eyelid, skin_growth, 67).
+disease_symptom(cyst_of_the_eyelid, eyelid_lesion_or_rash, 48).
+disease_symptom(cyst_of_the_eyelid, pain_in_eye, 48).
+disease_symptom(cyst_of_the_eyelid, symptoms_of_eye, 48).
+disease_symptom(cyst_of_the_eyelid, diminished_vision, 48).
+disease_symptom(cyst_of_the_eyelid, wrinkles_on_skin, 31).
+disease_symptom(cyst_of_the_eyelid, itchiness_of_eye, 31).
+disease_symptom(cyst_of_the_eyelid, abnormal_movement_of_eyelid, 31).
+disease_symptom(cyst_of_the_eyelid, skin_rash, 31).
+disease_symptom(cyst_of_the_eyelid, muscle_swelling, 2).
+disease_symptom(cyst_of_the_eyelid, elbow_cramps_or_spasms, 2).
+
+%diabetic_retinopathy
+disease_symptom(diabetic_retinopathy, diminished_vision, 71).
+disease_symptom(diabetic_retinopathy, spots_or_clouds_in_vision, 33).
+disease_symptom(diabetic_retinopathy, pain_in_eye, 25).
+disease_symptom(diabetic_retinopathy, lacrimation, 22).
+disease_symptom(diabetic_retinopathy, symptoms_of_eye, 21).
+disease_symptom(diabetic_retinopathy, eye_redness, 11).
+disease_symptom(diabetic_retinopathy, foreign_body_sensation_in_eye, 11).
+disease_symptom(diabetic_retinopathy, itchiness_of_eye, 8).
+disease_symptom(diabetic_retinopathy, blindness, 7).
+disease_symptom(diabetic_retinopathy, bleeding_from_eye, 7).
+disease_symptom(diabetic_retinopathy, abnormal_movement_of_eyelid, 7).
+disease_symptom(diabetic_retinopathy, double_vision, 4).
+
+%eye_alignment_disorder
+disease_symptom(eye_alignment_disorder, eye_deviation, 41).
+disease_symptom(eye_alignment_disorder, diminished_vision, 39).
+disease_symptom(eye_alignment_disorder, double_vision, 36).
+disease_symptom(eye_alignment_disorder, cross_eyed, 35).
+disease_symptom(eye_alignment_disorder, symptoms_of_eye, 28).
+disease_symptom(eye_alignment_disorder, pain_in_eye, 14).
+disease_symptom(eye_alignment_disorder, eye_moves_abnormally, 11).
+disease_symptom(eye_alignment_disorder, abnormal_movement_of_eyelid, 6).
+disease_symptom(eye_alignment_disorder, foreign_body_sensation_in_eye, 6).
+disease_symptom(eye_alignment_disorder, lack_of_growth, 6).
+disease_symptom(eye_alignment_disorder, irregular_appearing_scalp, 3).
+disease_symptom(eye_alignment_disorder, swollen_lymph_nodes, 3).
+
+%floaters
+disease_symptom(floaters, spots_or_clouds_in_vision, 88).
+disease_symptom(floaters, diminished_vision, 69).
+disease_symptom(floaters, lacrimation, 23).
+disease_symptom(floaters, pain_in_eye, 17).
+disease_symptom(floaters, symptoms_of_eye, 17).
+disease_symptom(floaters, itchiness_of_eye, 17).
+disease_symptom(floaters, eye_burns_or_stings, 9).
+disease_symptom(floaters, foreign_body_sensation_in_eye, 9).
+
+%foreign_body_in_the_eye
+disease_symptom(foreign_body_in_the_eye, pain_in_eye, 79).
+disease_symptom(foreign_body_in_the_eye, eye_redness, 47).
+disease_symptom(foreign_body_in_the_eye, foreign_body_sensation_in_eye, 38).
+disease_symptom(foreign_body_in_the_eye, eye_burns_or_stings, 22).
+disease_symptom(foreign_body_in_the_eye, lacrimation, 18).
+disease_symptom(foreign_body_in_the_eye, symptoms_of_eye, 13).
+disease_symptom(foreign_body_in_the_eye, swollen_eye, 13).
+disease_symptom(foreign_body_in_the_eye, itchiness_of_eye, 8).
+disease_symptom(foreign_body_in_the_eye, white_discharge_from_eye, 3).
+disease_symptom(foreign_body_in_the_eye, abnormal_movement_of_eyelid, 3).
+disease_symptom(foreign_body_in_the_eye, eyelid_lesion_or_rash, 3).
+disease_symptom(foreign_body_in_the_eye, eyelid_swelling, 3).
+
+%iridocyclitis
+disease_symptom(iridocyclitis, pain_in_eye, 76).
+disease_symptom(iridocyclitis, diminished_vision, 67).
+disease_symptom(iridocyclitis, eye_redness, 63).
+disease_symptom(iridocyclitis, headache, 27).
+disease_symptom(iridocyclitis, spots_or_clouds_in_vision, 27).
+disease_symptom(iridocyclitis, symptoms_of_eye, 24).
+disease_symptom(iridocyclitis, swollen_eye, 21).
+disease_symptom(iridocyclitis, lacrimation, 21).
+disease_symptom(iridocyclitis, foreign_body_sensation_in_eye, 15).
+disease_symptom(iridocyclitis, itchiness_of_eye, 15).
+disease_symptom(iridocyclitis, eye_burns_or_stings, 8).
+disease_symptom(iridocyclitis, cloudy_eye, 4).
+
+%macular_degeneration
+disease_symptom(macular_degeneration, diminished_vision, 80).
+disease_symptom(macular_degeneration, spots_or_clouds_in_vision, 45).
+disease_symptom(macular_degeneration, symptoms_of_eye, 25).
+disease_symptom(macular_degeneration, pain_in_eye, 18).
+disease_symptom(macular_degeneration, lacrimation, 15).
+disease_symptom(macular_degeneration, blindness, 13).
+disease_symptom(macular_degeneration, itchiness_of_eye, 12).
+disease_symptom(macular_degeneration, foreign_body_sensation_in_eye, 11).
+disease_symptom(macular_degeneration, double_vision, 8).
+disease_symptom(macular_degeneration, eye_burns_or_stings, 8).
+disease_symptom(macular_degeneration, bleeding_from_eye, 6).
+disease_symptom(macular_degeneration, abnormal_movement_of_eyelid, 3).
+
+%myasthenia_gravis
+disease_symptom(myasthenia_gravis, double_vision, 50).
+disease_symptom(myasthenia_gravis, weakness, 48).
+disease_symptom(myasthenia_gravis, fatigue, 36).
+disease_symptom(myasthenia_gravis, abnormal_movement_of_eyelid, 28).
+disease_symptom(myasthenia_gravis, dizziness, 28).
+disease_symptom(myasthenia_gravis, focal_weakness, 28).
+disease_symptom(myasthenia_gravis, headache, 24).
+disease_symptom(myasthenia_gravis, shortness_of_breath, 24).
+disease_symptom(myasthenia_gravis, diminished_vision, 24).
+disease_symptom(myasthenia_gravis, slurring_words, 19).
+disease_symptom(myasthenia_gravis, arm_weakness, 14).
+disease_symptom(myasthenia_gravis, coughing_up_sputum, 14).
+
+%retinal_detachment
+disease_symptom(retinal_detachment, spots_or_clouds_in_vision, 66).
+disease_symptom(retinal_detachment, diminished_vision, 64).
+disease_symptom(retinal_detachment, blindness, 39).
+disease_symptom(retinal_detachment, symptoms_of_eye, 32).
+disease_symptom(retinal_detachment, pain_in_eye, 22).
+disease_symptom(retinal_detachment, itchiness_of_eye, 15).
+disease_symptom(retinal_detachment, eye_burns_or_stings, 10).
+disease_symptom(retinal_detachment, lacrimation, 10).
+disease_symptom(retinal_detachment, cloudy_eye, 6).
+disease_symptom(retinal_detachment, abnormal_movement_of_eyelid, 6).
+disease_symptom(retinal_detachment, bleeding_from_eye, 6).
+disease_symptom(retinal_detachment, double_vision, 6).
+
+%subconjunctival_hemorrhage
+disease_symptom(subconjunctival_hemorrhage, pain_in_eye, 70).
+disease_symptom(subconjunctival_hemorrhage, eye_redness, 67).
+disease_symptom(subconjunctival_hemorrhage, diminished_vision, 39).
+disease_symptom(subconjunctival_hemorrhage, symptoms_of_eye, 36).
+disease_symptom(subconjunctival_hemorrhage, headache, 35).
+disease_symptom(subconjunctival_hemorrhage, swollen_eye, 35).
+disease_symptom(subconjunctival_hemorrhage, bleeding_from_eye, 32).
+disease_symptom(subconjunctival_hemorrhage, facial_pain, 11).
+disease_symptom(subconjunctival_hemorrhage, eyelid_swelling, 6).
+disease_symptom(subconjunctival_hemorrhage, blindness, 6).
+disease_symptom(subconjunctival_hemorrhage, foreign_body_sensation_in_eye, 6).
+disease_symptom(subconjunctival_hemorrhage, eye_burns_or_stings, 6).
+
+%vitreous_degeneration
+disease_symptom(vitreous_degeneration, spots_or_clouds_in_vision, 85).
+disease_symptom(vitreous_degeneration, diminished_vision, 71).
+disease_symptom(vitreous_degeneration, symptoms_of_eye, 34).
+disease_symptom(vitreous_degeneration, pain_in_eye, 27).
+disease_symptom(vitreous_degeneration, lacrimation, 24).
+disease_symptom(vitreous_degeneration, eye_redness, 15).
+disease_symptom(vitreous_degeneration, itchiness_of_eye, 15).
+disease_symptom(vitreous_degeneration, blindness, 12).
+disease_symptom(vitreous_degeneration, foreign_body_sensation_in_eye, 12).
+disease_symptom(vitreous_degeneration, bleeding_from_eye, 8).
+disease_symptom(vitreous_degeneration, double_vision, 8).
+disease_symptom(vitreous_degeneration, eye_burns_or_stings, 8).
+
+%vitreous_hemorrhage
+disease_symptom(vitreous_hemorrhage, diminished_vision, 83).
+disease_symptom(vitreous_hemorrhage, spots_or_clouds_in_vision, 72).
+disease_symptom(vitreous_hemorrhage, blindness, 40).
+disease_symptom(vitreous_hemorrhage, symptoms_of_eye, 35).
+disease_symptom(vitreous_hemorrhage, pain_in_eye, 30).
+disease_symptom(vitreous_hemorrhage, bleeding_from_eye, 30).
+disease_symptom(vitreous_hemorrhage, lacrimation, 10).
