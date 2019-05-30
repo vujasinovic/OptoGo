@@ -7,14 +7,12 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
-import java.io.*;
-
 public class Main extends Application {
 
     public static final String TITLE = "OptoGo";
     public static final String VERSION = "v1.0";
     public static final String ROOT = "/com/optogo/sample.fxml";
-    public static final String APP_ICON = "com/resources/icons/eyes.png";
+    public static final String APP_ICON = "images/icons/eyes.png";
 
     @Override
     public void start(Stage primaryStage) throws Exception {
