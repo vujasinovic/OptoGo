@@ -1,6 +1,6 @@
 package com.optogo.model;
 
-import com.optogo.utils.enums.DiseaseEnum;
+import com.optogo.utils.enums.DiseaseName;
 
 import javax.persistence.*;
 
@@ -11,12 +11,12 @@ public class Disease {
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    private DiseaseEnum name;
+    private DiseaseName name;
 
     public Disease() {
     }
 
-    public Disease(Long id, DiseaseEnum name) {
+    public Disease(Long id, DiseaseName name) {
         this.id = id;
         this.name = name;
     }
@@ -29,11 +29,11 @@ public class Disease {
         this.id = id;
     }
 
-    public DiseaseEnum getName() {
+    public DiseaseName getName() {
         return name;
     }
 
-    public void setName(DiseaseEnum name) {
+    public void setName(DiseaseName name) {
         this.name = name;
     }
 }

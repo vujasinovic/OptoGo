@@ -1,6 +1,6 @@
 package com.optogo.utils.enums;
 
-public enum MedicationEnum {
+public enum MedicationName {
     BACITRACIN_OPHTHALMIC
     ,  IMMUNOGLOBULINS_INTRAVENOUS_GAMMAGARD
     ,  OFLOXACIN_OPHTHALMIC

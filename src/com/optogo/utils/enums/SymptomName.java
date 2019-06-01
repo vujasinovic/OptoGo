@@ -1,6 +1,6 @@
 package com.optogo.utils.enums;
 
-public enum SymptomEnum {
+public enum SymptomName {
     DIMINISHED_VISION,
     SYMPTOMS_OF_EYE,
     LACRIMATION,

@@ -1,6 +1,6 @@
 package com.optogo.model;
 
-import com.optogo.utils.enums.MedicationEnum;
+import com.optogo.utils.enums.MedicationName;
 
 import javax.persistence.*;
 
@@ -11,7 +11,7 @@ public class Medication {
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    private MedicationEnum name;
+    private MedicationName name;
 
     public Medication() {
     }
@@ -24,11 +24,11 @@ public class Medication {
         this.id = id;
     }
 
-    public MedicationEnum getName() {
+    public MedicationName getName() {
         return name;
     }
 
-    public void setName(MedicationEnum name) {
+    public void setName(MedicationName name) {
         this.name = name;
     }
 }

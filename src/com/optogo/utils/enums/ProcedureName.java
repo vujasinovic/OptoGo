@@ -1,6 +1,6 @@
 package com.optogo.utils.enums;
 
-public enum ProcedureEnum {
+public enum ProcedureName {
     ELECTROLYTES_PANEL
     ,  ELECTROCARDIOGRAM
     ,  NEBULIZER_THERAPY

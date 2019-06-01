@@ -1,6 +1,6 @@
 package com.optogo.model;
 
-import com.optogo.utils.enums.ProcedureEnum;
+import com.optogo.utils.enums.ProcedureName;
 
 import javax.persistence.*;
 
@@ -11,7 +11,7 @@ public class Procedure {
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    private ProcedureEnum title;
+    private ProcedureName title;
 
     public Procedure() {
     }
@@ -24,11 +24,11 @@ public class Procedure {
         this.id = id;
     }
 
-    public ProcedureEnum getTitle() {
+    public ProcedureName getTitle() {
         return title;
     }
 
-    public void setTitle(ProcedureEnum title) {
+    public void setTitle(ProcedureName title) {
         this.title = title;
     }
 }
