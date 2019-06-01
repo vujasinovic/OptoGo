@@ -2,15 +2,18 @@ package com.optogo.model;
 
 import com.optogo.utils.enums.DiseaseEnum;
 
+import javax.persistence.*;
+
+@Entity
 public class Disease {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //TODO use @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING)
     private DiseaseEnum name;
 
-    public Disease(Long id, DiseaseEnum name) {
-        this.id = id;
-        this.name = name;
+    public Disease() {
     }
 
     public Long getId() {

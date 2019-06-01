@@ -2,14 +2,18 @@ package com.optogo.model;
 
 import com.optogo.utils.enums.SymptomEnum;
 
+import javax.persistence.*;
+
+@Entity
 public class Symptom {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Enumerated(EnumType.STRING)
     private SymptomEnum name;
 
-    public Symptom(Long id, SymptomEnum name) {
-        this.id = id;
-        this.name = name;
+    public Symptom() {
     }
 
     public Long getId() {

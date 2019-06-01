@@ -2,15 +2,18 @@ package com.optogo.model;
 
 import com.optogo.utils.enums.ProcedureEnum;
 
+import javax.persistence.*;
+
+@Entity
 public class Procedure {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //TODO use @Enumarated(EnumType.STRING) to store enum as a string in database
+    @Enumerated(EnumType.STRING)
     private ProcedureEnum title;
 
-    public Procedure(Long id, ProcedureEnum title) {
-        this.id = id;
-        this.title = title;
+    public Procedure() {
     }
 
     public Long getId() {

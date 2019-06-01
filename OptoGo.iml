@@ -44,6 +44,7 @@
       <configuration>
         <setting name="validation-enabled" value="true" />
         <datasource-mapping>
+          <factory-entry name="default-unit" value="fee0ffe3-fde4-419d-be9d-6530741f151d" />
           <factory-entry name="my-persistence-unit" />
         </datasource-mapping>
         <naming-strategy-map />

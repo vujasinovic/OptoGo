@@ -2,15 +2,18 @@ package com.optogo.model;
 
 import com.optogo.utils.enums.MedicationEnum;
 
+import javax.persistence.*;
+
+@Entity
 public class Medication {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //TODO use @Enumarated(EnumType.STRING) to store enum as a string in database
+    @Enumerated(EnumType.STRING)
     private MedicationEnum name;
 
-    public Medication(Long id, MedicationEnum name) {
-        this.id = id;
-        this.name = name;
+    public Medication() {
     }
 
     public Long getId() {
