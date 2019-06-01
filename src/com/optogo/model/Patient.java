@@ -2,35 +2,48 @@ package com.optogo.model;
 
 import com.optogo.utils.enums.GenderType;
 import com.optogo.utils.enums.MaritalStatus;
+import com.sun.istack.NotNull;
 
+import javax.persistence.*;
 import java.util.Date;
 
+@Entity
 public class Patient {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @NotNull
     private String firstName;
 
+    @NotNull
     private String lastName;
 
+    @Enumerated(EnumType.STRING)
     private GenderType gender;
 
     private String address;
 
+    @Basic
+    @Temporal(TemporalType.DATE)
     private Date dateOfBirth;
 
     private String phoneNumber;
 
     private String city;
 
+    @Enumerated(EnumType.STRING)
     private MaritalStatus maritalStatus;
 
-    public Patient(String firstName, String lastName, GenderType gender, String address, Date dateOfBirth, String phoneNumber, String city, MaritalStatus maritalStatus) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.gender = gender;
-        this.address = address;
-        this.dateOfBirth = dateOfBirth;
-        this.phoneNumber = phoneNumber;
-        this.city = city;
-        this.maritalStatus = maritalStatus;
+    public Patient() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getFirstName() {
