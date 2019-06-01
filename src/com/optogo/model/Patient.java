@@ -5,7 +5,7 @@ import com.optogo.utils.enums.MaritalStatus;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 public class Patient {
@@ -26,7 +26,7 @@ public class Patient {
 
     @Basic
     @Temporal(TemporalType.DATE)
-    private Date dateOfBirth;
+    private LocalDate dateOfBirth;
 
     private String phoneNumber;
 
@@ -35,7 +35,7 @@ public class Patient {
     @Enumerated(EnumType.STRING)
     private MaritalStatus maritalStatus;
 
-    public Patient(String firstName, String lastName, GenderType gender, String address, Date dateOfBirth, String phoneNumber, String city, MaritalStatus maritalStatus) {
+    public Patient(String firstName, String lastName, GenderType gender, String address, LocalDate dateOfBirth, String phoneNumber, String city, MaritalStatus maritalStatus) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.gender = gender;
@@ -89,11 +89,11 @@ public class Patient {
         this.address = address;
     }
 
-    public Date getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
