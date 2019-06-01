@@ -39,7 +39,7 @@ public class SymptomRepository implements Repository<Symptom> {
 
     @Override
     public Symptom findById(Long id) {
-        return (Symptom) em.createQuery("SELECT s FROM Symptom s WHERE id = :id").setParameter("id", id).getSingleResult();
+        return (Symptom) em.createQuery("SELECT s FROM Symptom s WHERE s.id = :id").setParameter("id", id).getSingleResult();
     }
 
     @Override
@@ -51,7 +51,7 @@ public class SymptomRepository implements Repository<Symptom> {
 
     @Override
     public boolean existsById(Long id) {
-        Symptom s = (Symptom) em.createQuery("SELECT s FROM Symptom s WHERE id = :id").setParameter("id", id).getSingleResult();
+        Symptom s = (Symptom) em.createQuery("SELECT s FROM Symptom s WHERE s.id = :id").setParameter("id", id).getSingleResult();
         return s != null;
     }
 }

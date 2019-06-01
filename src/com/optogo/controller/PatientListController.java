@@ -34,7 +34,7 @@ public class PatientListController {
     private TableColumn lastNameCol;
     private TableColumn dateOfBirthCol;
 
-    public PatientListController() throws ParseException {
+    public PatientListController() {
     }
 
     public void initialize() {
