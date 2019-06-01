@@ -1,6 +1,6 @@
 package com.optogo.utils.enums;
 
-public enum DiseaseEnum {
+public enum DiseaseName {
     AMBLYOPIA,
     BLEPHAROSPASM,
     CATARACT,

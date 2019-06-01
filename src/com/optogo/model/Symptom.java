@@ -1,6 +1,6 @@
 package com.optogo.model;
 
-import com.optogo.utils.enums.SymptomEnum;
+import com.optogo.utils.enums.SymptomName;
 
 import javax.persistence.*;
 
@@ -11,7 +11,7 @@ public class Symptom {
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    private SymptomEnum name;
+    private SymptomName name;
 
     public Symptom() {
     }
@@ -24,11 +24,11 @@ public class Symptom {
         this.id = id;
     }
 
-    public SymptomEnum getName() {
+    public SymptomName getName() {
         return name;
     }
 
-    public void setName(SymptomEnum name) {
+    public void setName(SymptomName name) {
         this.name = name;
     }
 }
