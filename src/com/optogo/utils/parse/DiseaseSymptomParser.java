@@ -6,7 +6,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
 
-public class ParseDiseaseSymptom {
+public class DiseaseSymptomParser {
 
     /**
      * @param filePath
