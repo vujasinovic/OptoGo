@@ -14,27 +14,24 @@ import unbbayes.util.extension.bn.inference.IInferenceAlgorithm;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
 
 public class BayesInferenceHandler {
     public static void main(String[] args) throws FileNotFoundException, InvalidParentException {
         ProbabilisticNetwork network = new ProbabilisticNetwork("cataract");
 
-        List<String> symptoms = DiseaseSymptomParser.getSymptoms("resources/disease_symptom.txt", DiseaseName.CATARACT);
         Map<String, Float> symptomsWithProbabilities = DiseaseSymptomParser.getSymptomsWithProbabilities("resources/disease_symptom.txt", DiseaseName.CATARACT);
 
         ProbabilisticNode cataract = new ProbabilisticNode();
         cataract.setName("cataract");
-        cataract.appendState("positive");
-        cataract.appendState("negative");
+        cataract.appendState("y");
+        cataract.appendState("n");
         network.addNode(cataract);
         PotentialTable probCataract = cataract.getProbabilityFunction();
         probCataract.addVariable(cataract);
 
-        for (String s : symptoms) {
+        for (String s : symptomsWithProbabilities.keySet()) {
             ProbabilisticNode symptom = new ProbabilisticNode();
             symptom.setName(s);
             symptom.appendState("y");
@@ -49,10 +46,8 @@ public class BayesInferenceHandler {
             network.addEdge(new Edge(symptom, cataract));
         }
 
-        float[] values = new float[(int) Math.pow(2, symptoms.size() + 1)];
-        Arrays.fill(values, 0.5f);
-
-        probCataract.setValues(values);
+        PotentialTableValueCalculator calculator = new PotentialTableValueCalculator();
+        probCataract.setValues(calculator.calculate(symptomsWithProbabilities));
 
         IInferenceAlgorithm algorithm = new JunctionTreeAlgorithm();
         algorithm.setNetwork(network);
@@ -69,6 +64,6 @@ public class BayesInferenceHandler {
         }
 
         //save to file
-        new NetIO().save(new File("results/result" + new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) + ".net"), network);
+        new NetIO().save(new File("result" + new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) + ".net"), network);
     }
 }
