@@ -2,9 +2,6 @@ package com.optogo;
 
 import com.optogo.view.scene.MainScene;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
@@ -12,7 +9,6 @@ public class Main extends Application {
 
     public static final String TITLE = "OptoGo";
     public static final String VERSION = "v1.0";
-    public static final String ROOT = "/com/optogo/sample.fxml";
     public static final String APP_ICON = "eyes.png";
 
     @Override
@@ -20,6 +16,8 @@ public class Main extends Application {
         primaryStage.setTitle(String.format("%s %s", TITLE, VERSION));
         primaryStage.getIcons().add(new Image(APP_ICON));
         primaryStage.setScene(MainScene.create());
+        primaryStage.setMinHeight(600);
+        primaryStage.setMinWidth(1000);
         primaryStage.show();
     }
 
