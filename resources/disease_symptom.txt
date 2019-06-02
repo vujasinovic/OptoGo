@@ -214,13 +214,13 @@ disease_symptom(cataract, spots_or_clouds_in_vision, 33).
 disease_symptom(cataract, symptoms_of_eye, 27).
 disease_symptom(cataract, pain_in_eye, 19).
 disease_symptom(cataract, lacrimation, 15).
-disease_symptom(cataract, itchiness_of_eye, 13).
-disease_symptom(cataract, blindness, 9).
-disease_symptom(cataract, foreign_body_sensation_in_eye, 8).
-disease_symptom(cataract, eye_burns_or_stings, 8).
-disease_symptom(cataract, double_vision, 8).
-disease_symptom(cataract, cloudy_eye, 7).
-disease_symptom(cataract, abnormal_movement_of_eyelid, 4).
+%disease_symptom(cataract, itchiness_of_eye, 13).
+%disease_symptom(cataract, blindness, 9).
+%disease_symptom(cataract, foreign_body_sensation_in_eye, 8).
+%disease_symptom(cataract, eye_burns_or_stings, 8).
+%disease_symptom(cataract, double_vision, 8).
+%disease_symptom(cataract, cloudy_eye, 7).
+%disease_symptom(cataract, abnormal_movement_of_eyelid, 4).
 
 %chalazion
 disease_symptom(chalazion, mass_on_eyelid, 84).

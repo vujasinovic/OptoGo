@@ -22,7 +22,7 @@ public class DiseaseSymptomParser {
         while (sc.hasNextLine()) {
             String tempLine = sc.nextLine();
             if (tempLine.startsWith("disease_symptom(" + diseaseName.toString().toLowerCase())) {
-                symptoms.add(tempLine.split("\\(")[1].split(",")[1]);
+                symptoms.add(tempLine.split("\\(")[1].split(",")[1].trim());
             }
         }
         List<String> retVal = new ArrayList<>();
@@ -45,8 +45,8 @@ public class DiseaseSymptomParser {
         while (sc.hasNextLine()) {
             String tempLine = sc.nextLine();
             if (tempLine.startsWith("disease_symptom(" + diseaseName.toString().toLowerCase())) {
-                String symptom = tempLine.split("\\(")[1].split(",")[1];
-                Float probability = Float.parseFloat(tempLine.split("\\(")[1].split(",")[2].split("\\)")[0]) * 0.01f;
+                String symptom = tempLine.split("\\(")[1].split(",")[1].trim();
+                Float probability = Float.parseFloat(tempLine.split("\\(")[1].split(",")[2].split("\\)")[0].trim()) * 0.01f;
                 symptomsWithProbabilities.put(symptom, probability);
             }
         }
@@ -66,7 +66,7 @@ public class DiseaseSymptomParser {
         while (sc.hasNextLine()) {
             String tempLine = sc.nextLine();
             if (tempLine.startsWith("disease_symptom(")) {
-                diseases.add(tempLine.split("\\(")[1].split(",")[0]);
+                diseases.add(tempLine.split("\\(")[1].split(",")[0].trim());
             }
         }
         List<String> retVal = new ArrayList<>();
