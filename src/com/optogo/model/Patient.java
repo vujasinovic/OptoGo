@@ -2,6 +2,7 @@ package com.optogo.model;
 
 import com.optogo.utils.enums.GenderType;
 import com.optogo.utils.enums.MaritalStatus;
+import com.optogo.utils.enums.Race;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
@@ -22,10 +23,12 @@ public class Patient {
     @Enumerated(EnumType.STRING)
     private GenderType gender;
 
+    @Enumerated(EnumType.STRING)
+    private Race race;
+
     private String address;
 
     @Basic
-    @Temporal(TemporalType.DATE)
     private LocalDate dateOfBirth;
 
     private String phoneNumber;
@@ -79,6 +82,14 @@ public class Patient {
 
     public void setGender(GenderType gender) {
         this.gender = gender;
+    }
+
+    public Race getRace() {
+        return race;
+    }
+
+    public void setRace(Race race) {
+        this.race = race;
     }
 
     public String getAddress() {

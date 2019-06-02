@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.TextFlow?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="489.0" prefWidth="975.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.optogo.controller.MainController">
+    <top>
+        <MenuBar BorderPane.alignment="CENTER">
+            <menus>
+                <Menu mnemonicParsing="false" text="File">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="New" />
+                        <MenuItem mnemonicParsing="false" text="Open" />
+                        <MenuItem mnemonicParsing="false" text="Exit" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Delete" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="About" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+    </top>
+    <right>
+        <ToolBar orientation="VERTICAL" BorderPane.alignment="CENTER">
+            <items>
+                <Button mnemonicParsing="false" onAction="#start" text="Start" />
+            </items>
+        </ToolBar>
+    </right>
+    <center>
+        <GridPane hgap="5.0" vgap="5.0" BorderPane.alignment="CENTER">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+            </rowConstraints>
+            <children>
+                <fx:include fx:id="patientList" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" source="patient_list.fxml" GridPane.rowIndex="0" />
+                <ToolBar prefHeight="40.0" prefWidth="200.0" GridPane.rowIndex="1">
+                    <items>
+                        <Button fx:id="add" defaultButton="true" mnemonicParsing="false" onAction="#add" text="Add" />
+                  <Button mnemonicParsing="false" onAction="#edit" text="Edit" />
+                  <Button mnemonicParsing="false" onAction="#remove" text="Remove" />
+                    </items>
+                </ToolBar>
+            </children>
+         <BorderPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </BorderPane.margin>
+        </GridPane>
+    </center>
+   <left>
+      <FlowPane alignment="CENTER" columnHalignment="CENTER" prefHeight="460.0" prefWidth="232.0" BorderPane.alignment="CENTER">
+         <children>
+            <TextFlow fx:id="txtFlow" textAlignment="CENTER" />
+         </children>
+      </FlowPane>
+   </left>
+</BorderPane>

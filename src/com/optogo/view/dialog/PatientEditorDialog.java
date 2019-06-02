@@ -17,8 +17,24 @@ public class PatientEditorDialog extends Stage {
         initModality(Modality.APPLICATION_MODAL);
     }
 
+    public boolean isCanceled() {
+        return getController().isCanceled();
+    }
+
     public PatientController getController() {
         return scene.getController();
+    }
+
+    public static PatientEditorDialog edit(Patient patient, Stage parent) {
+        PatientEditorDialog dialog = new PatientEditorDialog(patient, parent);
+        dialog.showAndWait();
+        return dialog;
+    }
+
+    public static PatientEditorDialog create(Stage parent) {
+        PatientEditorDialog dialog = new PatientEditorDialog(null, parent);
+        dialog.showAndWait();
+        return dialog;
     }
 
 }

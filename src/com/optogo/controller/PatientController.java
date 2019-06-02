@@ -29,7 +29,9 @@ public class PatientController {
     @FXML
     private Button btnSave;
     @FXML
-    private Button btnCalcel;
+    private Button btnCancel;
+
+    private Long id;
 
     private Patient patient;
 
@@ -49,6 +51,7 @@ public class PatientController {
     public void save(ActionEvent actionEvent) {
         patient = new Patient();
 
+        patient.setId(this.id);
         patient.setFirstName(txtFirstName.getText().trim());
         patient.setLastName(txtLastName.getText().trim());
         patient.setGender((GenderType) cbGender.getSelectionModel().getSelectedItem());
@@ -74,6 +77,7 @@ public class PatientController {
 
     public void setPatient(Patient patient) {
         if (patient != null) {
+            this.id = patient.getId();
             txtFirstName.setText(patient.getFirstName());
             txtLastName.setText(patient.getLastName());
             cbGender.getSelectionModel().select(patient.getGender());
