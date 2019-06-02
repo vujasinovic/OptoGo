@@ -29,7 +29,6 @@ public class Patient {
     private String address;
 
     @Basic
-    @Temporal(TemporalType.DATE)
     private LocalDate dateOfBirth;
 
     private String phoneNumber;

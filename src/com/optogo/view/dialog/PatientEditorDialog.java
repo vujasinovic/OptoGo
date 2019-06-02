@@ -31,4 +31,10 @@ public class PatientEditorDialog extends Stage {
         return dialog;
     }
 
+    public static PatientEditorDialog create(Stage parent) {
+        PatientEditorDialog dialog = new PatientEditorDialog(null, parent);
+        dialog.showAndWait();
+        return dialog;
+    }
+
 }

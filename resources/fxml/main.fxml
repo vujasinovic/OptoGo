@@ -59,7 +59,7 @@
                 <fx:include fx:id="patientList" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" source="patient_list.fxml" GridPane.rowIndex="0" />
                 <ToolBar prefHeight="40.0" prefWidth="200.0" GridPane.rowIndex="1">
                     <items>
-                        <Button fx:id="add" defaultButton="true" mnemonicParsing="false" text="Add" />
+                        <Button fx:id="add" onAction="#add" defaultButton="true" mnemonicParsing="false" text="Add" />
                   <Button mnemonicParsing="false" onAction="#edit" text="Edit" />
                   <Button mnemonicParsing="false" onAction="#remove" text="Remove" />
                     </items>

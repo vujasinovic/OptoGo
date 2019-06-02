@@ -36,4 +36,13 @@ public class MainController {
         if (patientListController.getSelectedIndex() >= 0 && patientListController.getSelectedIndex() < model.size())
             model.remove(patientListController.getSelectedIndex());
     }
+
+    public void add(ActionEvent actionEvent) {
+        PatientEditorDialog dialog = PatientEditorDialog.create((Stage) ((Control) actionEvent.getSource()).getScene().getWindow());
+
+        if (!dialog.isCanceled()) {
+            patientListController.getModel().add(dialog.getController().getPatient());
+        }
+
+    }
 }
