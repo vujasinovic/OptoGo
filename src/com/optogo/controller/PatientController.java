@@ -29,7 +29,7 @@ public class PatientController {
     @FXML
     private Button btnSave;
     @FXML
-    private Button btnCalcel;
+    private Button btnCancel;
 
     private Patient patient;
 

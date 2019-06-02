@@ -1,5 +1,6 @@
 package com.optogo;
 
+import com.optogo.view.scene.MainScene;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -16,11 +17,9 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource(ROOT));
         primaryStage.setTitle(String.format("%s %s", TITLE, VERSION));
         primaryStage.getIcons().add(new Image(APP_ICON));
-        primaryStage.setScene(new Scene(root, 1200, 600));
-        primaryStage.setMaximized(true);
+        primaryStage.setScene(MainScene.create());
         primaryStage.show();
     }
 
