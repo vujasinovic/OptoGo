@@ -12,7 +12,6 @@ import unbbayes.util.extension.bn.inference.IInferenceAlgorithm;
 import java.io.FileNotFoundException;
 import java.util.*;
 
-import static com.optogo.service.BayesInferenceHandlerUtilities.print;
 import static com.optogo.service.BayesInferenceHandlerUtilities.saveFile;
 
 /**
@@ -85,7 +84,7 @@ public class BayesInferenceHandler {
                 e.printStackTrace();
             }
 
-            print(network);
+            //print(network);
 
             diseaseProbability.put(disease, diseaseNode.getMarginalAt(YES_INDEX));
             saveFile(network, disease);

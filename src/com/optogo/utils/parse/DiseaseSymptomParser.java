@@ -19,14 +19,14 @@ public class DiseaseSymptomParser {
      * @return all symptoms that indicates on disease
      * @throws FileNotFoundException if there is no file found on provided path
      */
-    public static List<String> getSymptoms(String filePath, DiseaseName diseaseName) throws FileNotFoundException {
+    public static List<String> getSymptoms(String filePath, String diseaseName) throws FileNotFoundException {
         File file = new File(filePath);
         Scanner sc = new Scanner(file);
 
         LinkedHashSet<String> symptoms = new LinkedHashSet<>();
         while (sc.hasNextLine()) {
             String tempLine = sc.nextLine();
-            if (tempLine.startsWith(DISEASE_SYMPTOM + diseaseName.toString().toLowerCase())) {
+            if (tempLine.startsWith(DISEASE_SYMPTOM + diseaseName.toLowerCase())) {
                 symptoms.add(tempLine.split("\\(")[1].split(",")[1].trim());
             }
         }
