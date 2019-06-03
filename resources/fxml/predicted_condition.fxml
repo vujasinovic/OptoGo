@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.gluonhq.charm.glisten.control.ProgressBar?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+
+<fx:root maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" type="HBox" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <RadioButton fx:id="radioBtn" mnemonicParsing="false" text="Condition">
+         <HBox.margin>
+            <Insets />
+         </HBox.margin>
+      </RadioButton>
+      <Pane maxWidth="1.7976931348623157E308" minWidth="25.0" HBox.hgrow="ALWAYS" />
+      <Label fx:id="lblProgress" text="??%" />
+      <ProgressBar fx:id="progressBar" maxWidth="1.7976931348623157E308" prefHeight="15.0" prefWidth="150.0" progress="0.11">
+         <HBox.margin>
+            <Insets left="10.0" />
+         </HBox.margin></ProgressBar>
+   </children>
+</fx:root>

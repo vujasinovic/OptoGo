@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+
+
+<BorderPane fx:controller="com.optogo.controller.ConditionSearchController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <TextField fx:id="txtSearch" promptText="Search condition..." BorderPane.alignment="CENTER" />
+   </top>
+   <center>
+      <ListView fx:id="listView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" onMouseClicked="#clicked" />
+   </center>
+   <bottom>
+      <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <buttons>
+          <Button fx:id="btnSelect" defaultButton="true" mnemonicParsing="false" onAction="#select" text="Select" />
+            <Button fx:id="btnCancel" cancelButton="true" mnemonicParsing="false" onAction="#cancel" text="Cancel" />
+        </buttons>
+      </ButtonBar>
+   </bottom>
+</BorderPane>

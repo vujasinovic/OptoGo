@@ -1,48 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
-            prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.optogo.controller.PatientInfoController">
-    <center>
-        <GridPane BorderPane.alignment="CENTER">
+
+<HBox xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.optogo.controller.PatientInfoController">
+   <children>
+        <GridPane>
             <columnConstraints>
-                <ColumnConstraints hgrow="NEVER"/>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="NEVER" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints vgrow="NEVER"/>
-                <RowConstraints vgrow="NEVER"/>
-                <RowConstraints vgrow="NEVER"/>
-                <RowConstraints vgrow="NEVER"/>
-                <RowConstraints vgrow="NEVER"/>
-                <RowConstraints vgrow="NEVER"/>
-                <RowConstraints vgrow="NEVER"/>
-                <RowConstraints vgrow="NEVER"/>
-                <RowConstraints vgrow="NEVER"/>
+                <RowConstraints vgrow="NEVER" />
+                <RowConstraints vgrow="NEVER" />
+                <RowConstraints vgrow="NEVER" />
+                <RowConstraints vgrow="NEVER" />
+                <RowConstraints vgrow="NEVER" />
             </rowConstraints>
             <children>
-                <Label text="First Name:"/>
-                <Label text="Last Name:" GridPane.rowIndex="2"/>
-                <Label text="Gender:" GridPane.rowIndex="3"/>
-                <Label text="Address:" GridPane.rowIndex="4"/>
-                <Label text="Date Of Birth:" GridPane.rowIndex="5"/>
-                <Label text="Phone Number:" GridPane.rowIndex="6"/>
-                <Label text="City:" GridPane.rowIndex="7"/>
-                <Label text="Maritial Status:" GridPane.rowIndex="8"/>
-                <Label fx:id="txtFirstName" GridPane.columnIndex="1"/>
-                <Label fx:id="txtLastName" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-                <Label fx:id="txtGender" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-                <Label fx:id="txtAddress" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
-                <Label fx:id="txtDateOfBirth" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
-                <Label fx:id="txtPhoneNumber" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
-                <Label fx:id="txtCity" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
-                <Label fx:id="txtMaritialStatus" GridPane.rowIndex="8"/>
+                <Label text="First Name:" />
+                <Label text="Last Name:" GridPane.rowIndex="2" />
+                <Label text="Gender:" GridPane.rowIndex="3" />
+                <Label text="Address:" GridPane.rowIndex="4" />
+                <Label fx:id="txtFirstName" GridPane.columnIndex="1" />
+                <Label fx:id="txtLastName" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <Label fx:id="txtGender" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <Label fx:id="txtAddress" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             </children>
         </GridPane>
-    </center>
-</BorderPane>
+      <Separator orientation="VERTICAL" />
+      <GridPane>
+        <columnConstraints>
+          <ColumnConstraints hgrow="NEVER" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints vgrow="NEVER" />
+          <RowConstraints vgrow="NEVER" />
+          <RowConstraints vgrow="NEVER" />
+          <RowConstraints vgrow="NEVER" />
+        </rowConstraints>
+         <children>
+                <Label text="Maritial Status:" GridPane.rowIndex="3" />
+                <Label text="City:" GridPane.rowIndex="2" />
+                <Label text="Phone Number:" GridPane.rowIndex="1" />
+                <Label text="Date Of Birth:" />
+         </children>
+      </GridPane>
+   </children>
+</HBox>

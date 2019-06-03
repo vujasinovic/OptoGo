@@ -10,10 +10,7 @@ import unbbayes.prs.exception.InvalidParentException;
 import unbbayes.util.extension.bn.inference.IInferenceAlgorithm;
 
 import java.io.FileNotFoundException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import static com.optogo.service.BayesInferenceHandlerUtilities.print;
 import static com.optogo.service.BayesInferenceHandlerUtilities.saveFile;
@@ -33,6 +30,8 @@ public class BayesInferenceHandler {
     public static final int NO_INDEX = 1;
     public static final String STATE_POSITIVE = "positive";
     public static final String STATE_NEGATIVE = "negative";
+
+    private HandlerProgressListener listener;
 
     /**
      * Iterates through all diseases and for each of them it creates independent Bayesian network with the name
@@ -54,7 +53,11 @@ public class BayesInferenceHandler {
         List<String> diseases = DiseaseSymptomParser.getDiseases(DISEASE_SYMPTOM_FILEPATH);
         Map<String, Float> diseaseProbability = new HashMap<>();
 
+        int count = 0;
         for (String disease : diseases) {
+            if (listener != null)
+                listener.progressUpdated(++count, diseases.size(), disease);
+
             ProbabilisticNetwork network = new ProbabilisticNetwork(disease);
             ProbabilisticNode diseaseNode = new ProbabilisticNode();
             initializeNode(diseaseNode, disease);
@@ -147,23 +150,27 @@ public class BayesInferenceHandler {
         node.appendState(STATE_NEGATIVE);
     }
 
-//    public static void main(String[] args) throws FileNotFoundException, InvalidParentException {
-//        List<String> symptoms = new ArrayList<>();
-//        symptoms.add("eye_redness");
-//        symptoms.add("pain_in_eye");
-//        symptoms.add("cough");
-//        symptoms.add("nasal_congestion");
-//        symptoms.add("fever");
-////        symptoms.add("itchiness_of_eye");
-////        symptoms.add("swollen_eye");
-////        symptoms.add("white_discharge_from_eye");
-////        symptoms.add("lacrimation");
-////        symptoms.add("symptoms_of_eye");
-//
-//        Map<String, Float> diseaseProbability = new HashMap<>();
-//        diseaseProbability = createNodes(symptoms);
-//        for (Map.Entry<String, Float> entry : diseaseProbability.entrySet()) {
-//            System.out.println(entry.getKey() + " | " + entry.getValue());
-//        }
-//    }
+    public void setListener(HandlerProgressListener listener) {
+        this.listener = listener;
+    }
+
+    public static void main(String[] args) throws FileNotFoundException, InvalidParentException {
+        List<String> symptoms = new ArrayList<>();
+        symptoms.add("eye_redness");
+        symptoms.add("pain_in_eye");
+        symptoms.add("cough");
+        symptoms.add("nasal_congestion");
+        symptoms.add("fever");
+        symptoms.add("itchiness_of_eye");
+        symptoms.add("swollen_eye");
+        symptoms.add("white_discharge_from_eye");
+        symptoms.add("lacrimation");
+        symptoms.add("symptoms_of_eye");
+
+        BayesInferenceHandler handler = new BayesInferenceHandler();
+        Map<String, Float> diseaseProbability = handler.createNodes(symptoms);
+        for (Map.Entry<String, Float> entry : diseaseProbability.entrySet()) {
+            System.out.println(entry.getKey() + " | " + entry.getValue());
+        }
+    }
 }
