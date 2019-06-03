@@ -67,7 +67,7 @@ public class BayesInferenceHandler {
             saveFile(network, disease);
         }
         BayesInferenceHandlerUtilities bayesInferenceHandlerUtilities = new BayesInferenceHandlerUtilities();
-        return bayesInferenceHandlerUtilities.sortAscending(diseaseProbability);
+        return bayesInferenceHandlerUtilities.sortByValueAscending(diseaseProbability);
     }
 
     public void createSymptomNodes(ProbabilisticNetwork network, ProbabilisticNode diseaseNode, Set<String> symptoms) throws InvalidParentException {

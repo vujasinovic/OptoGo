@@ -30,12 +30,22 @@ public class BayesInferenceHandlerUtilities implements MapActions<String, Float>
     }
 
     @Override
-    public  Map<String, Float> sortAscending(Map<String, Float> mapToSort) {
+    public Map<String, Float> sortByKeysAscending(Map<String, Float> mapToSort) {
+        return mapToSort.entrySet().stream().sorted(Map.Entry.comparingByKey()).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e2, LinkedHashMap::new));
+    }
+
+    @Override
+    public Map<String, Float> sortByKeysDescending(Map<String, Float> mapToSort) {
+        return mapToSort.entrySet().stream().sorted(Map.Entry.comparingByKey()).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
+    }
+
+    @Override
+    public  Map<String, Float> sortByValueAscending(Map<String, Float> mapToSort) {
         return mapToSort.entrySet().stream().sorted(Map.Entry.comparingByValue()).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e2, LinkedHashMap::new));
     }
 
     @Override
-    public Map<String, Float> sortDescending(Map<String, Float> mapToSort) {
+    public Map<String, Float> sortByValueDescending(Map<String, Float> mapToSort) {
         return mapToSort.entrySet().stream().sorted(Map.Entry.comparingByValue()).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
     }
 }
