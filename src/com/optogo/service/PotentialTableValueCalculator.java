@@ -1,6 +1,5 @@
 package com.optogo.service;
 
-import com.optogo.utils.enums.DiseaseName;
 import com.optogo.utils.parse.DiseaseSymptomParser;
 
 import java.io.FileNotFoundException;
@@ -103,11 +102,6 @@ public class PotentialTableValueCalculator {
 
     private boolean isPowerOfTwo(int n) {
         return (n & (n - 1)) == 0;
-    }
-
-    public static void main(String[] args) throws FileNotFoundException {
-        Map<String, Float> symptomsWithProbabilities = DiseaseSymptomParser.getSymptomsWithProbabilities("resources/disease_symptom.txt", DiseaseName.CATARACT);
-        new PotentialTableValueCalculator().calculate(symptomsWithProbabilities);
     }
 
 }
