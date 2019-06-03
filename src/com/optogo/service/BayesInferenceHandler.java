@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import static com.optogo.service.BayesInferenceHandlerUtilities.print;
 import static com.optogo.service.BayesInferenceHandlerUtilities.saveFile;
 
 /**
@@ -82,7 +81,7 @@ public class BayesInferenceHandler {
                 e.printStackTrace();
             }
 
-            print(network);
+            //print(network);
 
             diseaseProbability.put(disease, diseaseNode.getMarginalAt(YES_INDEX));
             saveFile(network, disease);
