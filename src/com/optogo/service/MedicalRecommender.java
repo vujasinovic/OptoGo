@@ -1,10 +1,14 @@
 package com.optogo.service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 
 import com.optogo.model.*;
+import com.optogo.utils.TableSimilarity;
 import com.optogo.utils.enums.DiseaseName;
+import com.optogo.utils.enums.GenderType;
 import com.optogo.utils.enums.ProcedureName;
 import com.optogo.utils.enums.Race;
 import com.optogo.utils.parse.CsvConnector;
@@ -40,10 +44,14 @@ public class MedicalRecommender implements StandardCBRApplication {
         simConfig.setDescriptionSimFunction(new Average());  // global similarity function = average
 
         simConfig.addMapping(new Attribute("patient", MedicalPrescription.class), new Average());
+        //TableSimilarity genderSimilarity = new TableSimilarity((Arrays.asList(new String[]{"MALE", "FEMALE", "OTHER"})));
+        //genderSimilarity.setSimilarity("MALE", "FEMALE", .85);
+        //genderSimilarity.setSimilarity("MALE", "OTHER", .7);
+        //genderSimilarity.setSimilarity("FEMALE", "OTHER", .7);
         simConfig.addMapping(new Attribute("gender", Patient.class), new Equal());
         //simConfig.addMapping(new Attribute("dateOfBirth", Patient.class), new Average());
         simConfig.addMapping(new Attribute("race", Patient.class), new Equal());
-        simConfig.addMapping(new Attribute("disease", MedicalPrescription.class), new Equal());
+        simConfig.addMapping(new Attribute("disease", MedicalPrescription.class), new Average());
         simConfig.addMapping(new Attribute("name", Disease.class), new Equal());
 
         // Equal - returns 1 if both individuals are equal, otherwise returns 0
@@ -92,7 +100,8 @@ public class MedicalRecommender implements StandardCBRApplication {
 
             patient.setFirstName("Petar");
             patient.setLastName("Petrovic");
-            patient.setRace(Race.WHITE);
+            patient.setGender(GenderType.MALE);
+            patient.setRace(Race.BLACK);
             patient.setDateOfBirth(LocalDate.of(1996, 10, 3));
 
             disease.setName(DiseaseName.CATARACT);
