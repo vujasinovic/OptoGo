@@ -7,22 +7,27 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 public class SelectPredictedConditionDialog extends Stage {
     private static final String SCENE_FXML = "fxml/prediction_list.fxml";
+    private static final String TITLE = "Predicted Conditions";
 
     private PredictionListController controller;
 
-    private SelectPredictedConditionDialog(Stage parent, Map<String, Float> predictions) throws IOException {
+    private SelectPredictedConditionDialog(Stage parent, List<String> providedSymptoms, Map<String, Float> predictions) throws IOException {
         FXMLLoader loader = new FXMLLoader(ClassLoader.getSystemResource(SCENE_FXML));
         Scene scene = new Scene(loader.load());
 
         controller = loader.getController();
         controller.setPredictions(predictions);
+        controller.setProvidedSymptoms(providedSymptoms);
 
-        setMinWidth(550);
-        setMinHeight(700);
+        setTitle(TITLE);
+        setWidth(550);
+        setHeight(700);
+
 
         setScene(scene);
         initOwner(parent);
@@ -33,10 +38,10 @@ public class SelectPredictedConditionDialog extends Stage {
         return controller.getSelected();
     }
 
-    public static SelectPredictedConditionDialog create(Stage parent, Map<String, Float> predictions) {
+    public static SelectPredictedConditionDialog create(Stage parent, List<String> providedSymptoms, Map<String, Float> predictions) {
         SelectPredictedConditionDialog dialog = null;
         try {
-            dialog = new SelectPredictedConditionDialog(parent,  predictions);
+            dialog = new SelectPredictedConditionDialog(parent, providedSymptoms, predictions);
         } catch (IOException e) {
             e.printStackTrace();
             return null;

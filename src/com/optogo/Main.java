@@ -11,13 +11,19 @@ public class Main extends Application {
     public static final String VERSION = "v1.0";
     public static final String APP_ICON = "eyes.png";
 
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle(String.format("%s %s", TITLE, VERSION));
         primaryStage.getIcons().add(new Image(APP_ICON));
         primaryStage.setScene(MainScene.create());
-        primaryStage.setMinHeight(600);
-        primaryStage.setMinWidth(1000);
+
+        primaryStage.setHeight(600);
+        primaryStage.setWidth(1000);
+//        primaryStage.setMinHeight(primaryStage.getHeight());
+//        primaryStage.setMinWidth(primaryStage.getWidth());
+
+
         primaryStage.show();
     }
 

@@ -8,10 +8,12 @@ import javafx.stage.Stage;
 
 public class PatientEditorDialog extends Stage {
     private PatientEditorScene scene;
+    private static final String TITLE = "Edit Patient";
 
     public PatientEditorDialog(Patient patient, Stage parent) {
         scene = PatientEditorScene.create(patient);
 
+        setTitle(TITLE);
         setScene(scene);
         initOwner(parent);
         initModality(Modality.APPLICATION_MODAL);

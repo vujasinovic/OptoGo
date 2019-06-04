@@ -1,5 +1,6 @@
 package com.optogo.controller;
 
+import com.optogo.utils.StringFormatter;
 import com.optogo.view.control.OptionSelection;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -26,7 +27,7 @@ public class OptionSelectionListController {
     public void setOptions(List<String> options) {
         vbox.getChildren().clear();
         for (String option : options) {
-            vbox.getChildren().add(new OptionSelection(option));
+            vbox.getChildren().add(new OptionSelection(StringFormatter.capitalizeWord(option)));
         }
     }
 

@@ -1,9 +1,11 @@
 package com.optogo.controller;
 
 import com.optogo.model.Patient;
+import com.optogo.view.dialog.ExaminationDialog;
 import com.optogo.view.dialog.PatientEditorDialog;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Control;
 import javafx.scene.layout.BorderPane;
@@ -37,6 +39,7 @@ public class MainController {
     }
 
     public void start(ActionEvent actionEvent) {
+        ExaminationDialog.create(getStage(actionEvent), patientListController.getSelected());
     }
 
     public void edit(ActionEvent actionEvent) {
@@ -60,6 +63,10 @@ public class MainController {
         if (!dialog.isCanceled()) {
             patientListController.getModel().add(dialog.getController().getPatient());
         }
-
     }
+
+    private Stage getStage(Event event) {
+        return (Stage) ((Control) event.getSource()).getScene().getWindow();
+    }
+
 }

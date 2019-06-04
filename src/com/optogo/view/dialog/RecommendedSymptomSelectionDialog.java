@@ -9,11 +9,13 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.List;
 
-public class RecomendedSymptomSelectionDialog extends Stage {
+public class RecommendedSymptomSelectionDialog extends Stage {
     private static final String SCENE_FXML = "fxml/option_select_list.fxml";
     private final OptionSelectionListController controller;
+    private static final String TITLE = "Recommended Symptoms";
 
-    private RecomendedSymptomSelectionDialog(Stage parent, List<String> symptoms) throws IOException {
+
+    private RecommendedSymptomSelectionDialog(Stage parent, List<String> symptoms) throws IOException {
         FXMLLoader loader = new FXMLLoader(ClassLoader.getSystemResource(SCENE_FXML));
         Scene scene = new Scene(loader.load());
 
@@ -30,10 +32,10 @@ public class RecomendedSymptomSelectionDialog extends Stage {
         return controller.getSelected();
     }
 
-    public static RecomendedSymptomSelectionDialog create(Stage parent, List<String> symptoms) {
-        RecomendedSymptomSelectionDialog dialog;
+    public static RecommendedSymptomSelectionDialog create(Stage parent, List<String> symptoms) {
+        RecommendedSymptomSelectionDialog dialog;
         try {
-            dialog = new RecomendedSymptomSelectionDialog(parent, symptoms);
+            dialog = new RecommendedSymptomSelectionDialog(parent, symptoms);
         } catch (IOException e) {
             e.printStackTrace();
             return null;

@@ -1,6 +1,7 @@
 package com.optogo.view.dialog;
 
-import com.optogo.controller.ConditionSearchController;
+import com.optogo.controller.ExaminationController;
+import com.optogo.model.Patient;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
@@ -8,17 +9,20 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class ConditionSearchDialog extends Stage {
-    private static final String SCENE_FXML = "fxml/condition_search.fxml";
-    private static final String TITLE = "Selcet Condition";
+public class ExaminationDialog extends Stage {
+    private static final String SCENE_FXML = "fxml/examination.fxml";
+    private static final String TITLE = "Medical Examination";
 
-    private ConditionSearchController controller;
+    private ExaminationController controller;
 
-    private ConditionSearchDialog(Stage parent) throws IOException {
+    private ExaminationDialog(Stage parent, Patient patient) throws IOException {
         FXMLLoader loader = new FXMLLoader(ClassLoader.getSystemResource(SCENE_FXML));
         Scene scene = new Scene(loader.load());
 
         controller = loader.getController();
+
+        setHeight(450);
+        setWidth(700);
 
         setTitle(TITLE);
         setScene(scene);
@@ -26,21 +30,17 @@ public class ConditionSearchDialog extends Stage {
         initModality(Modality.APPLICATION_MODAL);
     }
 
-    public String getSelected() {
-        return controller.getSelected();
-    }
-
-    public static ConditionSearchDialog create(Stage parent) {
-        ConditionSearchDialog dialog;
+    public static ExaminationDialog create(Stage parent, Patient patient) {
+        ExaminationDialog dialog = null;
         try {
-            dialog = new ConditionSearchDialog(parent);
+            dialog = new ExaminationDialog(parent,  patient);
         } catch (IOException e) {
             e.printStackTrace();
             return null;
         }
-
         dialog.showAndWait();
         return dialog;
     }
+
 
 }
