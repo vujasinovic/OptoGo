@@ -10,6 +10,7 @@ import unbbayes.prs.exception.InvalidParentException;
 import unbbayes.util.extension.bn.inference.IInferenceAlgorithm;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.*;
 
 import static com.optogo.service.BayesInferenceHandlerUtilities.saveFile;
@@ -21,7 +22,7 @@ import static com.optogo.service.BayesInferenceHandlerUtilities.saveFile;
  * methods (setFindings and initializeNodes)
  */
 public class BayesInferenceHandler {
-    public static final String DISEASE_SYMPTOM_FILEPATH = "resources/disease_symptom.txt";
+    public static final String DISEASE_SYMPTOM_FILEPATH = "resources/symptom_disease.txt";
     public static final float SYMPTOM_INIT_PROBABILITY = 0.5f;
     public static final String YES_STATE = "y";
     public static final String NO_STATE = "n";
@@ -48,8 +49,8 @@ public class BayesInferenceHandler {
      * @throws FileNotFoundException  - if file that contains data relations between disease and symptom doesn't exists
      * @throws InvalidParentException - if it is not possible to create edge between two nodes
      */
-    public Map<String, Float> createNodes(List<String> symptoms) throws FileNotFoundException, InvalidParentException {
-        List<String> diseases = DiseaseSymptomParser.getDiseases(DISEASE_SYMPTOM_FILEPATH);
+    public Map<String, Float> createNodes(List<String> symptoms) throws IOException, InvalidParentException {
+        Set<String> diseases = DiseaseSymptomParser.getDiseases(DISEASE_SYMPTOM_FILEPATH);
         Map<String, Float> diseaseProbability = new HashMap<>();
 
         int count = 0;
@@ -153,6 +154,7 @@ public class BayesInferenceHandler {
         this.listener = listener;
     }
 
+/*
     public static void main(String[] args) throws FileNotFoundException, InvalidParentException {
         List<String> symptoms = new ArrayList<>();
         symptoms.add("eye_redness");
@@ -172,4 +174,5 @@ public class BayesInferenceHandler {
             System.out.println(entry.getKey() + " | " + entry.getValue());
         }
     }
+*/
 }
