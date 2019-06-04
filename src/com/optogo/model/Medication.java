@@ -1,11 +1,13 @@
 package com.optogo.model;
 
 import com.optogo.utils.enums.MedicationName;
+import ucm.gaia.jcolibri.cbrcore.Attribute;
+import ucm.gaia.jcolibri.cbrcore.CaseComponent;
 
 import javax.persistence.*;
 
 @Entity
-public class Medication {
+public class Medication implements CaseComponent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -30,5 +32,10 @@ public class Medication {
 
     public void setName(MedicationName name) {
         this.name = name;
+    }
+
+    @Override
+    public Attribute getIdAttribute() {
+        return null;
     }
 }
