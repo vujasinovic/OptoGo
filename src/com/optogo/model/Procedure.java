@@ -1,11 +1,13 @@
 package com.optogo.model;
 
 import com.optogo.utils.enums.ProcedureName;
+import ucm.gaia.jcolibri.cbrcore.Attribute;
+import ucm.gaia.jcolibri.cbrcore.CaseComponent;
 
 import javax.persistence.*;
 
 @Entity
-public class Procedure {
+public class Procedure implements CaseComponent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -30,5 +32,10 @@ public class Procedure {
 
     public void setTitle(ProcedureName title) {
         this.title = title;
+    }
+
+    @Override
+    public Attribute getIdAttribute() {
+        return null;
     }
 }

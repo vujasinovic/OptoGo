@@ -4,12 +4,14 @@ import com.optogo.utils.enums.GenderType;
 import com.optogo.utils.enums.MaritalStatus;
 import com.optogo.utils.enums.Race;
 import com.sun.istack.NotNull;
+import ucm.gaia.jcolibri.cbrcore.Attribute;
+import ucm.gaia.jcolibri.cbrcore.CaseComponent;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-public class Patient {
+public class Patient implements CaseComponent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -130,6 +132,11 @@ public class Patient {
 
     public void setMaritalStatus(MaritalStatus maritalStatus) {
         this.maritalStatus = maritalStatus;
+    }
+
+    @Override
+    public Attribute getIdAttribute() {
+        return null;
     }
 }
 
