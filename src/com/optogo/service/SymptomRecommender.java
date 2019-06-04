@@ -1,11 +1,13 @@
 package com.optogo.service;
 
+import com.optogo.utils.StringFormatter;
 import com.optogo.utils.parse.DiseaseSymptomParser;
 import unbbayes.prs.exception.InvalidParentException;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author avujasinovic
@@ -31,7 +33,7 @@ public class SymptomRecommender {
             if(predictions.get(d) > 0.3f)
                 allSymptoms.addAll(DiseaseSymptomParser.getSymptoms(DISEASE_SYMPTOM_FILE, d));
 
-        allSymptoms.removeAll(providedSymptoms);
+        allSymptoms.removeAll(providedSymptoms.stream().map(StringFormatter::uderscoredLowerCase).collect(Collectors.toList()));
 
         return allSymptoms;
     }

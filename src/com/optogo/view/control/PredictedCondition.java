@@ -55,7 +55,7 @@ public class PredictedCondition extends HBox {
             return "lightgreen";
         } else if (value < 0.4) {
             return "green";
-        } else if (value < 0.65) {
+        } else if (value < 0.60) {
             return "orange";
         } else if (value < 0.8) {
             return "red";

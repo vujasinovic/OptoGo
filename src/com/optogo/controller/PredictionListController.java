@@ -109,7 +109,6 @@ public class PredictionListController {
             });
         });
 
-
         lblProgress.setVisible(true);
         progressBar.setVisible(true);
 
