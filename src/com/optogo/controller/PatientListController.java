@@ -87,7 +87,9 @@ public class PatientListController implements ListChangeListener<Patient> {
     public void onChanged(Change change) {
         change.next();
         if (change.wasReplaced()) {
-            repository.update(patients.get(change.getFrom()));
+            Patient patient = patients.get(change.getFrom());
+            if(patient != null)
+                repository.update(patient);
         } else if (change.wasAdded()) {
             repository.save(patients.get(change.getFrom()));
         } else if (change.wasRemoved()) {
