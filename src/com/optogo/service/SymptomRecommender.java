@@ -4,6 +4,7 @@ import com.optogo.utils.parse.DiseaseSymptomParser;
 import unbbayes.prs.exception.InvalidParentException;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -22,40 +23,17 @@ public class SymptomRecommender {
      * @throws FileNotFoundException
      * @throws InvalidParentException
      */
-    public static Set<String> recommend(List<String> providedSymptoms) throws FileNotFoundException, InvalidParentException {
-        BayesInferenceHandler bayesInferenceHandler = new BayesInferenceHandler();
-        Map<String, Float> diseases = bayesInferenceHandler.createNodes(providedSymptoms);
-        List<String> diseaseNames = new ArrayList<>();
+    public static Set<String> recommend(List<String> providedSymptoms, Map<String, Float> predictions) throws IOException, InvalidParentException {
+        Set<String> allSymptoms = new HashSet<>();
+        Set<String> diseaseInPrediction = predictions.keySet();
 
-        for (Map.Entry<String, Float> entry : diseases.entrySet()) {
-            if (entry.getValue() >= 0.50f) {
-                diseaseNames.add(entry.getKey());
-            }
-        }
+        for(String d : diseaseInPrediction)
+            if(predictions.get(d) > 0.3f)
+                allSymptoms.addAll(DiseaseSymptomParser.getSymptoms(DISEASE_SYMPTOM_FILE, d));
 
-        Set<String> symptoms = new HashSet<>();
-        for (String d : diseaseNames) {
-            List<String> allSymptoms = DiseaseSymptomParser.getSymptoms(DISEASE_SYMPTOM_FILE, d);
-            System.err.println("Disease: " + d);
-            for (String s : allSymptoms) {
-                if (!providedSymptoms.contains(s)) {
-                    System.out.println(String.format("How about %s?", s));
-                }
-                symptoms.add(s);
-            }
-            System.out.println("\n");
-        }
+        allSymptoms.removeAll(providedSymptoms);
 
-        System.out.println("Symptoms:");
-        for (String s : symptoms) {
-            System.out.println(s);
-        }
-        return symptoms;
-    }
-
-    //TODO remove after testing
-    public static void main(String[] args) throws FileNotFoundException, InvalidParentException {
-        recommend(Arrays.asList("lacrimation", "pain_in_eye", "symptoms_of_eye"));
+        return allSymptoms;
     }
 
 }
