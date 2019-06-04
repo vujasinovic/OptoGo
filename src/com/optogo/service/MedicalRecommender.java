@@ -44,11 +44,11 @@ public class MedicalRecommender implements StandardCBRApplication {
         simConfig.setDescriptionSimFunction(new Average());  // global similarity function = average
 
         simConfig.addMapping(new Attribute("patient", MedicalPrescription.class), new Average());
-        //TableSimilarity genderSimilarity = new TableSimilarity((Arrays.asList(new String[]{"MALE", "FEMALE", "OTHER"})));
-        //genderSimilarity.setSimilarity("MALE", "FEMALE", .85);
-        //genderSimilarity.setSimilarity("MALE", "OTHER", .7);
-        //genderSimilarity.setSimilarity("FEMALE", "OTHER", .7);
-        simConfig.addMapping(new Attribute("gender", Patient.class), new Equal());
+        TableSimilarity genderSimilarity = new TableSimilarity((Arrays.asList(new Enum[]{GenderType.MALE, GenderType.FEMALE, GenderType.OTHER})));
+        genderSimilarity.setSimilarity(GenderType.MALE, GenderType.FEMALE, .85);
+        genderSimilarity.setSimilarity(GenderType.MALE, GenderType.OTHER, .7);
+        genderSimilarity.setSimilarity(GenderType.FEMALE, GenderType.OTHER, .7);
+        simConfig.addMapping(new Attribute("gender", Patient.class), genderSimilarity);
         //simConfig.addMapping(new Attribute("dateOfBirth", Patient.class), new Average());
         simConfig.addMapping(new Attribute("race", Patient.class), new Equal());
         simConfig.addMapping(new Attribute("disease", MedicalPrescription.class), new Average());
@@ -101,7 +101,7 @@ public class MedicalRecommender implements StandardCBRApplication {
             patient.setFirstName("Petar");
             patient.setLastName("Petrovic");
             patient.setGender(GenderType.MALE);
-            patient.setRace(Race.BLACK);
+            patient.setRace(Race.WHITE);
             patient.setDateOfBirth(LocalDate.of(1996, 10, 3));
 
             disease.setName(DiseaseName.CATARACT);

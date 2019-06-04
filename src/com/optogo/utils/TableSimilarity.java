@@ -8,9 +8,9 @@ import ucm.gaia.jcolibri.method.retrieve.NNretrieval.similarity.LocalSimilarityF
 public class TableSimilarity implements LocalSimilarityFunction {
 
     private double matrix[][];
-    List<String> categories;
+    List<Enum> categories;
 
-    public TableSimilarity(List<String> categories) {
+    public TableSimilarity(List<Enum> categories) {
         this.categories = categories;
         int n = categories.size();
         matrix = new double[n][n];
@@ -18,11 +18,11 @@ public class TableSimilarity implements LocalSimilarityFunction {
             matrix[i][i] = 1;  // symbolic similarity of term with itself
     }
 
-    public void setSimilarity(String value1, String value2, double sim) {
+    public void setSimilarity(Enum value1, Enum value2, double sim) {
         setSimilarity(value1, value2, sim, sim);
     }
 
-    public void setSimilarity(String value1, String value2, double sim1, double sim2) {
+    public void setSimilarity(Enum value1, Enum value2, double sim1, double sim2) {
         int index1 = categories.indexOf(value1);
         int index2 = categories.indexOf(value2);
         if (index1 != -1 && index2 != -1) {
