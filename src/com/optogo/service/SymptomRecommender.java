@@ -19,7 +19,7 @@ public class SymptomRecommender {
 
     /**
      * Method that recommends additional symptoms for certain disease which are not provided by patient.
-     * This helps increasing precision. Diseases with probability less then 50% are not considered.
+     * This helps increasing precision. Diseases with probability less then 50% ar  e not considered.
      * @param providedSymptoms
      * @return
      * @throws FileNotFoundException
@@ -29,8 +29,14 @@ public class SymptomRecommender {
         Set<String> allSymptoms = new HashSet<>();
         Set<String> diseaseInPrediction = predictions.keySet();
 
+        double avg = 0;
+        for (String key : diseaseInPrediction) {
+            avg += predictions.get(key);
+        }
+        avg /= predictions.size();
+
         for(String d : diseaseInPrediction)
-            if(predictions.get(d) > 0.3f)
+            if(predictions.get(d) >= avg)
                 allSymptoms.addAll(DiseaseSymptomParser.getSymptoms(DISEASE_SYMPTOM_FILE, d));
 
         allSymptoms.removeAll(providedSymptoms.stream().map(StringFormatter::uderscoredLowerCase).collect(Collectors.toList()));
