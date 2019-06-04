@@ -1,10 +1,14 @@
 package com.optogo.service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 
 import com.optogo.model.*;
+import com.optogo.utils.TableSimilarity;
 import com.optogo.utils.enums.DiseaseName;
+import com.optogo.utils.enums.GenderType;
 import com.optogo.utils.enums.ProcedureName;
 import com.optogo.utils.enums.Race;
 import com.optogo.utils.parse.CsvConnector;
@@ -40,10 +44,14 @@ public class MedicalRecommender implements StandardCBRApplication {
         simConfig.setDescriptionSimFunction(new Average());  // global similarity function = average
 
         simConfig.addMapping(new Attribute("patient", MedicalPrescription.class), new Average());
-        simConfig.addMapping(new Attribute("gender", Patient.class), new Equal());
+        TableSimilarity genderSimilarity = new TableSimilarity((Arrays.asList(new Enum[]{GenderType.MALE, GenderType.FEMALE, GenderType.OTHER})));
+        genderSimilarity.setSimilarity(GenderType.MALE, GenderType.FEMALE, .85);
+        genderSimilarity.setSimilarity(GenderType.MALE, GenderType.OTHER, .7);
+        genderSimilarity.setSimilarity(GenderType.FEMALE, GenderType.OTHER, .7);
+        simConfig.addMapping(new Attribute("gender", Patient.class), genderSimilarity);
         //simConfig.addMapping(new Attribute("dateOfBirth", Patient.class), new Average());
         simConfig.addMapping(new Attribute("race", Patient.class), new Equal());
-        simConfig.addMapping(new Attribute("disease", MedicalPrescription.class), new Equal());
+        simConfig.addMapping(new Attribute("disease", MedicalPrescription.class), new Average());
         simConfig.addMapping(new Attribute("name", Disease.class), new Equal());
 
         // Equal - returns 1 if both individuals are equal, otherwise returns 0
@@ -92,6 +100,7 @@ public class MedicalRecommender implements StandardCBRApplication {
 
             patient.setFirstName("Petar");
             patient.setLastName("Petrovic");
+            patient.setGender(GenderType.MALE);
             patient.setRace(Race.WHITE);
             patient.setDateOfBirth(LocalDate.of(1996, 10, 3));
 
