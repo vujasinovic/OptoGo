@@ -32,6 +32,46 @@ public class DiseaseProcedureParser {
         return retVal;
     }
 
+    public static Set<String> getProcedures(String filePath) throws FileNotFoundException {
+        File file = new File(filePath);
+        Scanner sc = new Scanner(file);
+
+        Set<String> procedures = new HashSet<>();
+        while (sc.hasNextLine()) {
+            String tempLine = sc.nextLine();
+            if (tempLine.startsWith(DISEASE_PROCEDURE)) {
+                procedures.add(tempLine.split("\\(")[1].split(",")[1].trim());
+            }
+        }
+        return procedures;
+    }
+
+    public static Map<String, Float> getDiseasesWithProbabilities(String filePath, String procedureName) throws IOException {
+        Map<String, Float> diseasesWithProbabilities = new HashMap<>();
+        List<String> lines = Files.readAllLines(Paths.get(filePath));
+        for (String line : lines) {
+            line = line.trim();
+            if (line.isEmpty() || line.startsWith("%")) {
+                continue;
+            }
+
+            line = line.replaceAll("(.*?)\\(", "");
+            line = line.replaceAll("\\)(.*?)", "");
+
+            String[] parts = line.split(",");
+            //TODO kad se ubaci fajl medication_disease korigovati indekse.
+            String disease = parts[0].trim();
+            String procedure = parts[1].trim();
+            Float probability = Float.valueOf(parts[2].trim()) / 100f;
+
+            if (procedure.equalsIgnoreCase(procedureName)) {
+                diseasesWithProbabilities.put(disease, probability);
+            }
+
+        }
+        return diseasesWithProbabilities;
+    }
+
     public static Map<String, Float> getProceduresWithProbabilities(String filePath, String diseaseName) throws IOException {
         Map<String, Float> proceduresWithProbabilities = new HashMap<>();
         List<String> lines = Files.readAllLines(Paths.get(filePath));

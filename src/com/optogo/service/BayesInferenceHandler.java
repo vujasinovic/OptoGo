@@ -154,8 +154,8 @@ public class BayesInferenceHandler {
         this.listener = listener;
     }
 
-/*
-    public static void main(String[] args) throws FileNotFoundException, InvalidParentException {
+
+    public static void main(String[] args) throws IOException, InvalidParentException {
         List<String> symptoms = new ArrayList<>();
         symptoms.add("eye_redness");
         symptoms.add("pain_in_eye");
@@ -174,5 +174,5 @@ public class BayesInferenceHandler {
             System.out.println(entry.getKey() + " | " + entry.getValue());
         }
     }
-*/
+
 }
