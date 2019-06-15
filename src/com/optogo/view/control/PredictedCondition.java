@@ -1,9 +1,9 @@
 package com.optogo.view.control;
 
-import com.gluonhq.charm.glisten.control.ProgressBar;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
