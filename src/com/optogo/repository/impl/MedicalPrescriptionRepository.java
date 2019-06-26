@@ -5,7 +5,7 @@ import com.optogo.repository.Repository;
 
 import java.util.List;
 
-public class MedicalPrescriptionRepository implements Repository<MedicalPrescription> {
+public class MedicalPrescriptionRepository implements Repository<Long, MedicalPrescription> {
     @Override
     public MedicalPrescription save(MedicalPrescription entity) {
         return null;

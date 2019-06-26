@@ -2,7 +2,7 @@ package com.optogo.repository;
 
 import java.util.List;
 
-public interface Repository<T> {
+public interface Repository<K, T> {
     /**
      * Saves the given entity
      * @param entity
@@ -27,7 +27,7 @@ public interface Repository<T> {
      * @param id - given ID
      * @return
      */
-    T findById(Long id);
+    T findById(K id);
 
     /**
      * Deletes the given entity

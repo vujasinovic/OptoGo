@@ -7,7 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import java.util.List;
 
-public class PatientRepository implements Repository<Patient> {
+public class PatientRepository implements Repository<Long, Patient> {
     public static final String DEFAULT_UNIT = "default-unit";
 
     private EntityManager em;

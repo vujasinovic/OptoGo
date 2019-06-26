@@ -7,7 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import java.util.List;
 
-public class ProcedureRepository implements Repository<Procedure> {
+public class ProcedureRepository implements Repository<Long, Procedure> {
     public static final String DEFAULT_UNIT = "default-unit";
 
     private EntityManager em;
