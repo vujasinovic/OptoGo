@@ -89,8 +89,8 @@
    <bottom>
       <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <buttons>
-          <Button mnemonicParsing="false" text="Save" />
-            <Button mnemonicParsing="false" text="Cancel" />
+          <Button mnemonicParsing="false" text="Save" onAction="#save" />
+            <Button mnemonicParsing="false" text="Cancel" onAction="#close" />
         </buttons>
       </ButtonBar>
    </bottom>

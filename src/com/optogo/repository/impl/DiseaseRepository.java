@@ -2,6 +2,7 @@ package com.optogo.repository.impl;
 
 import com.optogo.model.Disease;
 import com.optogo.repository.Repository;
+import com.optogo.utils.enums.DiseaseName;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
@@ -14,6 +15,10 @@ public class DiseaseRepository implements Repository<Long, Disease> {
 
     public DiseaseRepository() {
         em = Persistence.createEntityManagerFactory(DEFAULT_UNIT).createEntityManager();
+    }
+
+    public Disease findByName(DiseaseName name) {
+        return (Disease) em.createQuery("SELECT d FROM Disease d WHERE d.name = :name").setParameter("name", name).getSingleResult();
     }
 
     @Override

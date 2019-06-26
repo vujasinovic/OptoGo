@@ -20,6 +20,7 @@ public class ExaminationDialog extends Stage {
         Scene scene = new Scene(loader.load());
 
         controller = loader.getController();
+        controller.setPatient(patient);
 
         setHeight(450);
         setWidth(700);

@@ -9,6 +9,8 @@ import ucm.gaia.jcolibri.cbrcore.CaseComponent;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Patient implements CaseComponent {
@@ -37,6 +39,9 @@ public class Patient implements CaseComponent {
 
     private String city;
 
+    @OneToMany(mappedBy = "patient")
+    private List<Examination> examinations;
+
     @Enumerated(EnumType.STRING)
     private MaritalStatus maritalStatus;
 
@@ -49,9 +54,12 @@ public class Patient implements CaseComponent {
         this.phoneNumber = phoneNumber;
         this.city = city;
         this.maritalStatus = maritalStatus;
+
+        this.examinations = new ArrayList<>();
     }
 
     public Patient() {
+        this.examinations = new ArrayList<>();
     }
 
     public Long getId() {
@@ -132,6 +140,14 @@ public class Patient implements CaseComponent {
 
     public void setMaritalStatus(MaritalStatus maritalStatus) {
         this.maritalStatus = maritalStatus;
+    }
+
+    public List<Examination> getExaminations() {
+        return examinations;
+    }
+
+    public void setExaminations(List<Examination> examinations) {
+        this.examinations = examinations;
     }
 
     @Override

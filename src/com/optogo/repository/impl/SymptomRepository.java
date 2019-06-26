@@ -2,9 +2,11 @@ package com.optogo.repository.impl;
 
 import com.optogo.model.Symptom;
 import com.optogo.repository.Repository;
+import com.optogo.utils.enums.SymptomName;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SymptomRepository implements Repository<Long, Symptom> {
@@ -14,6 +16,20 @@ public class SymptomRepository implements Repository<Long, Symptom> {
 
     public SymptomRepository() {
         em = Persistence.createEntityManagerFactory(DEFAULT_UNIT).createEntityManager();
+    }
+
+    public List<Symptom> findAllByName(List<String> names) {
+        List<Symptom> symptoms = new ArrayList<>();
+
+        for (String name : names) {
+            symptoms.add(findByName(SymptomName.valueOf(name.toUpperCase())));
+        }
+
+        return symptoms;
+    }
+
+    public Symptom findByName(SymptomName name) {
+        return (Symptom) em.createQuery("SELECT s FROM Symptom s WHERE s.name = :name").setParameter("name", name).getSingleResult();
     }
 
     @Override
