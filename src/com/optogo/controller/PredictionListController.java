@@ -39,7 +39,7 @@ public class PredictionListController {
     }
 
     public void setProvidedSymptoms(List<String> providedSymptoms) {
-        this.providedSymptoms = providedSymptoms;
+        this.providedSymptoms = new ArrayList<>(providedSymptoms);
     }
 
     public void setPredictions(Map<String, Float> predictions) {
@@ -88,12 +88,11 @@ public class PredictionListController {
         } catch (IOException | InvalidParentException e) {
             e.printStackTrace();
         }
-        RecommendedSymptomSelectionDialog dialog = RecommendedSymptomSelectionDialog.create(getStage(actionEvent), new ArrayList<>(recommendedSymptoms));
-        List<String> extendedSymptoms = new ArrayList<>();
-        extendedSymptoms.addAll(providedSymptoms);
-        extendedSymptoms.addAll(dialog.getSelected());
 
-        bayesTask = new BayasInterfaceHandlerTask(extendedSymptoms);
+        RecommendedSymptomSelectionDialog dialog = RecommendedSymptomSelectionDialog.create(getStage(actionEvent), new ArrayList<>(recommendedSymptoms));
+        providedSymptoms.addAll(dialog.getSelected());
+
+        bayesTask = new BayasInterfaceHandlerTask(providedSymptoms);
         bayesTask.setOnSucceeded(workerStateEvent -> {
             try {
                 setPredictions(bayesTask.get());
@@ -113,6 +112,10 @@ public class PredictionListController {
         progressBar.setVisible(true);
 
         new Thread(bayesTask).start();
+    }
+
+    public List<String> getExtraSymptoms() {
+        return providedSymptoms;
     }
 
 }

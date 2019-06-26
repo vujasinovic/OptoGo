@@ -1,13 +1,10 @@
 package com.optogo.controller;
 
 import com.optogo.controller.task.BayasInterfaceHandlerTask;
-import com.optogo.service.BayesInferenceHandler;
-import com.optogo.utils.MapUtil;
 import com.optogo.utils.StringFormatter;
 import com.optogo.view.dialog.ConditionSearchDialog;
 import com.optogo.view.dialog.SelectPredictedConditionDialog;
 import javafx.application.Platform;
-import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -16,11 +13,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
-import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
-import java.util.stream.Collectors;
 
 public class ExaminationController {
 
@@ -93,6 +87,7 @@ public class ExaminationController {
         SelectPredictedConditionDialog selectPredictedConditionDialog = SelectPredictedConditionDialog
                 .create(getStage(actionEvent), symptomSelectionController.getSelected(), predictions);
         txtCondition.setText(selectPredictedConditionDialog.getSelected());
+        symptomSelectionController.selectAll(selectPredictedConditionDialog.getExtendedSymptoms());
     }
 
 }

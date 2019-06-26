@@ -5,10 +5,12 @@ import com.optogo.utils.StringFormatter;
 import com.optogo.view.control.AutoCompleteTextField;
 import com.optogo.view.control.XCell;
 import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,9 +42,18 @@ public class SymptomSelectionController implements ListChangeListener<String> {
         listSymptoms.getItems().addListener(this);
     }
 
-    private void select(String symptom) {
-        txtAvailableSymptoms.getEntries().remove(symptom);
-        listSymptoms.getItems().add(symptom);
+    public void select(String symptom) {
+        ObservableList<String> items = listSymptoms.getItems();
+        if(!items.contains(symptom)) {
+            txtAvailableSymptoms.getEntries().remove(symptom);
+            items.add(symptom);
+        }
+    }
+
+    public void selectAll(Collection<String> symptoms) {
+        for (String symptom : symptoms) {
+            select(symptom);
+        }
     }
 
     @Override

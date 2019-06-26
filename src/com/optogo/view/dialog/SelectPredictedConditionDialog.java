@@ -50,4 +50,8 @@ public class SelectPredictedConditionDialog extends Stage {
         return dialog;
     }
 
+    public List<String> getExtendedSymptoms() {
+        return controller.getExtraSymptoms();
+    }
+
 }
