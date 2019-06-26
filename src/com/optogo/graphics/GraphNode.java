@@ -4,22 +4,22 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-public class Node {
+public class GraphNode {
     private List<Link> links;
     private String name, text;
     private Double weight;
 
-    public Node(String name) {
+    public GraphNode(String name) {
         this.name = name;
         this.text = name;
         this.links = new ArrayList<>();
     }
 
-    public void link(Node node, Double weight) {
+    public void link(GraphNode node, Double weight) {
         links.add(new Link(this, node, weight));
     }
 
-    public void link(Node node) {
+    public void link(GraphNode node) {
         link(node, null);
     }
 
@@ -40,16 +40,20 @@ public class Node {
     }
 
     public static class Builder {
-        private Node node;
+        private GraphNode node;
         private LinkedHashMap<String, Double> links;
 
         public Builder(String name) {
-            this.node = new Node(name);
+            this.node = new GraphNode(name);
             this.links = new LinkedHashMap<>();
         }
 
         public static Builder create(String name) {
             return new Builder(name);
+        }
+
+        public String getName() {
+            return node.getName();
         }
 
         public Builder setWeight(Double weight) {
@@ -59,6 +63,10 @@ public class Node {
                 this.node.weight = weight;
 
             return this;
+        }
+
+        public Builder setWeight(Float weight) {
+            return setWeight(Double.valueOf(weight));
         }
 
         public Builder setText(String text) {
@@ -80,7 +88,7 @@ public class Node {
             return links;
         }
 
-        public Node getNode() {
+        public GraphNode getNode() {
             return node;
         }
     }

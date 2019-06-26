@@ -36,6 +36,7 @@
          <children>
             <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.rowIndex="2">
               <buttons>
+                  <Button mnemonicParsing="false" onAction="#visualize" text="Visualize" />
                   <Button mnemonicParsing="false" onAction="#improveResults" text="Improve Results" />
                 <Button fx:id="btnSelect" defaultButton="true" mnemonicParsing="false" onAction="#select" text="Select" />
               </buttons>

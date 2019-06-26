@@ -1,9 +1,6 @@
 package com.optogo.graphics;
 
-import guru.nidi.graphviz.attribute.Color;
-import guru.nidi.graphviz.attribute.Label;
-import guru.nidi.graphviz.attribute.RankDir;
-import guru.nidi.graphviz.attribute.Style;
+import guru.nidi.graphviz.attribute.*;
 import guru.nidi.graphviz.engine.Format;
 import guru.nidi.graphviz.engine.Graphviz;
 
@@ -19,13 +16,15 @@ public class GraphRenderer {
     private File imageFile;
 
     public void render(Graph graph) throws IOException {
-        guru.nidi.graphviz.model.Graph gvGraph = graph().directed().graphAttr().with(RankDir.LEFT_TO_RIGHT);
-        for (Node node : graph.getNodes()) {
+        guru.nidi.graphviz.model.Graph gvGraph = graph().directed().graphAttr()
+                .with(RankDir.LEFT_TO_RIGHT, GraphAttr.splines(GraphAttr.SplineMode.SPLINE));
+
+        for (GraphNode node : graph.getNodes()) {
             guru.nidi.graphviz.model.Node gvNode = node(node.getName()).with(Color.BLACK);
             for (Link link : node.getLinks()) {
                 guru.nidi.graphviz.model.Link gvLink = to(node(link.getTo().getName()));
                 if (link.getWeight() != null) {
-                    gvLink = gvLink.with(Style.BOLD, Label.of(link.getWeight().toString() + "%"));
+                    gvLink = gvLink.with(Style.BOLD, Label.of(formatWeight(link.getWeight())));
                 }
                 gvNode = gvNode.link(gvLink);
             }
@@ -38,7 +37,7 @@ public class GraphRenderer {
         }
 
         this.imageFile = createOutputFile();
-        Graphviz.fromGraph(gvGraph).height(400).width(600).render(Format.PNG).toFile(imageFile);
+        Graphviz.fromGraph(gvGraph).width(800).render(Format.PNG).toFile(imageFile);
     }
 
     public String formatWeight(Double weight) {

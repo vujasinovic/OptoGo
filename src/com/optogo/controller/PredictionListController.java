@@ -1,9 +1,14 @@
 package com.optogo.controller;
 
 import com.optogo.controller.task.BayasInterfaceHandlerTask;
+import com.optogo.graphics.Graph;
+import com.optogo.graphics.GraphNode;
 import com.optogo.service.SymptomRecommender;
+import com.optogo.utils.MapUtil;
 import com.optogo.utils.StringFormatter;
+import com.optogo.utils.parse.DiseaseSymptomParser;
 import com.optogo.view.control.PredictedCondition;
+import com.optogo.view.dialog.GraphDisplayDialog;
 import com.optogo.view.dialog.RecommendedSymptomSelectionDialog;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -21,8 +26,11 @@ import unbbayes.prs.exception.InvalidParentException;
 import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
+import java.util.stream.Collectors;
 
 public class PredictionListController {
+    public static final String DISEASE_SYMPTOM_FILEPATH = "resources/symptom_disease.txt";
+
     public ProgressBar progressBar;
     public Label lblProgress;
 
@@ -116,6 +124,33 @@ public class PredictionListController {
 
     public List<String> getExtraSymptoms() {
         return providedSymptoms;
+    }
+
+    public void visualize(ActionEvent actionEvent) throws IOException {
+        Graph.Builder builder = Graph.Builder.create();
+
+        List<String> symptoms = providedSymptoms.stream().map(StringFormatter::uderscoredLowerCase)
+                .collect(Collectors.toList());
+
+        for (String diseaseCapitalized : predictions.keySet()) {
+            String disease = StringFormatter.uderscoredLowerCase(diseaseCapitalized);
+
+            builder.addNode(GraphNode.Builder.create(disease)
+                    .setText(diseaseCapitalized).setWeight(predictions.get(diseaseCapitalized)));
+
+            Map<String, Float> symptomsWithProbabilities =
+                    DiseaseSymptomParser.getSymptomsWithProbabilities(DISEASE_SYMPTOM_FILEPATH, disease);
+
+            for (String symptom : symptoms) {
+                Float probability = symptomsWithProbabilities.get(symptom);
+                if(probability != null) {
+                    builder.link(symptom, probability, disease);
+                }
+            }
+
+        }
+
+        GraphDisplayDialog.create(getStage(actionEvent), builder.build());
     }
 
 }

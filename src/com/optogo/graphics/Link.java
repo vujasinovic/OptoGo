@@ -1,25 +1,29 @@
 package com.optogo.graphics;
 
 public class Link {
-    private Node from, to;
+    private GraphNode from, to;
     private Double weight;
 
-    public Link(Node from, Node to, Double weight) {
+    public Link(GraphNode from, GraphNode to, Double weight) {
         this.from = from;
         this.to = to;
-        this.weight = weight;
+
+        if (weight <= 1)
+            this.weight = weight * 100d;
+        else
+            this.weight = weight;
     }
 
-    public Link(Node from, Node to) {
+    public Link(GraphNode from, GraphNode to) {
         this.from = from;
         this.to = to;
     }
 
-    public Node getFrom() {
+    public GraphNode getFrom() {
         return from;
     }
 
-    public Node getTo() {
+    public GraphNode getTo() {
         return to;
     }
 
