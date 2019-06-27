@@ -1,7 +1,6 @@
-package com.optogo.service;
+package com.optogo.service.bayes;
 
-import com.optogo.utils.enums.DiseaseName;
-import com.optogo.utils.parse.DiseaseProcedureParser;
+import com.optogo.utils.parse.DiseaseMedicationParser;
 import unbbayes.prs.Edge;
 import unbbayes.prs.bn.JunctionTreeAlgorithm;
 import unbbayes.prs.bn.PotentialTable;
@@ -13,11 +12,10 @@ import unbbayes.util.extension.bn.inference.IInferenceAlgorithm;
 import java.io.IOException;
 import java.util.*;
 
-import static com.optogo.service.BayesInferenceHandlerUtilities.print;
-import static com.optogo.service.BayesInferenceHandlerUtilities.saveFile;
+import static com.optogo.service.bayes.BayesInferenceHandlerUtilities.saveFile;
 
-public class ProcedureBayesianNetwork {
-    public static final String DISEASE_PROCEDURE_FILEPATH = "resources/disease_procedure.txt";
+public class MedicationBayesianNetwork {
+    public static final String DISEASE_MEDICATION_FILEPATH = "resources/disease_medication.txt";
     public static final float DISEASE_INIT_PROBABILITY = 0.5f;
     public static final String YES_STATE = "y";
     public static final String NO_STATE = "n";
@@ -29,23 +27,23 @@ public class ProcedureBayesianNetwork {
     private HandlerProgressListener listener;
 
     public Map<String, Float> createNodes(Map<String, Float> diseases) throws IOException, InvalidParentException {
-        Set<String> procedures = DiseaseProcedureParser.getProcedures(DISEASE_PROCEDURE_FILEPATH);
-        Map<String, Float> procedureProbability = new HashMap<>();
+        Set<String> medications = DiseaseMedicationParser.getAllMedications(DISEASE_MEDICATION_FILEPATH);
+        Map<String, Float> medicationProbability = new HashMap<>();
 
         int count = 0;
-        for (String procedure : procedures) {
+        for (String medication : medications) {
             if (listener != null)
-                listener.progressUpdated(++count, procedures.size(), procedure);
+                listener.progressUpdated(++count, medications.size(), medication);
 
-            ProbabilisticNetwork network = new ProbabilisticNetwork(procedure);
-            ProbabilisticNode procedureNode = new ProbabilisticNode();
-            initializeNode(procedureNode, procedure);
-            network.addNode(procedureNode);
+            ProbabilisticNetwork network = new ProbabilisticNetwork(medication);
+            ProbabilisticNode medicationNode = new ProbabilisticNode();
+            initializeNode(medicationNode, medication);
+            network.addNode(medicationNode);
 
-            PotentialTable probProcedure = procedureNode.getProbabilityFunction();
-            probProcedure.addVariable(procedureNode);
+            PotentialTable probMedication = medicationNode.getProbabilityFunction();
+            probMedication.addVariable(medicationNode);
 
-            Map<String, Float> diseasesWithProbabilities = DiseaseProcedureParser.getDiseasesWithProbabilities(DISEASE_PROCEDURE_FILEPATH, procedure);
+            Map<String, Float> diseasesWithProbabilities = DiseaseMedicationParser.getDiseasesWithProbabilities(DISEASE_MEDICATION_FILEPATH, medication);
             for (String d : diseasesWithProbabilities.keySet()) {
                 Float dProp = diseases.get(d);
                 if (dProp == null) {
@@ -56,13 +54,15 @@ public class ProcedureBayesianNetwork {
                 }
             }
 
-            createDiseaseNodes(network, procedureNode, diseasesWithProbabilities.keySet());
+            createDiseaseNodes(network, medicationNode, diseasesWithProbabilities.keySet());
 
             PotentialTableValueCalculator calculator = new PotentialTableValueCalculator();
-            probProcedure.setValues(calculator.calculate(diseasesWithProbabilities));
+            probMedication.setValues(calculator.calculate(diseasesWithProbabilities));
+
             IInferenceAlgorithm algorithm = new JunctionTreeAlgorithm();
             algorithm.setNetwork(network);
             algorithm.run();
+
             setFindings(network, diseases.keySet(), diseasesWithProbabilities.keySet());
 
             try {
@@ -71,14 +71,16 @@ public class ProcedureBayesianNetwork {
                 e.printStackTrace();
             }
 
-            procedureProbability.put(procedure, procedureNode.getMarginalAt(YES_INDEX));
-            saveFile(network, procedure);
+//            print(network);
+
+            medicationProbability.put(medication, medicationNode.getMarginalAt(YES_INDEX));
+            saveFile(network, medication);
         }
         BayesInferenceHandlerUtilities bayesInferenceHandlerUtilities = new BayesInferenceHandlerUtilities();
-        return bayesInferenceHandlerUtilities.sortByValueAscending(procedureProbability);
+        return bayesInferenceHandlerUtilities.sortByValueAscending(medicationProbability);
     }
 
-    public void createDiseaseNodes(ProbabilisticNetwork network, ProbabilisticNode procedureNode, Set<String> diseases) throws InvalidParentException {
+    public void createDiseaseNodes(ProbabilisticNetwork network, ProbabilisticNode medicationNode, Set<String> diseases) throws InvalidParentException {
         for (String s : diseases) {
             ProbabilisticNode disease = new ProbabilisticNode();
             disease.setName(s);
@@ -91,12 +93,12 @@ public class ProcedureBayesianNetwork {
             diseaseTable.setValue(NO_INDEX, DISEASE_INIT_PROBABILITY);
             network.addNode(disease);
 
-            network.addEdge(new Edge(disease, procedureNode));
+            network.addEdge(new Edge(disease, medicationNode));
         }
     }
 
-    private void setFindings(ProbabilisticNetwork network, Collection<String> providedDiseases, Set<String> procedureDiseases) {
-        for (String s : procedureDiseases) {
+    private void setFindings(ProbabilisticNetwork network, Collection<String> providedDiseases, Set<String> medicationDiseases) {
+        for (String s : medicationDiseases) {
             ProbabilisticNode factNode = (ProbabilisticNode) network.getNode(s);
             if (providedDiseases.contains(s)) {
                 factNode.addFinding(YES_INDEX);
@@ -106,8 +108,8 @@ public class ProcedureBayesianNetwork {
         }
     }
 
-    private void initializeNode(ProbabilisticNode node, String procedure) {
-        node.setName(procedure);
+    private void initializeNode(ProbabilisticNode node, String medication) {
+        node.setName(medication);
         node.appendState(STATE_POSITIVE);
         node.appendState(STATE_NEGATIVE);
     }

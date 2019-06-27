@@ -1,6 +1,7 @@
 package com.optogo.service;
 
 import com.optogo.model.*;
+import com.optogo.service.bayes.DiseaseSimilarityCalculator;
 import com.optogo.utils.TableSimilarity;
 import com.optogo.utils.enums.DiseaseName;
 import com.optogo.utils.enums.GenderType;

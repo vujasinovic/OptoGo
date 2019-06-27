@@ -1,10 +1,10 @@
 package com.optogo.controller.task;
 
 import com.optogo.controller.prediction.PredictionsCollection;
-import com.optogo.service.BayesInferenceHandler;
-import com.optogo.service.HandlerProgressListener;
-import com.optogo.service.MedicationBayesianNetwork;
-import com.optogo.service.ProcedureBayesianNetwork;
+import com.optogo.service.bayes.BayesInferenceHandler;
+import com.optogo.service.bayes.HandlerProgressListener;
+import com.optogo.service.bayes.MedicationBayesianNetwork;
+import com.optogo.service.bayes.ProcedureBayesianNetwork;
 import com.optogo.utils.MapUtil;
 import com.optogo.utils.StringFormatter;
 import javafx.concurrent.Task;
@@ -55,7 +55,7 @@ public class BayasInterfaceHandlerTask extends Task<PredictionsCollection> {
         Map<String, Float> predictionsFormatted = new LinkedHashMap<>();
         for (String key : predictions.keySet()) {
             Float value = predictions.get(key);
-            if(value == 0)
+            if(value < 0.05f)
                 continue;
 
             predictionsFormatted.put(StringFormatter.capitalizeWord(key), value);

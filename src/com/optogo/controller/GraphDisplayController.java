@@ -3,11 +3,15 @@ package com.optogo.controller;
 import com.optogo.graphics.Graph;
 import com.optogo.graphics.GraphRenderer;
 import com.optogo.view.control.ImagePane;
+import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.control.Control;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -44,4 +48,11 @@ public class GraphDisplayController {
         imgView.setImage(new Image(imgFile.toURI().toString()));
     }
 
+    public void close(ActionEvent actionEvent) {
+        getStage(actionEvent).close();
+    }
+
+    private Stage getStage(Event event) {
+        return (Stage) ((Control) event.getSource()).getScene().getWindow();
+    }
 }

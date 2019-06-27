@@ -1,8 +1,5 @@
-package com.optogo.service;
+package com.optogo.service.bayes;
 
-import com.optogo.utils.parse.DiseaseSymptomParser;
-
-import java.io.FileNotFoundException;
 import java.util.*;
 
 public class PotentialTableValueCalculator {

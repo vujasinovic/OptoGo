@@ -24,6 +24,8 @@ public class Predictions extends TabPane {
 
     public void add(Map<String, Float> predictions, String name, PredictedCondition.Mode selectionMode) {
         VBox vbox = new VBox();
+        vbox.setSpacing(5);
+
         predictedConditions.clear();
 
         for (String key : predictions.keySet()) {

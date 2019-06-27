@@ -1,4 +1,4 @@
-package com.optogo.service;
+package com.optogo.service.bayes;
 
 public class ProbabilityPair {
     private double yes;

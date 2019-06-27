@@ -1,4 +1,4 @@
-package com.optogo.service;
+package com.optogo.service.bayes;
 
 import com.optogo.utils.enums.DiseaseName;
 import com.optogo.utils.parse.DiseaseSymptomParser;

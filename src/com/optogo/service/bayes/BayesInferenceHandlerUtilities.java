@@ -1,4 +1,4 @@
-package com.optogo.service;
+package com.optogo.service.bayes;
 
 import unbbayes.io.NetIO;
 import unbbayes.prs.Node;
@@ -12,7 +12,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class BayesInferenceHandlerUtilities implements MapActions<String, Float>{
+public class BayesInferenceHandlerUtilities implements MapActions<String, Float> {
 
     public static final String FILE_EXTENSION = ".net";
     public static final String PATH = "results/";

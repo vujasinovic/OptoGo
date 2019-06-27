@@ -1,10 +1,12 @@
 package com.optogo.controller.prediction;
 
 import com.optogo.controller.task.BayasInterfaceHandlerTask;
-import com.optogo.service.SymptomRecommender;
+import com.optogo.graphics.Graph;
+import com.optogo.service.bayes.SymptomRecommender;
 import com.optogo.utils.StringFormatter;
 import com.optogo.view.control.PredictedCondition;
 import com.optogo.view.control.Predictions;
+import com.optogo.view.dialog.GraphDisplayDialog;
 import com.optogo.view.dialog.RecommendedSymptomSelectionDialog;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -14,10 +16,7 @@ import javafx.stage.Stage;
 import unbbayes.prs.exception.InvalidParentException;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 
 public class PredictionListController {
@@ -34,6 +33,8 @@ public class PredictionListController {
     private Predictions diseasesPreds;
     private Predictions medPreds;
     private Predictions procPreds;
+
+    private Tab disTab, medTab, procTab;
 
     public void initialize() {
         progressBar.setVisible(false);
@@ -56,13 +57,13 @@ public class PredictionListController {
         procPreds = new Predictions();
         procPreds.add(predictionsCollection.getProcedurePrediction(), "Procedures", PredictedCondition.Mode.MULTIPLE);
 
-        Tab disTab = new Tab("Conditions");
+        disTab = new Tab("Conditions");
         disTab.setContent(diseasesPreds);
 
-        Tab medTab = new Tab("Medications");
+        medTab = new Tab("Medications");
         medTab.setContent(medPreds);
 
-        Tab procTab = new Tab("Procedures");
+        procTab = new Tab("Procedures");
         procTab.setContent(procPreds);
 
         tabPane.getTabs().addAll(disTab, medTab, procTab);
@@ -118,32 +119,17 @@ public class PredictionListController {
     }
 
     public void visualize(ActionEvent actionEvent) throws IOException {
-/*
-        Graph.Builder builder = Graph.Builder.create();
 
-        List<String> symptoms = providedSymptoms.stream().map(StringFormatter::uderscoredLowerCase)
-                .collect(Collectors.toList());
-
-        for (String diseaseCapitalized : predictions.keySet()) {
-            String disease = StringFormatter.uderscoredLowerCase(diseaseCapitalized);
-
-            builder.addNode(GraphNode.Builder.create(disease)
-                    .setText(diseaseCapitalized).setWeight(predictions.get(diseaseCapitalized)));
-
-            Map<String, Float> symptomsWithProbabilities =
-                    DiseaseSymptomParser.getSymptomsWithProbabilities(DISEASE_SYMPTOM_FILEPATH, disease);
-
-            for (String symptom : symptoms) {
-                Float probability = symptomsWithProbabilities.get(symptom);
-                if(probability != null) {
-                    builder.link(symptom, probability, disease);
-                }
-            }
-
+        Graph graph = null;
+        if (tabPane.getSelectionModel().getSelectedItem() == disTab) {
+            graph = BayesPredictionGraphCreator.createForDieseases(providedSymptoms, predictions);
+        } else if (tabPane.getSelectionModel().getSelectedItem() == medTab) {
+            graph = BayesPredictionGraphCreator.createForMedications(predictions);
+        } else {
+            graph = BayesPredictionGraphCreator.createForProcedures(predictions);
         }
 
-        GraphDisplayDialog.create(getStage(actionEvent), builder.build());
-*/
+        GraphDisplayDialog.create(getStage(actionEvent), graph);
     }
 
 }

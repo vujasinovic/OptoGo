@@ -1,4 +1,4 @@
-package com.optogo.service;
+package com.optogo.service.bayes;
 
 import com.optogo.utils.parse.DiseaseSymptomParser;
 import unbbayes.prs.Edge;
@@ -13,8 +13,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
 
-import static com.optogo.service.BayesInferenceHandlerUtilities.loadFile;
-import static com.optogo.service.BayesInferenceHandlerUtilities.saveFile;
+import static com.optogo.service.bayes.BayesInferenceHandlerUtilities.loadFile;
+import static com.optogo.service.bayes.BayesInferenceHandlerUtilities.saveFile;
 
 /**
  * @author avujasinovic

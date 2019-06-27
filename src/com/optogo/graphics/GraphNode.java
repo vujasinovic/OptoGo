@@ -66,6 +66,9 @@ public class GraphNode {
         }
 
         public Builder setWeight(Float weight) {
+            if(weight == null)
+                return this;
+
             return setWeight(Double.valueOf(weight));
         }
 

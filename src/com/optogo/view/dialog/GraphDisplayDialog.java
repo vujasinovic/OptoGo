@@ -23,7 +23,7 @@ public class GraphDisplayDialog extends Stage {
         controller.show(graph);
 
         setHeight(800);
-        setWidth(850);
+        setWidth(1250);
 
         setTitle(TITLE);
         setScene(scene);

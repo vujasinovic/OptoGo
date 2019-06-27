@@ -37,7 +37,7 @@ public class GraphRenderer {
         }
 
         this.imageFile = createOutputFile();
-        Graphviz.fromGraph(gvGraph).width(800).render(Format.PNG).toFile(imageFile);
+        Graphviz.fromGraph(gvGraph).width(1200).render(Format.PNG).toFile(imageFile);
     }
 
     public String formatWeight(Double weight) {
