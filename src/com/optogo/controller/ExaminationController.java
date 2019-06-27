@@ -5,7 +5,6 @@ import com.optogo.model.Examination;
 import com.optogo.model.Patient;
 import com.optogo.model.Symptom;
 import com.optogo.repository.impl.*;
-import com.optogo.service.CBRDiseaseRecommender;
 import com.optogo.utils.StringFormatter;
 import com.optogo.utils.enums.DiseaseName;
 import com.optogo.utils.enums.SymptomName;
@@ -134,36 +133,6 @@ public class ExaminationController {
         });
         new Thread(bayesTask).start();
 
-        CBRDiseaseRecommender cbrDiseaseRecommender = new CBRDiseaseRecommender();
-        try {
-            cbrDiseaseRecommender.configure();
-            cbrDiseaseRecommender.preCycle();
-
-            CBRQuery query = new CBRQuery();
-
-            Examination examination = new Examination();
-            examination.setPatient(patient);
-
-            List<Symptom> symptoms = new ArrayList<>();
-
-            for (String s : symptomSelectionController.getSelected()) {
-                Symptom tempSymptom = new Symptom();
-                tempSymptom.setName(SymptomName.valueOf(s.toUpperCase().replaceAll(" ", "_")));
-                tempSymptom.setId(symptomRepository.findByName(SymptomName.valueOf(s.toUpperCase().replaceAll(" ", "_"))).getId());
-                symptoms.add(tempSymptom);
-            }
-            examination.setSymptoms(symptoms);
-
-            query.setDescription(examination);
-
-            cbrDiseaseRecommender.cycle(query);
-
-            //rezultat pretrage
-            cbrDiseaseRecommender.getResult();
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     private void predictionCompleted(Event actionEvent) {

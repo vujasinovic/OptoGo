@@ -1,10 +1,8 @@
 package com.optogo.service;
 
-import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.Collection;
-
-import com.optogo.model.*;
+import com.optogo.model.Disease;
+import com.optogo.model.MedicalPrescription;
+import com.optogo.model.Patient;
 import com.optogo.utils.TableSimilarity;
 import com.optogo.utils.enums.DiseaseName;
 import com.optogo.utils.enums.GenderType;
@@ -12,28 +10,37 @@ import com.optogo.utils.enums.Race;
 import com.optogo.utils.parse.CsvConnector;
 import ucm.gaia.jcolibri.casebase.LinealCaseBase;
 import ucm.gaia.jcolibri.cbraplications.StandardCBRApplication;
-import ucm.gaia.jcolibri.cbrcore.Attribute;
-import ucm.gaia.jcolibri.cbrcore.CBRCase;
-import ucm.gaia.jcolibri.cbrcore.CBRCaseBase;
-import ucm.gaia.jcolibri.cbrcore.CBRQuery;
-import ucm.gaia.jcolibri.cbrcore.Connector;
+import ucm.gaia.jcolibri.cbrcore.*;
 import ucm.gaia.jcolibri.exception.ExecutionException;
-import ucm.gaia.jcolibri.method.retrieve.NNretrieval.similarity.local.Equal;
-import ucm.gaia.jcolibri.method.retrieve.RetrievalResult;
 import ucm.gaia.jcolibri.method.retrieve.NNretrieval.NNConfig;
 import ucm.gaia.jcolibri.method.retrieve.NNretrieval.NNScoringMethod;
 import ucm.gaia.jcolibri.method.retrieve.NNretrieval.similarity.global.Average;
+import ucm.gaia.jcolibri.method.retrieve.RetrievalResult;
 import ucm.gaia.jcolibri.method.retrieve.selection.SelectCases;
+
+import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.Collection;
 
 public class CBRMedicalRecommender implements StandardCBRApplication {
 
-    Connector _connector;  /** Connector object */
-    CBRCaseBase _caseBase;  /** CaseBase object */
+    Connector _connector;
+    /**
+     * Connector object
+     */
+    CBRCaseBase _caseBase;
+    /**
+     * CaseBase object
+     */
 
-    NNConfig simConfig;  /** KNN configuration */
+    NNConfig simConfig;
 
-    public void configure() throws ExecutionException {
-        _connector =  new CsvConnector();
+    /**
+     * KNN configuration
+     */
+
+    public void configure() {
+        _connector = new CsvConnector();
 
         _caseBase = new LinealCaseBase();  // Create a Lineal case base for in-memory organization
 
@@ -41,15 +48,40 @@ public class CBRMedicalRecommender implements StandardCBRApplication {
         simConfig.setDescriptionSimFunction(new Average());  // global similarity function = average
 
         simConfig.addMapping(new Attribute("patient", MedicalPrescription.class), new Average());
+
         TableSimilarity genderSimilarity = new TableSimilarity((Arrays.asList(new Enum[]{GenderType.MALE, GenderType.FEMALE, GenderType.OTHER})));
         genderSimilarity.setSimilarity(GenderType.MALE, GenderType.FEMALE, .85);
         genderSimilarity.setSimilarity(GenderType.MALE, GenderType.OTHER, .7);
         genderSimilarity.setSimilarity(GenderType.FEMALE, GenderType.OTHER, .7);
+
         simConfig.addMapping(new Attribute("gender", Patient.class), genderSimilarity);
-        //simConfig.addMapping(new Attribute("dateOfBirth", Patient.class), new Interval(100));
-        simConfig.addMapping(new Attribute("race", Patient.class), new Equal());
+
+        TableSimilarity raceSimilarity = new TableSimilarity((Arrays.asList(Race.class.getEnumConstants())));
+        raceSimilarity.setSimilarity(Race.WHITE, Race.BLACK, .98);
+        raceSimilarity.setSimilarity(Race.WHITE, Race.HISPANIC, .99);
+        raceSimilarity.setSimilarity(Race.WHITE, Race.OTHER, .95);
+        raceSimilarity.setSimilarity(Race.BLACK, Race.HISPANIC, .97);
+        raceSimilarity.setSimilarity(Race.BLACK, Race.OTHER, .95);
+        raceSimilarity.setSimilarity(Race.HISPANIC, Race.OTHER, .95);
+
+        simConfig.addMapping(new Attribute("race", Patient.class), raceSimilarity);
+
         simConfig.addMapping(new Attribute("disease", MedicalPrescription.class), new Average());
-        simConfig.addMapping(new Attribute("name", Disease.class), new Equal());
+
+        DiseaseName[] diseaseNames = DiseaseName.class.getEnumConstants();
+        TableSimilarity diseaseSimilarity = new TableSimilarity(Arrays.asList(diseaseNames));
+        for (int i = 0; i < DiseaseName.class.getEnumConstants().length; i++) {
+            for (int j = 1; j < DiseaseName.class.getEnumConstants().length; j++) {
+                try {
+                    diseaseSimilarity.setSimilarity(diseaseNames[i], diseaseNames[j],
+                            DiseaseSimilarityCalculator.getSimilarity(diseaseNames[i], diseaseNames[j]));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        simConfig.addMapping(new Attribute("name", Disease.class), diseaseSimilarity);
 
         // Equal - returns 1 if both individuals are equal, otherwise returns 0
         // Interval - returns the similarity of two number inside an interval: sim(x,y) = 1-(|x-y|/interval)
@@ -77,7 +109,7 @@ public class CBRMedicalRecommender implements StandardCBRApplication {
     public CBRCaseBase preCycle() throws ExecutionException {
         _caseBase.init(_connector);
         java.util.Collection<CBRCase> cases = _caseBase.getCases();
-        for (CBRCase c: cases)
+        for (CBRCase c : cases)
             System.out.println("-----" + c.getDescription());
         return _caseBase;
     }
@@ -106,7 +138,7 @@ public class CBRMedicalRecommender implements StandardCBRApplication {
             medicalPrescription.setPatient(patient);
             medicalPrescription.setDisease(disease);
 
-            query.setDescription( medicalPrescription );
+            query.setDescription(medicalPrescription);
             medicalRecommender.cycle(query);
 
         } catch (Exception e) {
