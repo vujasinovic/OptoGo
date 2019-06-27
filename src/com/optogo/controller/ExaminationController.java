@@ -3,9 +3,12 @@ package com.optogo.controller;
 import com.optogo.controller.task.BayasInterfaceHandlerTask;
 import com.optogo.model.Examination;
 import com.optogo.model.Patient;
+import com.optogo.model.Symptom;
 import com.optogo.repository.impl.*;
+import com.optogo.service.CBRDiseaseRecommender;
 import com.optogo.utils.StringFormatter;
 import com.optogo.utils.enums.DiseaseName;
+import com.optogo.utils.enums.SymptomName;
 import com.optogo.view.dialog.ConditionSearchDialog;
 import com.optogo.view.dialog.SelectPredictedConditionDialog;
 import javafx.application.Platform;
@@ -16,8 +19,11 @@ import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import ucm.gaia.jcolibri.cbrcore.CBRQuery;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
@@ -128,7 +134,6 @@ public class ExaminationController {
         });
         new Thread(bayesTask).start();
 
-        /*
         CBRDiseaseRecommender cbrDiseaseRecommender = new CBRDiseaseRecommender();
         try {
             cbrDiseaseRecommender.configure();
@@ -138,7 +143,16 @@ public class ExaminationController {
 
             Examination examination = new Examination();
             examination.setPatient(patient);
-            //examination.setSymptoms(symptomSelectionController.getSelected());
+
+            List<Symptom> symptoms = new ArrayList<>();
+
+            for (String s : symptomSelectionController.getSelected()) {
+                Symptom tempSymptom = new Symptom();
+                tempSymptom.setName(SymptomName.valueOf(s.toUpperCase().replaceAll(" ", "_")));
+                tempSymptom.setId(symptomRepository.findByName(SymptomName.valueOf(s.toUpperCase().replaceAll(" ", "_"))).getId());
+                symptoms.add(tempSymptom);
+            }
+            examination.setSymptoms(symptoms);
 
             query.setDescription(examination);
 
@@ -150,7 +164,6 @@ public class ExaminationController {
         catch (Exception e) {
             e.printStackTrace();
         }
-        */
     }
 
     private void predictionCompleted(Event actionEvent) {
