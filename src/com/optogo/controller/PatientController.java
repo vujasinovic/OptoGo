@@ -60,6 +60,8 @@ public class PatientController {
         patient.setPhoneNumber(txtPhoneNumber.getText().trim());
         patient.setMaritalStatus((MaritalStatus) cbMaritialStatus.getSelectionModel().getSelectedItem());
 
+        canceled = false;
+
         Stage stage = (Stage) ((Control) actionEvent.getSource()).getScene().getWindow();
         stage.close();
     }
