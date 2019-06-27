@@ -7,6 +7,7 @@ import com.optogo.repository.impl.DiseaseRepository;
 import com.optogo.repository.impl.ExaminationRepository;
 import com.optogo.repository.impl.PatientRepository;
 import com.optogo.repository.impl.SymptomRepository;
+import com.optogo.service.CBRDiseaseRecommender;
 import com.optogo.utils.StringFormatter;
 import com.optogo.utils.enums.DiseaseName;
 import com.optogo.view.dialog.ConditionSearchDialog;
@@ -19,8 +20,12 @@ import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import ucm.gaia.jcolibri.cbraplications.StandardCBRApplication;
+import ucm.gaia.jcolibri.cbrcore.CBRQuery;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
@@ -94,6 +99,30 @@ public class ExaminationController {
             });
         });
         new Thread(bayesTask).start();
+
+        /*
+        CBRDiseaseRecommender cbrDiseaseRecommender = new CBRDiseaseRecommender();
+        try {
+            cbrDiseaseRecommender.configure();
+            cbrDiseaseRecommender.preCycle();
+
+            CBRQuery query = new CBRQuery();
+
+            Examination examination = new Examination();
+            examination.setPatient(patient);
+            //examination.setSymptoms(symptomSelectionController.getSelected());
+
+            query.setDescription(examination);
+
+            cbrDiseaseRecommender.cycle(query);
+
+            //rezultat pretrage
+            cbrDiseaseRecommender.getResult();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        */
     }
 
     private void predictionCompleted(Event actionEvent) {

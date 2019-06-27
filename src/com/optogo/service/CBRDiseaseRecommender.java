@@ -1,39 +1,42 @@
 package com.optogo.service;
 
-import java.time.LocalDate;
+import com.optogo.model.*;
+import com.optogo.utils.TableSimilarity;
+import com.optogo.utils.enums.GenderType;
+import com.optogo.utils.parse.CsvConnector;
+import ucm.gaia.jcolibri.casebase.LinealCaseBase;
+import ucm.gaia.jcolibri.cbraplications.StandardCBRApplication;
+import ucm.gaia.jcolibri.cbrcore.*;
+import ucm.gaia.jcolibri.exception.ExecutionException;
+import ucm.gaia.jcolibri.method.retrieve.NNretrieval.NNConfig;
+import ucm.gaia.jcolibri.method.retrieve.NNretrieval.NNScoringMethod;
+import ucm.gaia.jcolibri.method.retrieve.NNretrieval.similarity.global.Average;
+import ucm.gaia.jcolibri.method.retrieve.NNretrieval.similarity.local.Equal;
+import ucm.gaia.jcolibri.method.retrieve.RetrievalResult;
+import ucm.gaia.jcolibri.method.retrieve.selection.SelectCases;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
-import com.optogo.model.*;
-import com.optogo.utils.TableSimilarity;
-import com.optogo.utils.enums.DiseaseName;
-import com.optogo.utils.enums.GenderType;
-import com.optogo.utils.enums.ProcedureName;
-import com.optogo.utils.enums.Race;
-import com.optogo.utils.parse.CsvConnector;
-import ucm.gaia.jcolibri.casebase.LinealCaseBase;
-import ucm.gaia.jcolibri.cbraplications.StandardCBRApplication;
-import ucm.gaia.jcolibri.cbrcore.Attribute;
-import ucm.gaia.jcolibri.cbrcore.CBRCase;
-import ucm.gaia.jcolibri.cbrcore.CBRCaseBase;
-import ucm.gaia.jcolibri.cbrcore.CBRQuery;
-import ucm.gaia.jcolibri.cbrcore.Connector;
-import ucm.gaia.jcolibri.exception.ExecutionException;
-import ucm.gaia.jcolibri.method.retrieve.NNretrieval.similarity.local.EnumDistance;
-import ucm.gaia.jcolibri.method.retrieve.NNretrieval.similarity.local.Equal;
-import ucm.gaia.jcolibri.method.retrieve.RetrievalResult;
-import ucm.gaia.jcolibri.method.retrieve.NNretrieval.NNConfig;
-import ucm.gaia.jcolibri.method.retrieve.NNretrieval.NNScoringMethod;
-import ucm.gaia.jcolibri.method.retrieve.NNretrieval.similarity.global.Average;
-import ucm.gaia.jcolibri.method.retrieve.selection.SelectCases;
-
-public class MedicalRecommender implements StandardCBRApplication {
+public class CBRDiseaseRecommender implements StandardCBRApplication {
 
     Connector _connector;  /** Connector object */
     CBRCaseBase _caseBase;  /** CaseBase object */
 
-    NNConfig simConfig;  /** KNN configuration */
+    NNConfig simConfig;
+
+    public Collection<RetrievalResult> getResult() {
+        return result;
+    }
+
+    public void setResult(Collection<RetrievalResult> result) {
+        this.result = result;
+    }
+
+    /** KNN configuration */
+
+    private Collection<RetrievalResult> result = new ArrayList<>();
 
     public void configure() throws ExecutionException {
         _connector =  new CsvConnector();
@@ -43,7 +46,7 @@ public class MedicalRecommender implements StandardCBRApplication {
         simConfig = new NNConfig(); // KNN configuration
         simConfig.setDescriptionSimFunction(new Average());  // global similarity function = average
 
-        simConfig.addMapping(new Attribute("patient", MedicalPrescription.class), new Average());
+        simConfig.addMapping(new Attribute("patient", Examination.class), new Average());
         TableSimilarity genderSimilarity = new TableSimilarity((Arrays.asList(new Enum[]{GenderType.MALE, GenderType.FEMALE, GenderType.OTHER})));
         genderSimilarity.setSimilarity(GenderType.MALE, GenderType.FEMALE, .85);
         genderSimilarity.setSimilarity(GenderType.MALE, GenderType.OTHER, .7);
@@ -51,8 +54,7 @@ public class MedicalRecommender implements StandardCBRApplication {
         simConfig.addMapping(new Attribute("gender", Patient.class), genderSimilarity);
         //simConfig.addMapping(new Attribute("dateOfBirth", Patient.class), new Average());
         simConfig.addMapping(new Attribute("race", Patient.class), new Equal());
-        simConfig.addMapping(new Attribute("disease", MedicalPrescription.class), new Average());
-        simConfig.addMapping(new Attribute("name", Disease.class), new Equal());
+        simConfig.addMapping(new Attribute("symptoms", Examination.class), new Average());
 
         // Equal - returns 1 if both individuals are equal, otherwise returns 0
         // Interval - returns the similarity of two number inside an interval: sim(x,y) = 1-(|x-y|/interval)
@@ -71,6 +73,7 @@ public class MedicalRecommender implements StandardCBRApplication {
         System.out.println("Retrieved cases:");
         for (RetrievalResult nse : eval)
             System.out.println(nse.get_case().getDescription() + " -> " + nse.getEval());
+        result = eval;
     }
 
     public void postCycle() throws ExecutionException {
@@ -80,41 +83,9 @@ public class MedicalRecommender implements StandardCBRApplication {
     public CBRCaseBase preCycle() throws ExecutionException {
         _caseBase.init(_connector);
         java.util.Collection<CBRCase> cases = _caseBase.getCases();
-        for (CBRCase c: cases)
+        for (CBRCase c : cases)
             System.out.println(c.getDescription());
         return _caseBase;
     }
-
-    public static void main(String[] args) {
-        StandardCBRApplication recommender = new MedicalRecommender();
-        try {
-            recommender.configure();
-
-            recommender.preCycle();
-
-            CBRQuery query = new CBRQuery();
-
-            MedicalPrescription medicalPrescription = new MedicalPrescription();
-            Patient patient = new Patient();
-            Disease disease = new Disease();
-
-            patient.setFirstName("Petar");
-            patient.setLastName("Petrovic");
-            patient.setGender(GenderType.MALE);
-            patient.setRace(Race.WHITE);
-            patient.setDateOfBirth(LocalDate.of(1996, 10, 3));
-
-            disease.setName(DiseaseName.CATARACT);
-
-            medicalPrescription.setPatient(patient);
-            medicalPrescription.setDisease(disease);
-
-            query.setDescription( medicalPrescription );
-            recommender.cycle(query);
-
-            recommender.postCycle();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 }
+
