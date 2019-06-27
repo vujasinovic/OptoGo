@@ -27,7 +27,7 @@ public class MedicationBayesianNetwork {
 
     private HandlerProgressListener listener;
 
-    public Map<String, Float> createNodes(List<String> diseases) throws IOException, InvalidParentException {
+    public Map<String, Float> createNodes(Map<String, Float> diseases) throws IOException, InvalidParentException {
         Set<String> medications = DiseaseMedicationParser.getAllMedications(DISEASE_MEDICATION_FILEPATH);
         Map<String, Float> medicationProbability = new HashMap<>();
 
@@ -45,6 +45,15 @@ public class MedicationBayesianNetwork {
             probMedication.addVariable(medicationNode);
 
             Map<String, Float> diseasesWithProbabilities = DiseaseMedicationParser.getDiseasesWithProbabilities(DISEASE_MEDICATION_FILEPATH, medication);
+            for (String d : diseasesWithProbabilities.keySet()) {
+                Float dProp = diseases.get(d);
+                if (dProp == null) {
+                    diseasesWithProbabilities.put(d, 0f);
+                } else {
+                    Float pProp = diseasesWithProbabilities.get(d);
+                    diseasesWithProbabilities.put(d, pProp * dProp);
+                }
+            }
 
             createDiseaseNodes(network, medicationNode, diseasesWithProbabilities.keySet());
 
@@ -55,7 +64,7 @@ public class MedicationBayesianNetwork {
             algorithm.setNetwork(network);
             algorithm.run();
 
-            setFindings(network, diseases, diseasesWithProbabilities.keySet());
+            setFindings(network, diseases.keySet(), diseasesWithProbabilities.keySet());
 
             try {
                 network.updateEvidences();
@@ -89,7 +98,7 @@ public class MedicationBayesianNetwork {
         }
     }
 
-    private void setFindings(ProbabilisticNetwork network, List<String> providedDiseases, Set<String> medicationDiseases) {
+    private void setFindings(ProbabilisticNetwork network, Collection<String> providedDiseases, Set<String> medicationDiseases) {
         for (String s : medicationDiseases) {
             ProbabilisticNode factNode = (ProbabilisticNode) network.getNode(s);
             if (providedDiseases.contains(s)) {
@@ -108,20 +117,6 @@ public class MedicationBayesianNetwork {
 
     public void setListener(HandlerProgressListener listener) {
         this.listener = listener;
-    }
-
-
-    public static void main(String[] args) throws IOException, InvalidParentException {
-        List<String> diseases = new ArrayList<>();
-        diseases.add(DiseaseName.CATARACT.toString().toLowerCase());
-        diseases.add(DiseaseName.AMBLYOPIA.toString().toLowerCase());
-        diseases.add(DiseaseName.SUBCONJUNCTIVAL_HEMORRHAGE.toString().toLowerCase());
-
-        MedicationBayesianNetwork medicationBayesianNetwork = new MedicationBayesianNetwork();
-        Map<String, Float> medicationProbability = medicationBayesianNetwork.createNodes(diseases);
-        for (Map.Entry<String, Float> entry : medicationProbability.entrySet()) {
-            System.out.println(entry.getKey() + " | " + entry.getValue());
-        }
     }
 
 }

@@ -13,6 +13,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
 
+import static com.optogo.service.BayesInferenceHandlerUtilities.loadFile;
 import static com.optogo.service.BayesInferenceHandlerUtilities.saveFile;
 
 /**
@@ -58,20 +59,28 @@ public class BayesInferenceHandler {
             if (listener != null)
                 listener.progressUpdated(++count, diseases.size(), disease);
 
-            ProbabilisticNetwork network = new ProbabilisticNetwork(disease);
-            ProbabilisticNode diseaseNode = new ProbabilisticNode();
-            initializeNode(diseaseNode, disease);
-            network.addNode(diseaseNode);
-
-            PotentialTable probDisease = diseaseNode.getProbabilityFunction();
-            probDisease.addVariable(diseaseNode);
+            ProbabilisticNetwork network = null;
+            try {
+                network = loadFile(disease);
+            } catch (IOException e) {
+            }
 
             Map<String, Float> symptomsWithProbabilities = DiseaseSymptomParser.getSymptomsWithProbabilities(DISEASE_SYMPTOM_FILEPATH, disease);
+            if(network == null) {
+                System.out.println("Creating node for: " + disease);
+                network = new ProbabilisticNetwork(disease);
+                ProbabilisticNode diseaseNode = new ProbabilisticNode();
+                initializeNode(diseaseNode, disease);
+                network.addNode(diseaseNode);
 
-            createSymptomNodes(network, diseaseNode, symptomsWithProbabilities.keySet());
+                PotentialTable probDisease = diseaseNode.getProbabilityFunction();
+                probDisease.addVariable(diseaseNode);
 
-            PotentialTableValueCalculator calculator = new PotentialTableValueCalculator();
-            probDisease.setValues(calculator.calculate(symptomsWithProbabilities));
+                createSymptomNodes(network, diseaseNode, symptomsWithProbabilities.keySet());
+
+                PotentialTableValueCalculator calculator = new PotentialTableValueCalculator();
+                probDisease.setValues(calculator.calculate(symptomsWithProbabilities));
+            }
 
             IInferenceAlgorithm algorithm = new JunctionTreeAlgorithm();
             algorithm.setNetwork(network);
@@ -85,8 +94,7 @@ public class BayesInferenceHandler {
                 e.printStackTrace();
             }
 
-            //print(network);
-
+            ProbabilisticNode diseaseNode = (ProbabilisticNode) network.getNode(disease);
             diseaseProbability.put(disease, diseaseNode.getMarginalAt(YES_INDEX));
             saveFile(network, disease);
         }

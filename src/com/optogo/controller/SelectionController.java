@@ -1,5 +1,6 @@
 package com.optogo.controller;
 
+import com.optogo.utils.StringFormatter;
 import com.optogo.view.control.AutoCompleteTextField;
 import com.optogo.view.control.XCell;
 import javafx.collections.ListChangeListener;
@@ -36,6 +37,8 @@ public class SelectionController implements ListChangeListener<String> {
     }
 
     public void select(String item) {
+        item = StringFormatter.capitalizeWord(item);
+
         ObservableList<String> items = this.items.getItems();
         if (!items.contains(item)) {
             txtAvailable.getEntries().remove(item);

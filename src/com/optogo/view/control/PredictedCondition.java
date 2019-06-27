@@ -2,6 +2,7 @@ package com.optogo.view.control;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import com.gluonhq.charm.glisten.control.ProgressBar;
 import javafx.scene.control.RadioButton;
@@ -20,12 +21,19 @@ public class PredictedCondition extends HBox {
     private RadioButton radioBtn;
 
     @FXML
+    private CheckBox checkBox;
+
+    @FXML
     private ProgressBar progressBar;
 
     private String name;
     private double value;
 
-    public PredictedCondition(String name, double value) {
+    private Mode mode;
+
+    public PredictedCondition(String name, double value, Mode mode) {
+        this.mode = mode;
+
         FXMLLoader fxmlLoader = new FXMLLoader(ClassLoader.getSystemResource(SOURCE));
         fxmlLoader.setController(this);
         fxmlLoader.setRoot(this);
@@ -45,9 +53,17 @@ public class PredictedCondition extends HBox {
     private void init() {
         progressBar.setProgress(value);
         radioBtn.setText(name);
-        lblProgress.setText(String.format("%.2f", value * 100)+ "%");
+        checkBox.setText(name);
+
+        lblProgress.setText(String.format("%.2f", value * 100) + "%");
 
         progressBar.setStyle("-fx-color: " + getColor());
+
+        if (mode == Mode.SINGLE) {
+            getChildren().remove(checkBox);
+        } else {
+            getChildren().remove(radioBtn);
+        }
     }
 
     private String getColor() {
@@ -69,7 +85,10 @@ public class PredictedCondition extends HBox {
     }
 
     public boolean isSelected() {
-        return radioBtn.isSelected();
+        if (mode == Mode.SINGLE)
+            return radioBtn.isSelected();
+        else
+            return checkBox.isSelected();
     }
 
     public void setSelected(boolean selected) {
@@ -80,5 +99,8 @@ public class PredictedCondition extends HBox {
         radioBtn.setToggleGroup(group);
     }
 
-
+    public static enum Mode {
+        SINGLE,
+        MULTIPLE
+    }
 }

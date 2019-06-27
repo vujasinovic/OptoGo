@@ -1,45 +1,39 @@
-package com.optogo.controller;
+package com.optogo.controller.prediction;
 
 import com.optogo.controller.task.BayasInterfaceHandlerTask;
-import com.optogo.graphics.Graph;
-import com.optogo.graphics.GraphNode;
 import com.optogo.service.SymptomRecommender;
-import com.optogo.utils.MapUtil;
 import com.optogo.utils.StringFormatter;
-import com.optogo.utils.parse.DiseaseSymptomParser;
 import com.optogo.view.control.PredictedCondition;
-import com.optogo.view.dialog.GraphDisplayDialog;
+import com.optogo.view.control.Predictions;
 import com.optogo.view.dialog.RecommendedSymptomSelectionDialog;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
-import javafx.fxml.FXML;
-import javafx.scene.Node;
-import javafx.scene.control.Control;
-import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.control.ToggleGroup;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import unbbayes.prs.exception.InvalidParentException;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.concurrent.ExecutionException;
-import java.util.stream.Collectors;
 
 public class PredictionListController {
-    public static final String DISEASE_SYMPTOM_FILEPATH = "resources/symptom_disease.txt";
-
     public ProgressBar progressBar;
     public Label lblProgress;
 
-    @FXML
-    private VBox vbox;
+    public TabPane tabPane;
 
     private List<String> providedSymptoms;
-    private Map<String, Float> predictions;
     private BayasInterfaceHandlerTask bayesTask;
+
+    private PredictionsCollection predictions;
+
+    private Predictions diseasesPreds;
+    private Predictions medPreds;
+    private Predictions procPreds;
 
     public void initialize() {
         progressBar.setVisible(false);
@@ -50,35 +44,32 @@ public class PredictionListController {
         this.providedSymptoms = new ArrayList<>(providedSymptoms);
     }
 
-    public void setPredictions(Map<String, Float> predictions) {
-        this.predictions = predictions;
+    public void setPredictions(PredictionsCollection predictionsCollection) {
+        this.tabPane.getTabs().clear();
 
-        vbox.getChildren().clear();
+        this.predictions = predictionsCollection;
 
-        ToggleGroup group = new ToggleGroup();
+        diseasesPreds = new Predictions();
+        diseasesPreds.add(predictionsCollection.getDiseasePredictions(), "Conditions", PredictedCondition.Mode.SINGLE);
+        medPreds = new Predictions();
+        medPreds.add(predictionsCollection.getMedicationPrediction(), "Medications", PredictedCondition.Mode.MULTIPLE);
+        procPreds = new Predictions();
+        procPreds.add(predictionsCollection.getProcedurePrediction(), "Procedures", PredictedCondition.Mode.MULTIPLE);
 
-        boolean select = true;
-        for (String key : predictions.keySet()) {
-            PredictedCondition predictedCondition = new PredictedCondition(key, predictions.get(key));
-            predictedCondition.setGroup(group);
-            vbox.getChildren().add(predictedCondition);
+        Tab disTab = new Tab("Conditions");
+        disTab.setContent(diseasesPreds);
 
-            if(select) {
-                select = false;
-                predictedCondition.setSelected(true);
-            }
-        }
+        Tab medTab = new Tab("Medications");
+        medTab.setContent(medPreds);
 
+        Tab procTab = new Tab("Procedures");
+        procTab.setContent(procPreds);
+
+        tabPane.getTabs().addAll(disTab, medTab, procTab);
     }
 
-    public String getSelected() {
-        for (Node child : vbox.getChildren()) {
-            PredictedCondition pc = (PredictedCondition) child;
-            if(pc.isSelected())
-                return pc.getName();
-        }
-
-        return null;
+    public Selection getSelected() {
+        return new Selection(diseasesPreds.getSelected(), medPreds.getAllSelected(), procPreds.getAllSelected());
     }
 
     public void select(ActionEvent actionEvent) {
@@ -92,7 +83,7 @@ public class PredictionListController {
     public void improveResults(ActionEvent actionEvent) {
         Set<String> recommendedSymptoms = new HashSet<>();
         try {
-            recommendedSymptoms = SymptomRecommender.recommend(providedSymptoms, predictions);
+            recommendedSymptoms = SymptomRecommender.recommend(providedSymptoms, predictions.getDiseasePredictions());
         } catch (IOException | InvalidParentException e) {
             e.printStackTrace();
         }
@@ -127,6 +118,7 @@ public class PredictionListController {
     }
 
     public void visualize(ActionEvent actionEvent) throws IOException {
+/*
         Graph.Builder builder = Graph.Builder.create();
 
         List<String> symptoms = providedSymptoms.stream().map(StringFormatter::uderscoredLowerCase)
@@ -151,6 +143,7 @@ public class PredictionListController {
         }
 
         GraphDisplayDialog.create(getStage(actionEvent), builder.build());
+*/
     }
 
 }

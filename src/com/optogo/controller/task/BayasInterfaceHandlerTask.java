@@ -1,7 +1,10 @@
 package com.optogo.controller.task;
 
+import com.optogo.controller.prediction.PredictionsCollection;
 import com.optogo.service.BayesInferenceHandler;
 import com.optogo.service.HandlerProgressListener;
+import com.optogo.service.MedicationBayesianNetwork;
+import com.optogo.service.ProcedureBayesianNetwork;
 import com.optogo.utils.MapUtil;
 import com.optogo.utils.StringFormatter;
 import javafx.concurrent.Task;
@@ -11,13 +14,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class BayasInterfaceHandlerTask extends Task<Map<String, Float>> {
+public class BayasInterfaceHandlerTask extends Task<PredictionsCollection> {
     private List<String> symptoms;
-    private BayesInferenceHandler bayesInferenceHandler;
+    private final BayesInferenceHandler bayesInferenceHandler;
+    private final MedicationBayesianNetwork medicationBayesianNetwork;
+    private final ProcedureBayesianNetwork procedureBayesianNetwork;
 
     public BayasInterfaceHandlerTask(List<String> symptoms) {
         this.symptoms = convert(symptoms);
         this.bayesInferenceHandler = new BayesInferenceHandler();
+        this.medicationBayesianNetwork = new MedicationBayesianNetwork();
+        this.procedureBayesianNetwork = new ProcedureBayesianNetwork();
     }
 
     private List<String> convert(List<String> symptoms) {
@@ -29,9 +36,22 @@ public class BayasInterfaceHandlerTask extends Task<Map<String, Float>> {
     }
 
     @Override
-    protected Map<String, Float> call() throws Exception {
-        Map<String, Float> predictions = bayesInferenceHandler.createNodes(symptoms);
+    protected PredictionsCollection call() throws Exception {
+        PredictionsCollection collection = new PredictionsCollection();
 
+        Map<String, Float> diseases = bayesInferenceHandler.createNodes(symptoms);
+        collection.setDiseasePredictions(format(diseases));
+
+        Map<String, Float> medications = medicationBayesianNetwork.createNodes(diseases);
+        collection.setMedicationPrediction(format(medications));
+
+        Map<String, Float> procedures = procedureBayesianNetwork.createNodes(diseases);
+        collection.setProcedurePrediction(format(procedures));
+
+        return collection;
+    }
+
+    private Map<String, Float> format(Map<String, Float> predictions) {
         Map<String, Float> predictionsFormatted = new LinkedHashMap<>();
         for (String key : predictions.keySet()) {
             Float value = predictions.get(key);
@@ -48,5 +68,7 @@ public class BayasInterfaceHandlerTask extends Task<Map<String, Float>> {
 
     public void setHandlerProgressListener(HandlerProgressListener listener) {
         bayesInferenceHandler.setListener(listener);
+        medicationBayesianNetwork.setListener(listener);
+        procedureBayesianNetwork.setListener(listener);
     }
 }

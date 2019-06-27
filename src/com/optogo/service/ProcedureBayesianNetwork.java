@@ -28,7 +28,7 @@ public class ProcedureBayesianNetwork {
 
     private HandlerProgressListener listener;
 
-    public Map<String, Float> createNodes(List<String> diseases) throws IOException, InvalidParentException {
+    public Map<String, Float> createNodes(Map<String, Float> diseases) throws IOException, InvalidParentException {
         Set<String> procedures = DiseaseProcedureParser.getProcedures(DISEASE_PROCEDURE_FILEPATH);
         Map<String, Float> procedureProbability = new HashMap<>();
 
@@ -46,25 +46,30 @@ public class ProcedureBayesianNetwork {
             probProcedure.addVariable(procedureNode);
 
             Map<String, Float> diseasesWithProbabilities = DiseaseProcedureParser.getDiseasesWithProbabilities(DISEASE_PROCEDURE_FILEPATH, procedure);
+            for (String d : diseasesWithProbabilities.keySet()) {
+                Float dProp = diseases.get(d);
+                if (dProp == null) {
+                    diseasesWithProbabilities.put(d, 0f);
+                } else {
+                    Float pProp = diseasesWithProbabilities.get(d);
+                    diseasesWithProbabilities.put(d, pProp * dProp);
+                }
+            }
 
             createDiseaseNodes(network, procedureNode, diseasesWithProbabilities.keySet());
 
             PotentialTableValueCalculator calculator = new PotentialTableValueCalculator();
             probProcedure.setValues(calculator.calculate(diseasesWithProbabilities));
-
             IInferenceAlgorithm algorithm = new JunctionTreeAlgorithm();
             algorithm.setNetwork(network);
             algorithm.run();
-
-            setFindings(network, diseases, diseasesWithProbabilities.keySet());
+            setFindings(network, diseases.keySet(), diseasesWithProbabilities.keySet());
 
             try {
                 network.updateEvidences();
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
-//            print(network);
 
             procedureProbability.put(procedure, procedureNode.getMarginalAt(YES_INDEX));
             saveFile(network, procedure);
@@ -90,7 +95,7 @@ public class ProcedureBayesianNetwork {
         }
     }
 
-    private void setFindings(ProbabilisticNetwork network, List<String> providedDiseases, Set<String> procedureDiseases) {
+    private void setFindings(ProbabilisticNetwork network, Collection<String> providedDiseases, Set<String> procedureDiseases) {
         for (String s : procedureDiseases) {
             ProbabilisticNode factNode = (ProbabilisticNode) network.getNode(s);
             if (providedDiseases.contains(s)) {
@@ -109,20 +114,6 @@ public class ProcedureBayesianNetwork {
 
     public void setListener(HandlerProgressListener listener) {
         this.listener = listener;
-    }
-
-
-    public static void main(String[] args) throws IOException, InvalidParentException {
-        List<String> diseases = new ArrayList<>();
-        diseases.add(DiseaseName.CORNEA_INFECTION.toString().toLowerCase());
-        diseases.add(DiseaseName.CYST_OF_THE_EYELID.toString().toLowerCase());
-        diseases.add(DiseaseName.BLEPHAROSPASM.toString().toLowerCase());
-
-        ProcedureBayesianNetwork procedureBayesianNetwork= new ProcedureBayesianNetwork();
-        Map<String, Float> procedureProbability = procedureBayesianNetwork.createNodes(diseases);
-        for (Map.Entry<String, Float> entry : procedureProbability.entrySet()) {
-            System.out.println(entry.getKey() + " | " + entry.getValue());
-        }
     }
 
 }
