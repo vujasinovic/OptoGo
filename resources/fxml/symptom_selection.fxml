@@ -3,8 +3,12 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane fx:id="borderPane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.optogo.controller.SymptomSelectionController">
+<?import javafx.geometry.Insets?>
+<BorderPane fx:id="borderPane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.optogo.controller.SelectionController">
+    <padding>
+        <Insets top="0" right="0" left="0" bottom="0"/>
+    </padding>
     <center>
-        <ListView fx:id="listSymptoms" />
+        <ListView fx:id="items" />
     </center>
 </BorderPane>

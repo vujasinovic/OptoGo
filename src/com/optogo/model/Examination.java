@@ -13,14 +13,14 @@ public class Examination implements CaseComponent {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    private Procedure procedure;
+    @ManyToMany
+    private Collection<Procedure> procedure;
 
     @ManyToOne
     private Disease disease;
 
-    @ManyToOne
-    private Medication medication;
+    @ManyToMany
+    private Collection<Medication> medication;
 
     @ManyToMany
     private Collection<Symptom> symptoms;
@@ -40,11 +40,11 @@ public class Examination implements CaseComponent {
         this.id = id;
     }
 
-    public Procedure getProcedure() {
+    public Collection<Procedure> getProcedure() {
         return procedure;
     }
 
-    public void setProcedure(Procedure procedure) {
+    public void setProcedure(Collection<Procedure> procedure) {
         this.procedure = procedure;
     }
 
@@ -72,11 +72,11 @@ public class Examination implements CaseComponent {
         this.patient = patient;
     }
 
-    public Medication getMedication() {
+    public Collection<Medication> getMedication() {
         return medication;
     }
 
-    public void setMedication(Medication medication) {
+    public void setMedication(Collection<Medication> medication) {
         this.medication = medication;
     }
 

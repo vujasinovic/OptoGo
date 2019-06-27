@@ -1,10 +1,10 @@
 package com.optogo.controller.task;
 
-import com.optogo.model.Examination;
-import com.optogo.model.Patient;
-import com.optogo.model.Symptom;
+import com.optogo.model.*;
 import com.optogo.repository.impl.PatientRepository;
 import com.optogo.utils.StringFormatter;
+import com.optogo.utils.enums.MedicationName;
+import com.optogo.utils.enums.ProcedureName;
 import com.optogo.utils.enums.SymptomName;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -21,6 +21,11 @@ import java.util.stream.Collectors;
 public class MedicalRecordController {
     public ListView<ExaminationItem> listExaminations;
 
+    @FXML
+    private ListView<String> listProcedures;
+    @FXML
+    private ListView<String> listMedications;
+
     private Patient patient;
 
     @FXML
@@ -29,10 +34,6 @@ public class MedicalRecordController {
     private ListView<String> listSymptoms;
     @FXML
     private Label lblCondition;
-    @FXML
-    private Label lblMedication;
-    @FXML
-    private Label lblProcedure;
 
     private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
@@ -54,18 +55,25 @@ public class MedicalRecordController {
     public void setExamination(Examination examination) {
         this.listSymptoms.getItems().clear();
 
-        this.lblDate.setText(examination.getDate().format(dateTimeFormatter));
         this.listSymptoms.getItems().addAll(examination.getSymptoms()
                 .stream()
-                .map(Symptom::getName)
-                .map(SymptomName::name)
-                .map(StringFormatter::capitalizeWord).collect(Collectors.toList()));
+                .map(Symptom::getName).map(SymptomName::name).map(StringFormatter::capitalizeWord)
+                .collect(Collectors.toList()));
+
+        this.listMedications.getItems().addAll(examination.getMedication()
+                .stream()
+                .map(Medication::getName).map(MedicationName::name).map(StringFormatter::capitalizeWord)
+                .collect(Collectors.toList()));
+
+        this.listProcedures.getItems().addAll(examination.getProcedure()
+                .stream()
+                .map(Procedure::getTitle).map(ProcedureName::name).map(StringFormatter::capitalizeWord)
+                .collect(Collectors.toList()));
+
+        this.lblDate.setText(examination.getDate().format(dateTimeFormatter));
+
         if (examination.getDisease() != null)
             this.lblCondition.setText(StringFormatter.capitalizeWord(examination.getDisease().getName().name()));
-        if (examination.getMedication() != null)
-            this.lblMedication.setText(StringFormatter.capitalizeWord(examination.getMedication().getName().name()));
-        if (examination.getProcedure() != null)
-            this.lblProcedure.setText(StringFormatter.capitalizeWord(examination.getProcedure().getTitle().name()));
     }
 
     public void select(MouseEvent mouseEvent) {

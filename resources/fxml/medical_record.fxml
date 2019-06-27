@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 
 
-<BorderPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.optogo.controller.task.MedicalRecordController">
+<BorderPane prefHeight="498.0" prefWidth="523.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.optogo.controller.task.MedicalRecordController">
    <center>
       <SplitPane dividerPositions="0.35" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="301.0" prefWidth="260.0">
         <items>
@@ -29,11 +29,11 @@
                 <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
               <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints vgrow="ALWAYS" />
+                  <RowConstraints vgrow="ALWAYS" />
+                <RowConstraints vgrow="ALWAYS" />
                   <RowConstraints vgrow="NEVER" />
                 <RowConstraints vgrow="NEVER" />
-                <RowConstraints vgrow="NEVER" />
-                  <RowConstraints vgrow="NEVER" />
               </rowConstraints>
                <children>
                   <AnchorPane>
@@ -46,14 +46,30 @@
                         <ListView fx:id="listSymptoms" />
                      </content>
                   </ScrollPane>
-                  <Label text="Condition:" GridPane.rowIndex="2" />
-                  <Label text="Medication:" GridPane.rowIndex="3" />
-                  <Label text="Procedure" GridPane.rowIndex="4" />
-                  <Label fx:id="lblCondition" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <Label fx:id="lblMedication" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <Label fx:id="lblProcedure" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <Label text="Label" GridPane.rowIndex="1" />
-                  <Label fx:id="lblDate" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label text="Condition:" GridPane.rowIndex="4" />
+                  <AnchorPane GridPane.rowIndex="2">
+                     <children>
+                        <Label text="Medications:" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane GridPane.rowIndex="1">
+                     <children>
+                        <Label text="Procedures:" />
+                     </children>
+                  </AnchorPane>
+                  <Label fx:id="lblCondition" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <Label text="Date:" GridPane.rowIndex="3" />
+                  <Label fx:id="lblDate" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <content>
+                        <ListView fx:id="listProcedures" prefHeight="200.0" prefWidth="200.0" />
+                     </content>
+                  </ScrollPane>
+                  <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <content>
+                        <ListView fx:id="listMedications" prefHeight="200.0" prefWidth="200.0" />
+                     </content>
+                  </ScrollPane>
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

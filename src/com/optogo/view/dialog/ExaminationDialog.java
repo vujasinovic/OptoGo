@@ -22,8 +22,8 @@ public class ExaminationDialog extends Stage {
         controller = loader.getController();
         controller.setPatient(patient);
 
-        setHeight(450);
-        setWidth(700);
+        setHeight(500);
+        setWidth(850);
 
         setTitle(String.format(TITLE, patient.getFirstName(), patient.getLastName()));
         setScene(scene);

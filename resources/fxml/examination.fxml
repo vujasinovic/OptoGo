@@ -6,7 +6,7 @@
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
-<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -14,11 +14,11 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="309.0" prefWidth="704.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.optogo.controller.ExaminationController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="487.0" prefWidth="784.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.optogo.controller.ExaminationController">
    <top>
    </top>
    <left>
-      <Accordion fx:id="leftAccordion" prefWidth="300.0" BorderPane.alignment="CENTER">
+      <Accordion fx:id="leftAccordion" prefHeight="427.0" prefWidth="280.0" BorderPane.alignment="CENTER">
         <panes>
           <TitledPane fx:id="symptomsPanel" text="Symptoms">
               <fx:include fx:id="symptomSelection" source="symptom_selection.fxml" />
@@ -47,8 +47,6 @@
                                 </columnConstraints>
                                 <rowConstraints>
                                   <RowConstraints vgrow="NEVER" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
-                                    <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
                                     <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" vgrow="ALWAYS" />
                                     <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
                                     <RowConstraints maxHeight="-Infinity" vgrow="NEVER" />
@@ -56,8 +54,6 @@
                                  <children>
                                     <Label text="Condition:" />
                                     <Button mnemonicParsing="false" onAction="#select" text="Search" GridPane.columnIndex="2" />
-                                    <Label text="Note:" GridPane.rowIndex="1" />
-                                    <TextArea prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="1" GridPane.rowSpan="2" />
                                     <Label GridPane.columnIndex="1" />
                                     <Button mnemonicParsing="false" onAction="#predict" text="Predict" GridPane.columnIndex="3" />
                                     <AnchorPane style="-fx-border-color: black;" GridPane.columnIndex="1">
@@ -65,8 +61,44 @@
                                           <Label fx:id="txtCondition" layoutX="38.0" layoutY="72.0" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="2.0" />
                                        </children>
                                     </AnchorPane>
-                                    <ProgressBar fx:id="pb" maxWidth="1.7976931348623157E308" prefHeight="20.0" progress="0.0" GridPane.columnSpan="2147483647" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" />
-                                    <Label fx:id="lblProgress" GridPane.columnSpan="2147483647" GridPane.rowIndex="5" />
+                                    <ProgressBar fx:id="pb" maxWidth="1.7976931348623157E308" prefHeight="20.0" progress="0.0" GridPane.columnSpan="2147483647" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" />
+                                    <Label fx:id="lblProgress" GridPane.columnSpan="2147483647" GridPane.rowIndex="3" />
+                                    <SplitPane dividerPositions="0.5" prefHeight="160.0" prefWidth="200.0" style="-fx-border-width: 0px; -fx-box-border: transparent;" GridPane.columnSpan="2147483647" GridPane.rowIndex="1">
+                                      <items>
+                                        <BorderPane minHeight="0.0" minWidth="0.0">
+                                             <center>
+                                                 <Accordion fx:id="procedureAccordion" prefHeight="427.0" prefWidth="239.0" style="-fx-border-width: 0px;" BorderPane.alignment="CENTER">
+                                                     <padding>
+                                                         <Insets bottom="0" left="0" right="0" top="0" />
+                                                     </padding>
+                                                     <panes>
+                                                         <TitledPane fx:id="proceduresPanel" text="Procedures">
+                                                             <fx:include fx:id="procedureSelection" source="symptom_selection.fxml" />
+                                                         </TitledPane>
+                                                     </panes>
+                                                     <BorderPane.margin>
+                                                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                     </BorderPane.margin>
+                                                 </Accordion>
+                                             </center>
+                                          </BorderPane>
+                                        <BorderPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                             <center>
+                                                 <Accordion fx:id="medicationAccordion" prefHeight="427.0" prefWidth="239.0" style="-fx-border-width: 0px;" BorderPane.alignment="CENTER">
+                                                     <panes>
+                                                         <TitledPane fx:id="medicationsPanel" text="Medications">
+                                                             <fx:include fx:id="medicationSelection" source="symptom_selection.fxml" />
+                                                         </TitledPane>
+                                                     </panes>
+                                                     <BorderPane.margin>
+                                                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                     </BorderPane.margin>
+                                                 </Accordion>
+
+                                             </center>
+                                          </BorderPane>
+                                      </items>
+                                    </SplitPane>
                                  </children>
                               </GridPane>
                            </children></AnchorPane>
@@ -87,10 +119,10 @@
       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
    </padding>
    <bottom>
-      <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <ButtonBar prefHeight="40.0" prefWidth="774.0" BorderPane.alignment="CENTER">
         <buttons>
-          <Button mnemonicParsing="false" text="Save" onAction="#save" />
-            <Button mnemonicParsing="false" text="Cancel" onAction="#close" />
+          <Button mnemonicParsing="false" onAction="#save" text="Save" />
+            <Button mnemonicParsing="false" onAction="#close" text="Cancel" />
         </buttons>
       </ButtonBar>
    </bottom>

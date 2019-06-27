@@ -3,11 +3,7 @@ package com.optogo.controller;
 import com.optogo.controller.task.BayasInterfaceHandlerTask;
 import com.optogo.model.Examination;
 import com.optogo.model.Patient;
-import com.optogo.repository.impl.DiseaseRepository;
-import com.optogo.repository.impl.ExaminationRepository;
-import com.optogo.repository.impl.PatientRepository;
-import com.optogo.repository.impl.SymptomRepository;
-import com.optogo.service.CBRDiseaseRecommender;
+import com.optogo.repository.impl.*;
 import com.optogo.utils.StringFormatter;
 import com.optogo.utils.enums.DiseaseName;
 import com.optogo.view.dialog.ConditionSearchDialog;
@@ -20,20 +16,31 @@ import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import ucm.gaia.jcolibri.cbraplications.StandardCBRApplication;
-import ucm.gaia.jcolibri.cbrcore.CBRQuery;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
 public class ExaminationController {
 
-    public ProgressBar pb;
-    public Label lblProgress;
+    @FXML
+    private Accordion medicationAccordion;
+    @FXML
+    private Accordion procedureAccordion;
+    @FXML
+    private ProgressBar pb;
+    @FXML
+    private Label lblProgress;
+    @FXML
+    private TitledPane proceduresPanel;
+    @FXML
+    private TitledPane medicationsPanel;
+    @FXML
+    private BorderPane medicationSelection;
+    @FXML
+    private BorderPane procedureSelection;
+
     @FXML
     private BorderPane symptomSelection;
 
@@ -51,12 +58,18 @@ public class ExaminationController {
     private GridPane diagnosisGrid;
 
     @FXML
-    private SymptomSelectionController symptomSelectionController;
+    private SelectionController symptomSelectionController;
+    @FXML
+    private SelectionController procedureSelectionController;
+    @FXML
+    private SelectionController medicationSelectionController;
 
     private final ExaminationRepository examinationRepository;
     private final DiseaseRepository diseaseRepository;
     private final SymptomRepository symptomRepository;
     private final PatientRepository patientRepository;
+    private final ProcedureRepository procedureRepository;
+    private final MedicationRepository medicationRepository;
 
     private BayasInterfaceHandlerTask bayesTask;
 
@@ -67,6 +80,8 @@ public class ExaminationController {
         diseaseRepository = new DiseaseRepository();
         symptomRepository = new SymptomRepository();
         patientRepository = new PatientRepository();
+        procedureRepository = new ProcedureRepository();
+        medicationRepository = new MedicationRepository();
     }
 
     public void initialize() {
@@ -75,6 +90,19 @@ public class ExaminationController {
 
         diagnosisAccordion.setExpandedPane(diagnosisPane);
         diagnosisPane.setCollapsible(false);
+
+        medicationAccordion.setExpandedPane(medicationsPanel);
+        medicationsPanel.setCollapsible(false);
+
+        procedureAccordion.setExpandedPane(proceduresPanel);
+        proceduresPanel.setCollapsible(false);
+
+        symptomSelectionController.addItems(symptomRepository.findAll().stream()
+                .map(s -> StringFormatter.capitalizeWord(s.getName().name())).collect(Collectors.toList()));
+        procedureSelectionController.addItems(procedureRepository.findAll().stream()
+                .map(s -> StringFormatter.capitalizeWord(s.getTitle().name())).collect(Collectors.toList()));
+        medicationSelectionController.addItems(medicationRepository.findAll().stream()
+                .map(s -> StringFormatter.capitalizeWord(s.getName().name())).collect(Collectors.toList()));
     }
 
     public void select(ActionEvent actionEvent) {
@@ -146,9 +174,9 @@ public class ExaminationController {
         Examination examination = new Examination();
 
         String disease = txtCondition.getText();
-        if(disease != null && !disease.trim().isEmpty())
-        examination.setDisease(diseaseRepository.findByName(
-                DiseaseName.valueOf(StringFormatter.uderscoredLowerCase(disease).toUpperCase())));
+        if (disease != null && !disease.trim().isEmpty())
+            examination.setDisease(diseaseRepository.findByName(
+                    DiseaseName.valueOf(StringFormatter.uderscoredLowerCase(disease).toUpperCase())));
 
         examination.setSymptoms(symptomRepository.findAllByName(
                 symptomSelectionController.getSelected().stream().map(StringFormatter::uderscoredLowerCase)
