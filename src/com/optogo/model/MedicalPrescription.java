@@ -50,9 +50,4 @@ public class MedicalPrescription implements CaseComponent {
         return null;
     }
 
-    @Override
-    public String toString() {
-        return "[ " + this.patient.getFirstName() + " " + this.patient.getLastName() + " " + this.patient.getDateOfBirth().toString()
-        + " " + this.disease.getName() + " " + this.procedure.getTitle() + " " + this.medication.getName() + " ]";
-    }
 }

@@ -13,8 +13,8 @@ public class DiseaseSimilarityCalculator {
         Map<String, Float> symptomsWithProbabilities1 = DiseaseSymptomParser.getSymptomsWithProbabilities(DISEASE_SYMPTOM_FILEPATH, disease1.toString());
         Map<String, Float> symptomsWithProbabilities2 = DiseaseSymptomParser.getSymptomsWithProbabilities(DISEASE_SYMPTOM_FILEPATH, disease2.toString());
 
-        System.out.println(symptomsWithProbabilities1.size());
-        System.out.println(symptomsWithProbabilities2.size());
+//        System.out.println(symptomsWithProbabilities1.size());
+//        System.out.println(symptomsWithProbabilities2.size());
 
         double symptomSimilarities = 0;
         for (Map.Entry<String, Float> symptom1 : symptomsWithProbabilities1.entrySet()) {

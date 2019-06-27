@@ -1,8 +1,6 @@
 package com.optogo.service;
 
-import com.optogo.model.Disease;
-import com.optogo.model.MedicalPrescription;
-import com.optogo.model.Patient;
+import com.optogo.model.*;
 import com.optogo.utils.TableSimilarity;
 import com.optogo.utils.enums.DiseaseName;
 import com.optogo.utils.enums.GenderType;
@@ -19,25 +17,27 @@ import ucm.gaia.jcolibri.method.retrieve.RetrievalResult;
 import ucm.gaia.jcolibri.method.retrieve.selection.SelectCases;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 public class CBRMedicalRecommender implements StandardCBRApplication {
 
-    Connector _connector;
     /**
      * Connector object
      */
     CBRCaseBase _caseBase;
+
     /**
      * CaseBase object
      */
-
     NNConfig simConfig;
 
     /**
      * KNN configuration
      */
+    Connector _connector;
 
     public void configure() {
         _connector = new CsvConnector();
@@ -102,6 +102,12 @@ public class CBRMedicalRecommender implements StandardCBRApplication {
             System.out.println(nse.get_case().getDescription() + " -> " + nse.getEval());
     }
 
+    public Collection<RetrievalResult> getResults(CBRQuery query) {
+        Collection<RetrievalResult> res = NNScoringMethod.evaluateSimilarity(_caseBase.getCases(), query, simConfig);
+        res = SelectCases.selectTopKRR(res, 5);
+        return res;
+    }
+
     public void postCycle() throws ExecutionException {
 
     }
@@ -115,15 +121,10 @@ public class CBRMedicalRecommender implements StandardCBRApplication {
     }
 
     public static void main(String[] args) {
-        StandardCBRApplication medicalRecommender = new CBRMedicalRecommender();
+        CBRMedicalRecommender medicalRecommender = new CBRMedicalRecommender();
+        CBRMedicalRecommenderHandler medicalRecommenderHandler = new CBRMedicalRecommenderHandler();
+
         try {
-            medicalRecommender.configure();
-
-            medicalRecommender.preCycle();
-
-            CBRQuery query = new CBRQuery();
-
-            MedicalPrescription medicalPrescription = new MedicalPrescription();
             Patient patient = new Patient();
             Disease disease = new Disease();
 
@@ -135,11 +136,14 @@ public class CBRMedicalRecommender implements StandardCBRApplication {
 
             disease.setName(DiseaseName.CATARACT);
 
-            medicalPrescription.setPatient(patient);
-            medicalPrescription.setDisease(disease);
+            List<MedicalPrescription> medicalPrescriptions  = medicalRecommenderHandler.predict(patient, disease);
+            List<Medication> medications = new ArrayList<>();
+            List<Procedure> procedures = new ArrayList<>();
 
-            query.setDescription(medicalPrescription);
-            medicalRecommender.cycle(query);
+            for (MedicalPrescription medicalPrescription: medicalPrescriptions) {
+                medications.add(medicalPrescription.getMedication());
+                procedures.add(medicalPrescription.getProcedure());
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
