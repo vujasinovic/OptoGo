@@ -29,7 +29,8 @@ public class PatientListController implements ListChangeListener<Patient> {
 
     public PatientListController() {
         repository = new PatientRepository();
-        patients = FXCollections.observableArrayList(repository.findAll());
+        patients = FXCollections.observableArrayList();
+        patients.addAll(repository.findAll());
         patients.addListener(this);
     }
 

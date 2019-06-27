@@ -1,6 +1,6 @@
 package com.optogo.view.dialog;
 
-import com.optogo.controller.ExaminationController;
+import com.optogo.controller.task.MedicalRecordController;
 import com.optogo.model.Patient;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -9,21 +9,21 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class ExaminationDialog extends Stage {
-    private static final String SCENE_FXML = "fxml/examination.fxml";
-    private static final String TITLE = "Medical Examination - %s %s";
+public class MedicalRecordDialog extends Stage {
+    private static final String SCENE_FXML = "fxml/medical_record.fxml";
+    private static final String TITLE = "Medical Record - %s %s";
 
-    private ExaminationController controller;
+    private MedicalRecordController controller;
 
-    private ExaminationDialog(Stage parent, Patient patient) throws IOException {
+    public MedicalRecordDialog(Stage parent, Patient patient) throws IOException {
         FXMLLoader loader = new FXMLLoader(ClassLoader.getSystemResource(SCENE_FXML));
         Scene scene = new Scene(loader.load());
 
         controller = loader.getController();
         controller.setPatient(patient);
 
-        setHeight(450);
-        setWidth(700);
+        setHeight(400);
+        setWidth(600);
 
         setTitle(String.format(TITLE, patient.getFirstName(), patient.getLastName()));
         setScene(scene);
@@ -31,10 +31,10 @@ public class ExaminationDialog extends Stage {
         initModality(Modality.APPLICATION_MODAL);
     }
 
-    public static ExaminationDialog create(Stage parent, Patient patient) {
-        ExaminationDialog dialog = null;
+    public static MedicalRecordDialog create(Stage parent, Patient patient) {
+        MedicalRecordDialog dialog = null;
         try {
-            dialog = new ExaminationDialog(parent,  patient);
+            dialog = new MedicalRecordDialog(parent, patient);
         } catch (IOException e) {
             e.printStackTrace();
             return null;
@@ -42,6 +42,5 @@ public class ExaminationDialog extends Stage {
         dialog.showAndWait();
         return dialog;
     }
-
 
 }

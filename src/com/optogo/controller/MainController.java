@@ -2,6 +2,7 @@ package com.optogo.controller;
 
 import com.optogo.model.Patient;
 import com.optogo.view.dialog.ExaminationDialog;
+import com.optogo.view.dialog.MedicalRecordDialog;
 import com.optogo.view.dialog.PatientEditorDialog;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -69,4 +70,10 @@ public class MainController {
         return (Stage) ((Control) event.getSource()).getScene().getWindow();
     }
 
+    public void viewMedicalRecord(ActionEvent actionEvent) {
+        Patient selected = patientListController.getSelected();
+        if (selected != null) {
+            MedicalRecordDialog dialog = MedicalRecordDialog.create(getStage(actionEvent), selected);
+        }
+    }
 }

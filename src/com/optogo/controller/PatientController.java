@@ -35,7 +35,7 @@ public class PatientController {
 
     private Patient patient;
 
-    private boolean canceled = false;
+    private boolean canceled = true;
 
     ObservableList<GenderType> genders =
             FXCollections.observableArrayList(GenderType.FEMALE, GenderType.MALE, GenderType.OTHER);
@@ -65,8 +65,6 @@ public class PatientController {
     }
 
     public void cancel(ActionEvent actionEvent) {
-        canceled = true;
-
         Stage stage = (Stage) ((Control) actionEvent.getSource()).getScene().getWindow();
         stage.close();
     }

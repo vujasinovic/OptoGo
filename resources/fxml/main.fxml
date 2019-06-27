@@ -40,7 +40,8 @@
     <right>
         <ToolBar orientation="VERTICAL" BorderPane.alignment="CENTER">
             <items>
-                <Button mnemonicParsing="false" onAction="#start" text="Start" />
+                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#start" text="Start Examination" />
+            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#viewMedicalRecord" text="View Medical Record" />
             </items>
         </ToolBar>
     </right>

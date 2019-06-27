@@ -20,6 +20,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
+import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
@@ -125,6 +126,7 @@ public class ExaminationController {
                         .collect(Collectors.toList())));
 
         examination.setPatient(patient);
+        examination.setDate(LocalDateTime.now());
 
         examinationRepository.save(examination);
 

@@ -1,7 +1,7 @@
 package com.optogo.model;
 
 import javax.persistence.*;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.Collection;
 
 @Entity
@@ -16,13 +16,16 @@ public class Examination {
     @ManyToOne
     private Disease disease;
 
+    @ManyToOne
+    private Medication medication;
+
     @ManyToMany
     private Collection<Symptom> symptoms;
 
     @ManyToOne
     private Patient patient;
 
-    private LocalTime date;
+    private LocalDateTime date;
 
     public Long getId() {
         return id;
@@ -64,11 +67,19 @@ public class Examination {
         this.patient = patient;
     }
 
-    public LocalTime getDate() {
+    public Medication getMedication() {
+        return medication;
+    }
+
+    public void setMedication(Medication medication) {
+        this.medication = medication;
+    }
+
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(LocalTime date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 
