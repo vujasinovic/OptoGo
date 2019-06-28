@@ -1,19 +1,13 @@
 package com.optogo.utils;
 
-import com.optogo.model.Disease;
 import com.optogo.model.Examination;
-import com.optogo.model.Patient;
 import com.optogo.model.Symptom;
 import com.optogo.repository.impl.DiseaseRepository;
 import com.optogo.repository.impl.ExaminationRepository;
 import com.optogo.repository.impl.PatientRepository;
 import com.optogo.repository.impl.SymptomRepository;
-import com.optogo.utils.enums.DiseaseName;
-import com.optogo.utils.enums.GenderType;
-import com.optogo.utils.enums.Race;
 import com.optogo.utils.enums.SymptomName;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;

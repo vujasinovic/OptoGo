@@ -39,7 +39,7 @@ public class SymptomRecommender {
             if(predictions.get(d) >= avg)
                 allSymptoms.addAll(DiseaseSymptomParser.getSymptoms(DISEASE_SYMPTOM_FILE, d));
 
-        allSymptoms.removeAll(providedSymptoms.stream().map(StringFormatter::uderscoredLowerCase).collect(Collectors.toList()));
+        allSymptoms.removeAll(providedSymptoms.stream().map(StringFormatter::underscoredLowerCase).collect(Collectors.toList()));
 
         return allSymptoms;
     }

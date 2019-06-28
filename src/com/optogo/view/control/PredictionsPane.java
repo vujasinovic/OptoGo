@@ -3,21 +3,20 @@ package com.optogo.view.control;
 import com.optogo.utils.StringFormatter;
 import javafx.geometry.Insets;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class Predictions extends TabPane {
+public class PredictionsPane extends BorderPane {
     private List<PredictedCondition> predictedConditions;
 
     private ToggleGroup group;
 
-    public Predictions() {
+    public PredictionsPane() {
         this.predictedConditions = new ArrayList<>();
         group = new ToggleGroup();
     }
@@ -37,14 +36,12 @@ public class Predictions extends TabPane {
             vbox.getChildren().add(predictedCondition);
         }
 
-        Tab tab = new Tab(name);
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setFitToHeight(true);
         scrollPane.setFitToWidth(true);
         scrollPane.setContent(vbox);
         scrollPane.setPadding(new Insets(5));
-        tab.setContent(scrollPane);
-        getTabs().add(tab);
+        setCenter(scrollPane);
     }
 
     public List<String> getAllSelected() {
@@ -52,7 +49,7 @@ public class Predictions extends TabPane {
 
         for (PredictedCondition condition : predictedConditions) {
             if(condition.isSelected())
-                selection.add(StringFormatter.uderscoredLowerCase(condition.getName()));
+                selection.add(StringFormatter.underscoredLowerCase(condition.getName()));
         }
 
         return selection;
@@ -61,7 +58,7 @@ public class Predictions extends TabPane {
     public String getSelected() {
         for (PredictedCondition condition : predictedConditions) {
             if(condition.isSelected())
-                return StringFormatter.uderscoredLowerCase(condition.getName());
+                return StringFormatter.underscoredLowerCase(condition.getName());
         }
 
         return null;

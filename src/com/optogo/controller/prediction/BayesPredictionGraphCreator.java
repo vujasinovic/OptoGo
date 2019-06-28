@@ -20,11 +20,11 @@ public class BayesPredictionGraphCreator {
     public static Graph createForDieseases(List<String> providedSymptoms, PredictionsCollection predictions) throws IOException {
         Graph.Builder builder = Graph.Builder.create();
 
-        List<String> symptoms = providedSymptoms.stream().map(StringFormatter::uderscoredLowerCase)
+        List<String> symptoms = providedSymptoms.stream().map(StringFormatter::underscoredLowerCase)
                 .collect(Collectors.toList());
 
         for (String diseaseCapitalized : predictions.getDiseasePredictions().keySet()) {
-            String disease = StringFormatter.uderscoredLowerCase(diseaseCapitalized);
+            String disease = StringFormatter.underscoredLowerCase(diseaseCapitalized);
 
             builder.addNode(GraphNode.Builder.create(disease)
                     .setText(diseaseCapitalized).setWeight(predictions.getDiseasePredictions().get(diseaseCapitalized)));
@@ -47,7 +47,7 @@ public class BayesPredictionGraphCreator {
     public static Graph createForMedications(PredictionsCollection predictions) throws IOException {
         Graph.Builder builder = Graph.Builder.create();
 
-        List<String> diseases = predictions.getDiseasePredictions().keySet().stream().map(StringFormatter::uderscoredLowerCase)
+        List<String> diseases = predictions.getDiseasePredictions().keySet().stream().map(StringFormatter::underscoredLowerCase)
                 .collect(Collectors.toList());
 
         for (String disease : diseases) {
@@ -56,7 +56,7 @@ public class BayesPredictionGraphCreator {
         }
 
         for (String medCapitalized : predictions.getMedicationPrediction().keySet()) {
-            String medication = StringFormatter.uderscoredLowerCase(medCapitalized);
+            String medication = StringFormatter.underscoredLowerCase(medCapitalized);
 
             builder.addNode(GraphNode.Builder.create(medication)
                     .setText(medCapitalized).setWeight(predictions.getMedicationPrediction().get(medCapitalized)));
@@ -79,7 +79,7 @@ public class BayesPredictionGraphCreator {
     public static Graph createForProcedures(PredictionsCollection predictions) throws IOException {
         Graph.Builder builder = Graph.Builder.create();
 
-        List<String> diseases = predictions.getDiseasePredictions().keySet().stream().map(StringFormatter::uderscoredLowerCase)
+        List<String> diseases = predictions.getDiseasePredictions().keySet().stream().map(StringFormatter::underscoredLowerCase)
                 .collect(Collectors.toList());
 
         for (String disease : diseases) {
@@ -88,7 +88,7 @@ public class BayesPredictionGraphCreator {
         }
 
         for (String medCapitalized : predictions.getProcedurePrediction().keySet()) {
-            String medication = StringFormatter.uderscoredLowerCase(medCapitalized);
+            String medication = StringFormatter.underscoredLowerCase(medCapitalized);
 
             builder.addNode(GraphNode.Builder.create(medication)
                     .setText(medCapitalized).setWeight(predictions.getProcedurePrediction().get(medCapitalized)));

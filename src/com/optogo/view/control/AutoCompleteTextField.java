@@ -7,6 +7,7 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Consumer;
@@ -18,6 +19,8 @@ public class AutoCompleteTextField extends TextField {
     private ContextMenu entriesPopup;
 
     private Consumer<String> onClick;
+
+    private Collection<String> promoted;
 
     public AutoCompleteTextField() {
         super();
@@ -35,6 +38,8 @@ public class AutoCompleteTextField extends TextField {
         searchResult.addAll(entries.stream()
                 .filter(s -> s.toLowerCase().contains(getText().toLowerCase())).collect(Collectors.toList()));
 
+        applyPromote(searchResult, this.promoted);
+
         if (entries.size() > 0) {
             populatePopup(searchResult);
             if (!entriesPopup.isShowing()) {
@@ -51,7 +56,7 @@ public class AutoCompleteTextField extends TextField {
 
     private void populatePopup(List<String> searchResult) {
         List<MenuItem> menuItems = new LinkedList<>();
-        int maxEntries = 10;
+        int maxEntries = 15;
         int count = Math.min(searchResult.size(), maxEntries);
         for (int i = 0; i < count; i++) {
             final String result = searchResult.get(i);
@@ -72,8 +77,24 @@ public class AutoCompleteTextField extends TextField {
         entriesPopup.setMinWidth(getWidth());
     }
 
+    private void applyPromote(List<String> list, Collection<String> promoted) {
+        if(promoted == null)
+            return;
+
+        for (String p : promoted) {
+            if(list.contains(p)) {
+                list.remove(p);
+                list.add(0, p);
+            }
+        }
+
+    }
+
     public void setOnClick(Consumer<String> onClick) {
         this.onClick = onClick;
     }
 
+    public void setPromoted(Collection<String> promoted) {
+        this.promoted = promoted;
+    }
 }

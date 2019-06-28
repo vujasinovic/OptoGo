@@ -5,7 +5,7 @@ import com.optogo.graphics.Graph;
 import com.optogo.service.bayes.SymptomRecommender;
 import com.optogo.utils.StringFormatter;
 import com.optogo.view.control.PredictedCondition;
-import com.optogo.view.control.Predictions;
+import com.optogo.view.control.PredictionsPane;
 import com.optogo.view.dialog.GraphDisplayDialog;
 import com.optogo.view.dialog.RecommendedSymptomSelectionDialog;
 import javafx.application.Platform;
@@ -30,9 +30,9 @@ public class PredictionListController {
 
     private PredictionsCollection predictions;
 
-    private Predictions diseasesPreds;
-    private Predictions medPreds;
-    private Predictions procPreds;
+    private PredictionsPane diseasesPreds;
+    private PredictionsPane medPreds;
+    private PredictionsPane procPreds;
 
     private Tab disTab, medTab, procTab;
 
@@ -50,11 +50,11 @@ public class PredictionListController {
 
         this.predictions = predictionsCollection;
 
-        diseasesPreds = new Predictions();
+        diseasesPreds = new PredictionsPane();
         diseasesPreds.add(predictionsCollection.getDiseasePredictions(), "Conditions", PredictedCondition.Mode.SINGLE);
-        medPreds = new Predictions();
+        medPreds = new PredictionsPane();
         medPreds.add(predictionsCollection.getMedicationPrediction(), "Medications", PredictedCondition.Mode.MULTIPLE);
-        procPreds = new Predictions();
+        procPreds = new PredictionsPane();
         procPreds.add(predictionsCollection.getProcedurePrediction(), "Procedures", PredictedCondition.Mode.MULTIPLE);
 
         disTab = new Tab("Conditions");

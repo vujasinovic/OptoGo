@@ -52,6 +52,7 @@ public class GraphDisplayController {
         getStage(actionEvent).close();
     }
 
+
     private Stage getStage(Event event) {
         return (Stage) ((Control) event.getSource()).getScene().getWindow();
     }

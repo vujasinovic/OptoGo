@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 
 
-<BorderPane prefHeight="498.0" prefWidth="523.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.optogo.controller.task.MedicalRecordController">
+<BorderPane fx:id="rootPane" prefHeight="498.0" prefWidth="523.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.optogo.controller.MedicalRecordController">
    <center>
       <SplitPane dividerPositions="0.35" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="301.0" prefWidth="260.0">
         <items>
@@ -23,7 +23,7 @@
                   <ListView fx:id="listExaminations" onMouseClicked="#select" prefHeight="200.0" prefWidth="200.0" />
                </content>
             </ScrollPane>
-            <GridPane hgap="5.0" vgap="5.0">
+            <GridPane fx:id="contentPane" hgap="5.0" vgap="5.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="NEVER" />
                 <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />

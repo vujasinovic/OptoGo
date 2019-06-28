@@ -1,6 +1,6 @@
 package com.optogo.view.dialog;
 
-import com.optogo.controller.task.MedicalRecordController;
+import com.optogo.controller.MedicalRecordController;
 import com.optogo.model.Patient;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

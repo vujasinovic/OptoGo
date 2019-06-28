@@ -28,7 +28,7 @@ public class BayasInterfaceHandlerTask extends Task<PredictionsCollection> {
     }
 
     private List<String> convert(List<String> symptoms) {
-        return symptoms.stream().map(StringFormatter::uderscoredLowerCase).collect(Collectors.toList());
+        return symptoms.stream().map(StringFormatter::underscoredLowerCase).collect(Collectors.toList());
     }
 
     public List<String> getSymptoms() {

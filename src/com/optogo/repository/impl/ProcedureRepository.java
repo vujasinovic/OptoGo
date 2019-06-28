@@ -2,9 +2,11 @@ package com.optogo.repository.impl;
 
 import com.optogo.model.Procedure;
 import com.optogo.repository.Repository;
+import com.optogo.utils.enums.ProcedureName;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProcedureRepository implements Repository<Long, Procedure> {
@@ -14,6 +16,20 @@ public class ProcedureRepository implements Repository<Long, Procedure> {
 
     public ProcedureRepository() {
         em = Persistence.createEntityManagerFactory(DEFAULT_UNIT).createEntityManager();
+    }
+
+    public List<Procedure> findAllByName(List<String> names) {
+        List<Procedure> procedures = new ArrayList<>();
+
+        for (String name : names) {
+            procedures.add(findByName(ProcedureName.valueOf(name.toUpperCase())));
+        }
+
+        return procedures;
+    }
+
+    public Procedure findByName(ProcedureName name) {
+        return (Procedure) em.createQuery("SELECT s FROM Procedure s WHERE s.title = :title").setParameter("title", name).getSingleResult();
     }
 
     @Override

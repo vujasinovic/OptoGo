@@ -1,10 +1,12 @@
 package com.optogo.controller;
 
+import com.optogo.controller.prediction.PredictionsCollection;
 import com.optogo.controller.prediction.Selection;
 import com.optogo.controller.task.BayasInterfaceHandlerTask;
+import com.optogo.controller.task.CBRPredictionTask;
+import com.optogo.model.Disease;
 import com.optogo.model.Examination;
 import com.optogo.model.Patient;
-import com.optogo.controller.prediction.PredictionsCollection;
 import com.optogo.repository.impl.*;
 import com.optogo.utils.StringFormatter;
 import com.optogo.utils.enums.DiseaseName;
@@ -14,17 +16,21 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.Cursor;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
 public class ExaminationController {
 
+    public BorderPane rootPane;
     @FXML
     private Accordion medicationAccordion;
     @FXML
@@ -76,6 +82,8 @@ public class ExaminationController {
 
     private Patient patient;
 
+    private Scene scene;
+
     public ExaminationController() {
         examinationRepository = new ExaminationRepository();
         diseaseRepository = new DiseaseRepository();
@@ -109,7 +117,38 @@ public class ExaminationController {
     public void select(ActionEvent actionEvent) {
         String selection = ConditionSearchDialog.create(getStage(actionEvent)).getSelected();
         if (selection != null)
-            txtCondition.setText(selection);
+            setCondition(selection);
+    }
+
+    public void setCondition(String condition) {
+        Disease disease = diseaseRepository
+                .findByName(DiseaseName.valueOf(StringFormatter.underscoredLowerCase(condition).toUpperCase()));
+
+        CBRPredictionTask task = new CBRPredictionTask(patient, disease);
+        task.setOnSucceeded(workerStateEvent -> {
+            try {
+                Set<String> procPreds = task.get().getProcedurePrediction().keySet();
+                Set<String> medProds = task.get().getMedicationPrediction().keySet();
+                System.out.println("Meds");
+                System.out.println(medProds);
+                System.out.println("Preds");
+                System.out.println(procPreds);
+                medicationSelectionController.setPromoted(medProds);
+                procedureSelectionController.setPromoted(procPreds);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } finally {
+              scene.setCursor(Cursor.DEFAULT);
+            }
+        });
+        task.setOnCancelled(workerStateEvent -> scene.setCursor(Cursor.DEFAULT));
+        task.setOnFailed(workerStateEvent -> scene.setCursor(Cursor.DEFAULT));
+        scene.setCursor(Cursor.WAIT);
+        new Thread(task).start();
+
+        txtCondition.setText(condition);
     }
 
     private Stage getStage(Event event) {
@@ -146,7 +185,7 @@ public class ExaminationController {
                 .create(getStage(actionEvent), symptomSelectionController.getSelected(), predictions);
 
         Selection selected = selectPredictedConditionDialog.getSelected();
-        txtCondition.setText(selected.getDisease());
+        setCondition(selected.getDisease());
         medicationSelectionController.selectAll(selected.getMedications());
         procedureSelectionController.selectAll(selected.getProcedures());
 
@@ -159,16 +198,22 @@ public class ExaminationController {
         String disease = txtCondition.getText();
         if (disease != null && !disease.trim().isEmpty())
             examination.setDisease(diseaseRepository.findByName(
-                    DiseaseName.valueOf(StringFormatter.uderscoredLowerCase(disease).toUpperCase())));
+                    DiseaseName.valueOf(StringFormatter.underscoredLowerCase(disease).toUpperCase())));
 
         examination.setSymptoms(symptomRepository.findAllByName(
-                symptomSelectionController.getSelected().stream().map(StringFormatter::uderscoredLowerCase)
+                symptomSelectionController.getSelected().stream().map(StringFormatter::underscoredLowerCase)
                         .collect(Collectors.toList())));
-
+        examination.setMedication(medicationRepository.findAllByName(
+                medicationSelectionController.getSelected().stream().map(StringFormatter::underscoredLowerCase)
+                        .collect(Collectors.toList())));
+        examination.setProcedure(procedureRepository.findAllByName(
+                procedureSelectionController.getSelected().stream().map(StringFormatter::underscoredLowerCase)
+                .collect(Collectors.toList())));
         examination.setPatient(patient);
         examination.setDate(LocalDateTime.now());
 
-        examinationRepository.save(examination);
+        patient.getExaminations().add(examination);
+        patientRepository.save(patient);
 
         getStage(actionEvent).close();
     }
@@ -185,4 +230,7 @@ public class ExaminationController {
         getStage(actionEvent).close();
     }
 
+    public void setScene(Scene scene) {
+        this.scene = scene;
+    }
 }

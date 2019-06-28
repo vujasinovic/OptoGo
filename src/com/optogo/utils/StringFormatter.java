@@ -4,7 +4,7 @@ public class StringFormatter {
 
     /**
      * Capitalizes every word, replaces all underscores with spaces.
-     * Reverse of {@link StringFormatter#uderscoredLowerCase(String)}
+     * Reverse of {@link StringFormatter#underscoredLowerCase(String)}
      * @param str
      * @return
      */
@@ -28,7 +28,7 @@ public class StringFormatter {
      * @param str
      * @return
      */
-    public static String uderscoredLowerCase(String str) {
+    public static String underscoredLowerCase(String str) {
         str = str.toLowerCase();
         str = str.replace(" ", "_");
         return str;

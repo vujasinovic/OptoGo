@@ -69,4 +69,8 @@ public class SelectionController implements ListChangeListener<String> {
         txtAvailable.getEntries().addAll(items);
     }
 
+    public void setPromoted(Collection<String> promoted) {
+        txtAvailable.setPromoted(promoted);
+    }
+
 }

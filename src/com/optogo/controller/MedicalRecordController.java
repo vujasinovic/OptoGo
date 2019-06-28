@@ -1,4 +1,4 @@
-package com.optogo.controller.task;
+package com.optogo.controller;
 
 import com.optogo.model.*;
 import com.optogo.repository.impl.PatientRepository;
@@ -13,6 +13,7 @@ import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.time.format.DateTimeFormatter;
@@ -20,6 +21,7 @@ import java.util.stream.Collectors;
 
 public class MedicalRecordController {
     public ListView<ExaminationItem> listExaminations;
+    public GridPane contentPane;
 
     @FXML
     private ListView<String> listProcedures;
@@ -44,15 +46,18 @@ public class MedicalRecordController {
     }
 
     public void initialize() {
+        contentPane.setVisible(false);
     }
 
     public void setPatient(Patient patient) {
-        this.patient = repository.update(patient);
+        this.patient = repository.findById(patient.getId());
+
         listExaminations.getItems()
                 .addAll(patient.getExaminations().stream().map(ExaminationItem::new).collect(Collectors.toList()));
     }
 
     public void setExamination(Examination examination) {
+        contentPane.setVisible(true);
         this.listSymptoms.getItems().clear();
 
         this.listSymptoms.getItems().addAll(examination.getSymptoms()

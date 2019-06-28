@@ -2,9 +2,11 @@ package com.optogo.repository.impl;
 
 import com.optogo.model.Medication;
 import com.optogo.repository.Repository;
+import com.optogo.utils.enums.MedicationName;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MedicationRepository implements Repository<Long, Medication> {
@@ -15,6 +17,21 @@ public class MedicationRepository implements Repository<Long, Medication> {
     public MedicationRepository() {
         em = Persistence.createEntityManagerFactory(DEFAULT_UNIT).createEntityManager();
     }
+
+    public List<Medication> findAllByName(List<String> names) {
+        List<Medication> medications = new ArrayList<>();
+
+        for (String name : names) {
+            medications.add(findByName(MedicationName.valueOf(name.toUpperCase())));
+        }
+
+        return medications;
+    }
+
+    private Medication findByName(MedicationName name) {
+        return (Medication) em.createQuery("SELECT s FROM Medication s WHERE s.name = :name").setParameter("name", name).getSingleResult();
+    }
+
     @Override
     public Medication save(Medication medication) {
         em.getTransaction().begin();
