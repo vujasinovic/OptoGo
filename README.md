@@ -4,7 +4,7 @@ Aplikacija namenjena lekarima specijalistima u svrhu preporucivanja dijagnoza na
 
 ## Uputstvo
 
-Klonirati repozitorijum, pokrenuti main metodu koja se nalazi na putanji src/com.optogo/
+Klonirati repozitorijum, pokrenuti main metodu koja se nalazi na putanji src/com/optogo/
 
 ## Alati i biblioteke
 
