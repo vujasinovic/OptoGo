@@ -1,5 +1,13 @@
 package com.optogo;
 
+import com.optogo.repository.impl.DiseaseRepository;
+import com.optogo.repository.impl.MedicationRepository;
+import com.optogo.repository.impl.ProcedureRepository;
+import com.optogo.repository.impl.SymptomRepository;
+import com.optogo.utils.InsertDiseases;
+import com.optogo.utils.InsertMedications;
+import com.optogo.utils.InsertProcedures;
+import com.optogo.utils.InsertSymptoms;
 import com.optogo.view.scene.MainScene;
 import javafx.application.Application;
 import javafx.scene.image.Image;
@@ -20,15 +28,37 @@ public class Main extends Application {
 
         primaryStage.setHeight(600);
         primaryStage.setWidth(1000);
-//        primaryStage.setMinHeight(primaryStage.getHeight());
-//        primaryStage.setMinWidth(primaryStage.getWidth());
-
 
         primaryStage.show();
     }
 
 
     public static void main(String[] args) {
+        insertData();
         launch(args);
+    }
+
+    private static void insertData() {
+        DiseaseRepository diseaseRepository = new DiseaseRepository();
+        MedicationRepository medicationRepository = new MedicationRepository();
+        ProcedureRepository procedureRepository = new ProcedureRepository();
+        SymptomRepository symptomRepository = new SymptomRepository();
+
+        if (diseaseRepository.findAll().isEmpty()) {
+            InsertDiseases.main(new String[0]);
+        }
+
+        if (medicationRepository.findAll().isEmpty()) {
+            InsertMedications.main(new String[0]);
+        }
+
+        if (procedureRepository.findAll().isEmpty()) {
+            InsertProcedures.main(new String[0]);
+        }
+
+        if(symptomRepository.findAll().isEmpty()) {
+            InsertSymptoms.main(new String[0]);
+        }
+
     }
 }
