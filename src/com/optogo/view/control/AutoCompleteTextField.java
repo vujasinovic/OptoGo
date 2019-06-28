@@ -61,7 +61,10 @@ public class AutoCompleteTextField extends TextField {
         for (int i = 0; i < count; i++) {
             final String result = searchResult.get(i);
             MenuItem item = new MenuItem(result);
-            item.setStyle("-fx-cursor: hand;");
+            String color = "";
+            if(promoted != null && promoted.contains(result))
+                color = "-fx-text-fill: green;";
+            item.setStyle(color + "-fx-cursor: hand;");
 
             item.setOnAction(actionEvent -> {
                 setText("");
