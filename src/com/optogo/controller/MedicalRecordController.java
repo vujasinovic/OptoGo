@@ -59,6 +59,8 @@ public class MedicalRecordController {
     public void setExamination(Examination examination) {
         contentPane.setVisible(true);
         this.listSymptoms.getItems().clear();
+        this.listMedications.getItems().clear();
+        this.listProcedures.getItems().clear();
 
         this.listSymptoms.getItems().addAll(examination.getSymptoms()
                 .stream()

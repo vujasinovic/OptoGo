@@ -213,7 +213,7 @@ public class ExaminationController {
         examination.setDate(LocalDateTime.now());
 
         patient.getExaminations().add(examination);
-        patientRepository.save(patient);
+        examinationRepository.save(examination);
 
         getStage(actionEvent).close();
     }
