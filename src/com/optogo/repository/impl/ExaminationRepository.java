@@ -33,12 +33,12 @@ public class ExaminationRepository implements Repository<Long, Examination> {
 
     @Override
     public List<Examination> findAll() {
-        return (List<Examination>) em.createQuery("SELECT d FROM Disease d").getResultList();
+        return (List<Examination>) em.createQuery("SELECT d FROM Examination d").getResultList();
     }
 
     @Override
     public Examination findById(Long id) {
-        return (Examination) em.createQuery("SELECT d FROM Disease d WHERE d.id = :id").setParameter("id", id).getSingleResult();
+        return (Examination) em.createQuery("SELECT d FROM Examination d WHERE d.id = :id").setParameter("id", id).getSingleResult();
     }
 
     @Override
@@ -51,7 +51,7 @@ public class ExaminationRepository implements Repository<Long, Examination> {
 
     @Override
     public boolean existsById(Long id) {
-        Examination d = (Examination) em.createQuery("SELECT d FROM Disease d WHERE d.id = :id")
+        Examination d = (Examination) em.createQuery("SELECT d FROM Examination d WHERE d.id = :id")
                 .setParameter("id", id).getSingleResult();
         return d != null;
     }

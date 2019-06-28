@@ -6,7 +6,7 @@ import com.optogo.utils.TableSimilarity;
 import com.optogo.utils.enums.DiseaseName;
 import com.optogo.utils.enums.GenderType;
 import com.optogo.utils.enums.Race;
-import com.optogo.utils.parse.CsvConnector;
+import com.optogo.utils.parse.ExaminationHistoryConnector;
 import ucm.gaia.jcolibri.casebase.LinealCaseBase;
 import ucm.gaia.jcolibri.cbraplications.StandardCBRApplication;
 import ucm.gaia.jcolibri.cbrcore.*;
@@ -41,7 +41,7 @@ public class CBRMedicalRecommender implements StandardCBRApplication {
     Connector _connector;
 
     public void configure() {
-        _connector = new CsvConnector();
+        _connector = new ExaminationHistoryConnector();
 
         _caseBase = new LinealCaseBase();  // Create a Lineal case base for in-memory organization
 

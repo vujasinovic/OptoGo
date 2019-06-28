@@ -129,12 +129,10 @@ public class ExaminationController {
             try {
                 Set<String> procPreds = task.get().getProcedurePrediction().keySet();
                 Set<String> medProds = task.get().getMedicationPrediction().keySet();
-                System.out.println("Meds");
-                System.out.println(medProds);
-                System.out.println("Preds");
-                System.out.println(procPreds);
                 medicationSelectionController.setPromoted(medProds);
+                System.out.println(medProds);
                 procedureSelectionController.setPromoted(procPreds);
+                System.out.println(procPreds);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } catch (ExecutionException e) {
